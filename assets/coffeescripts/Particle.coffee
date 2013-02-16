@@ -33,6 +33,7 @@ Particle = Class.extend
 		if this.isTarget
 			this.velocity.x = this.velocity.x * game.config.targetVelocityMultiplier
 			this.velocity.y = this.velocity.y * game.config.targetVelocityMultiplier
+			this.lineWidth = 1;
 
 			particleGenerator.particlesToTestForTaps.push(this.id)
 
@@ -49,8 +50,13 @@ Particle = Class.extend
 
 			if this.isTarget
 				context.fillStyle = 'rgb(255, 255, 255)'
-				context.lineWidth = 10
+				context.lineWidth = this.lineWidth
 				context.stroke()
+
+				if this.lineWidth < game.config.maxLineWidth
+					this.lineWidth = this.lineWidth * 1.1
+				else if this.lineWidth > game.config.maxLineWidth
+					this.lineWidth = game.config.maxLineWidth
 
 			context.fill()
 			context.closePath()

@@ -10,6 +10,7 @@ Config = Class.extend
 		this.particleSpawnChance = 100
 		this.chanceParticleIsTarget = 5
 		this.particleGrowthMultiplier = 1.05
+		this.maxLineWidth = 10
 
 		this.sizeMin = 0
 		this.sizeMax = 70
@@ -30,19 +31,19 @@ Config = Class.extend
 		gui = new dat.GUI()
 
 		environment = gui.addFolder('Environment')
-		environment.add(this, 'particleSpawnChance', 0, 100)
 		environment.add(this, 'chanceParticleIsTarget', 0, 100)
+		environment.add(this, 'particleSpawnChance', 0, 100)
+		environment.add(this, 'maxLineWidth')
+
 
 		size = gui.addFolder('Size')
+		size.add(this, 'minTargetSize', 40)
 		size.add(this, 'sizeMin', 0)
 		size.add(this, 'sizeMax', 70)
-		size.add(this, 'minTargetSize', 40)
 
 		velocity = gui.addFolder('Velocity')
+		velocity.add(this, 'targetVelocityMultiplier', 0.3)
 		velocity.add(this, 'velocityMin', -5)
 		velocity.add(this, 'velocityMax', 5)
-		velocity.add(this, 'targetVelocityMultiplier', 0.3)
-
-		size.open()
 
 		return
