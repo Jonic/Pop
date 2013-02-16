@@ -19,3 +19,13 @@ body {
 	width: 50%;
 	z-index: 1000;
 }
+
+.dg {
+	display: none;
+}
+
+@media only screen and (min-width: 1200px) {
+	.dg {
+		display: block;
+	}
+}

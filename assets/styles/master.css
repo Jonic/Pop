@@ -20,3 +20,15 @@ body {
   width: 50%;
   z-index: 1000;
 }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/jonic\/Sites\/pop\/assets\/sass\/master\.scss}line{font-family:\0000323}}
+.dg {
+  display: none;
+}
+
+@media only screen and (min-width: 1200px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/jonic\/Sites\/pop\/assets\/sass\/master\.scss}line{font-family:\0000328}}
+  .dg {
+    display: block;
+  }
+}

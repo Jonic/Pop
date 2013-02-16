@@ -1,6 +1,6 @@
 ###jshint plusplus:false, forin:false ###
-###global Class ###
-###global Particle, canvas, context, game ###
+###global Class, Particle ###
+###global canvas, context, game ###
 
 'use strict'
 
@@ -8,11 +8,14 @@ ParticleGenerator = Class.extend
 	init: ->
 		self = this
 
-		this.setupParticleOrigin()
+		this.particlesOrigin =
+			x: canvas.width / 2
+			y: canvas.height / 2
 
 		this.particlesArray = []
 		this.particlesArrayIds = []
 		this.particlesToDelete = []
+		this.particlesToTestForTaps = []
 
 		this.setupParticleTapDetection()
 
@@ -42,7 +45,6 @@ ParticleGenerator = Class.extend
 			particle = this.particlesArray[particleIndex]
 
 			if particle.isTarget
-				this.resetParticleArrays()
 				game.gameOver(this.animationId)
 
 			this.removeParticle(particleIndex)
@@ -70,32 +72,6 @@ ParticleGenerator = Class.extend
 
 		return
 
-	resetParticleArrays: ->
-		this.particlesArray = []
-		this.particlesArrayIds = []
-		this.particlesToDelete = []
-
-		return
-
-	setupParticleOrigin: ->
-		self = this
-
-		this.particlesOrigin =
-			x: canvas.width / 2
-			y: canvas.height / 2
-
-		document.addEventListener 'mousemove', (event) ->
-			self.updateParticlesOrigin(event)
-
-			return
-
-		document.addEventListener 'touchmove', (event) ->
-			self.updateParticlesOrigin(event)
-
-			return
-
-		return
-
 	setupParticleTapDetection: ->
 		self = this
 
@@ -112,29 +88,23 @@ ParticleGenerator = Class.extend
 				particleIndex = self.particlesArrayIds.indexOf(particleId)
 				particle = self.particlesArray[particleIndex]
 
-				minX = particle.position.x - particle.half
-				maxX = minX + particle.size
+				if particle?
+					minX = particle.position.x - particle.half
+					maxX = minX + particle.size
 
-				hitX = tapX >= minX and tapX <= maxX
+					hitX = tapX >= minX and tapX <= maxX
 
-				minY = particle.position.y - particle.half
-				maxY = minY + particle.size
+					minY = particle.position.y - particle.half
+					maxY = minY + particle.size
 
-				hitY = tapY >= minY and tapY <= maxY
+					hitY = tapY >= minY and tapY <= maxY
 
-				if hitX and hitY
-					deletionIndex = self.particlesToTestForTaps.indexOf(particleId)
-					self.particlesToTestForTaps.splice(deletionIndex, 1)
-					self.removeParticle(particleIndex)
+					if hitX and hitY
+						deletionIndex = self.particlesToTestForTaps.indexOf(particleId)
+
+						self.particlesToTestForTaps.splice(deletionIndex, 1)
+						self.removeParticle(particleIndex)
 
 			return
-
-		return
-
-	updateParticlesOrigin: (event) ->
-		event.preventDefault()
-
-		#this.particlesOrigin.x = event.pageX
-		#this.particlesOrigin.y = event.pageY
 
 		return

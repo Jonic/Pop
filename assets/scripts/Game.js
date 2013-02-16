@@ -2,7 +2,7 @@
 /*jshint plusplus:false, forin:false
 */
 
-/*global Class
+/*global Class, Config
 */
 
 /*global particleGenerator, screens
@@ -13,7 +13,9 @@
 var Game;
 
 Game = Class.extend({
-  init: function() {},
+  init: function() {
+    this.config = new Config();
+  },
   run: function() {
     screens.ident();
   },

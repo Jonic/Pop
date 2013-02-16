@@ -1,5 +1,5 @@
 ###jshint plusplus:false, forin:false ###
-###global Game, HeadsUp, Input, ParticleGenerator, Screens ###
+###global Game, HeadsUp, Input, ParticleGenerator, Screens, Utils ###
 
 'use strict'
 
@@ -11,12 +11,11 @@ document.body.appendChild(canvas)
 canvas.width = document.width
 canvas.height = document.height
 
-config = new Config()
 game = new Game()
-
 headsUp = new HeadsUp()
 input = new Input()
 particleGenerator = new ParticleGenerator()
 screens = new Screens()
+utils = new Utils()
 
 game.run()

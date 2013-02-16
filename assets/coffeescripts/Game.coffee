@@ -1,11 +1,13 @@
 ###jshint plusplus:false, forin:false ###
-###global Class ###
+###global Class, Config ###
 ###global particleGenerator, screens ###
 
 'use strict'
 
 Game = Class.extend
 	init: ->
+
+		this.config = new Config()
 
 		return
 

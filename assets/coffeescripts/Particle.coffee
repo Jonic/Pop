@@ -1,6 +1,6 @@
 ###jshint plusplus:false, forin:false ###
 ###global Class ###
-###global game, random, randomInteger ###
+###global canvas, context, game, particleGenerator, utils ###
 
 'use strict'
 
@@ -8,42 +8,39 @@ Particle = Class.extend
 	init: ->
 		self = this
 
-		this.id = Math.random().toString(36).substr(2, 5)
+		colors =
+			r: utils.randomInteger(0, 255)
+			g: utils.randomInteger(0, 255)
+			b: utils.randomInteger(0, 255)
 
-		this.colors =
-			r: randomInteger(0, 255)
-			g: randomInteger(0, 255)
-			b: randomInteger(0, 255)
+		this.color = 'rgb(' + colors.r + ', ' + colors.g + ', ' + colors.b + ')'
 
-		this.color = 'rgb(' + this.colors.r + ', ' + this.colors.g + ', ' + this.colors.b + ')'
-
-		this.size = parseInt(1, 10)
-		this.finalSize = randomInteger(0, 70)
+		this.size = 1
+		this.finalSize = utils.randomInteger(game.config.sizeMin, game.config.sizeMax)
 		this.half = Math.round(this.size / 2)
-
-		this.isTarget = false
-
-		if this.finalSize > 40
-			this.isTarget = this.determineTargetParticle()
 
 		this.position =
 			x: particleGenerator.particlesOrigin.x
 			y: particleGenerator.particlesOrigin.y
 
 		this.velocity =
-			x: random(-5, 5)
-			y: random(-5, 5)
+			x: utils.random(game.config.velocityMin, game.config.velocityMax)
+			y: utils.random(game.config.velocityMin, game.config.velocityMax)
+
+		this.id = Math.random().toString(36).substr(2, 5)
+		this.isTarget = this.determineTargetParticle()
 
 		if this.isTarget
-			this.velocity.x = this.velocity.x * 0.3
-			this.velocity.y = this.velocity.y * 0.3
+			this.velocity.x = this.velocity.x * game.config.targetVelocityMultiplier
+			this.velocity.y = this.velocity.y * game.config.targetVelocityMultiplier
 
 			particleGenerator.particlesToTestForTaps.push(this.id)
 
 		return
 
 	determineTargetParticle: ->
-		Math.floor(Math.random() * 101) < 5
+		if this.finalSize >= game.config.minTargetSize
+			Math.floor(Math.random() * 101) < game.config.chanceParticleIsTarget
 
 	draw: ->
 		if this.withinCanvasBounds()
@@ -64,7 +61,7 @@ Particle = Class.extend
 
 	updateValues: ->
 		if this.size < this.finalSize
-			this.size = this.size * 1.05
+			this.size = this.size * game.config.particleGrowthMultiplier
 
 		if this.size > this.finalSize
 			this.size = this.finalSize

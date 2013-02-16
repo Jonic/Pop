@@ -22,10 +22,8 @@
 
 		<script src="assets/vendor/dat.gui.min.js"></script>
 		<script src="assets/vendor/ejohn.inheritance.js"></script>
-		<script src="assets/vendor/jquery-1.9.1.min.js"></script>
 		<script src="assets/vendor/requestAnimationFrame.js"></script>
-
-		<script src="assets/scripts/_utilities.js"></script>
+		<script src="assets/vendor/zepto-1.0rc1.min.js"></script>
 
 		<script src="assets/scripts/Config.js"></script>
 		<script src="assets/scripts/Game.js"></script>
@@ -34,6 +32,7 @@
 		<script src="assets/scripts/Particle.js"></script>
 		<script src="assets/scripts/ParticleGenerator.js"></script>
 		<script src="assets/scripts/Screens.js"></script>
+		<script src="assets/scripts/Utils.js"></script>
 
 		<script src="assets/scripts/_application.js"></script>
 

@@ -2,10 +2,10 @@
 /*jshint plusplus:false, forin:false
 */
 
-/*global Class
+/*global Class, Particle
 */
 
-/*global Particle, canvas, context, game
+/*global canvas, context, game
 */
 
 'use strict';
@@ -16,10 +16,14 @@ ParticleGenerator = Class.extend({
   init: function() {
     var self;
     self = this;
-    this.setupParticleOrigin();
+    this.particlesOrigin = {
+      x: canvas.width / 2,
+      y: canvas.height / 2
+    };
     this.particlesArray = [];
     this.particlesArrayIds = [];
     this.particlesToDelete = [];
+    this.particlesToTestForTaps = [];
     this.setupParticleTapDetection();
   },
   requestAnimationFrame: function() {
@@ -44,7 +48,6 @@ ParticleGenerator = Class.extend({
       particleIndex = this.particlesArrayIds.indexOf(particleId);
       particle = this.particlesArray[particleIndex];
       if (particle.isTarget) {
-        this.resetParticleArrays();
         game.gameOver(this.animationId);
       }
       this.removeParticle(particleIndex);
@@ -68,25 +71,6 @@ ParticleGenerator = Class.extend({
     this.particlesArray.splice(index, 1);
     this.particlesArrayIds.splice(index, 1);
   },
-  resetParticleArrays: function() {
-    this.particlesArray = [];
-    this.particlesArrayIds = [];
-    this.particlesToDelete = [];
-  },
-  setupParticleOrigin: function() {
-    var self;
-    self = this;
-    this.particlesOrigin = {
-      x: canvas.width / 2,
-      y: canvas.height / 2
-    };
-    document.addEventListener('mousemove', function(event) {
-      self.updateParticlesOrigin(event);
-    });
-    document.addEventListener('touchmove', function(event) {
-      self.updateParticlesOrigin(event);
-    });
-  },
   setupParticleTapDetection: function() {
     var self;
     self = this;
@@ -102,21 +86,20 @@ ParticleGenerator = Class.extend({
         particleId = _ref[_i];
         particleIndex = self.particlesArrayIds.indexOf(particleId);
         particle = self.particlesArray[particleIndex];
-        minX = particle.position.x - particle.half;
-        maxX = minX + particle.size;
-        hitX = tapX >= minX && tapX <= maxX;
-        minY = particle.position.y - particle.half;
-        maxY = minY + particle.size;
-        hitY = tapY >= minY && tapY <= maxY;
-        if (hitX && hitY) {
-          deletionIndex = self.particlesToTestForTaps.indexOf(particleId);
-          self.particlesToTestForTaps.splice(deletionIndex, 1);
-          self.removeParticle(particleIndex);
+        if (particle != null) {
+          minX = particle.position.x - particle.half;
+          maxX = minX + particle.size;
+          hitX = tapX >= minX && tapX <= maxX;
+          minY = particle.position.y - particle.half;
+          maxY = minY + particle.size;
+          hitY = tapY >= minY && tapY <= maxY;
+          if (hitX && hitY) {
+            deletionIndex = self.particlesToTestForTaps.indexOf(particleId);
+            self.particlesToTestForTaps.splice(deletionIndex, 1);
+            self.removeParticle(particleIndex);
+          }
         }
       }
     });
-  },
-  updateParticlesOrigin: function(event) {
-    event.preventDefault();
   }
 });

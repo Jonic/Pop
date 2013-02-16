@@ -5,7 +5,7 @@
 /*global Class
 */
 
-/*global particleGenerator, screens
+/*global dat
 */
 
 'use strict';
@@ -14,6 +14,31 @@ var Config;
 
 Config = Class.extend({
   init: function() {
-    return this;
+    this.particleSpawnChance = 100;
+    this.chanceParticleIsTarget = 5;
+    this.particleGrowthMultiplier = 1.05;
+    this.sizeMin = 0;
+    this.sizeMax = 70;
+    this.minTargetSize = 40;
+    this.velocityMin = -5;
+    this.velocityMax = 5;
+    this.targetVelocityMultiplier = 0.3;
+    this.setupDatGui();
+  },
+  setupDatGui: function() {
+    var environment, gui, size, velocity;
+    gui = new dat.GUI();
+    environment = gui.addFolder('Environment');
+    environment.add(this, 'particleSpawnChance', 0, 100);
+    environment.add(this, 'chanceParticleIsTarget', 0, 100);
+    size = gui.addFolder('Size');
+    size.add(this, 'sizeMin', 0);
+    size.add(this, 'sizeMax', 70);
+    size.add(this, 'minTargetSize', 40);
+    velocity = gui.addFolder('Velocity');
+    velocity.add(this, 'velocityMin', -5);
+    velocity.add(this, 'velocityMax', 5);
+    velocity.add(this, 'targetVelocityMultiplier', 0.3);
+    size.open();
   }
 });
