@@ -5,7 +5,7 @@
 /*global Class, Config
 */
 
-/*global particleGenerator, screens
+/*global headsUp, particleGenerator, screens
 */
 
 'use strict';
@@ -15,15 +15,24 @@ var Game;
 Game = Class.extend({
   init: function() {
     this.config = new Config();
+    window.addEventListener('touchmove', function(event) {
+      return event.preventDefault();
+    });
+  },
+  gameOver: function(animationId) {
+    window.cancelAnimationFrame(animationId);
+    screens.gameOver();
+    this.reset();
   },
   run: function() {
     screens.ident();
   },
   reset: function() {
+    headsUp.reset();
     particleGenerator.reset();
   },
-  gameOver: function(animationId) {
-    window.cancelAnimationFrame(animationId);
-    screens.gameOver();
+  start: function() {
+    headsUp.setToInitialValues();
+    particleGenerator.start();
   }
 });

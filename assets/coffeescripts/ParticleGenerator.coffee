@@ -1,12 +1,11 @@
-###jshint plusplus:false, forin:false ###
+###jshint plusplus:false, forin:false, eqeqeq: false ###
 ###global Class, Particle ###
-###global canvas, context, game ###
+###global canvas, context, game, headsUp ###
 
 'use strict'
 
 ParticleGenerator = Class.extend
 	init: ->
-		self = this
 
 		this.particlesOrigin =
 			x: canvas.width / 2
@@ -17,11 +16,14 @@ ParticleGenerator = Class.extend
 		this.particlesToDelete = []
 		this.particlesToTestForTaps = []
 
+		this.comboMultiplierCounter = $('.combo')
+
 		this.setupParticleTapDetection()
 
 		return
 
 	requestAnimationFrame: ->
+
 		self = this
 
 		this.animationId = window.requestAnimationFrame ->
@@ -54,6 +56,7 @@ ParticleGenerator = Class.extend
 		return
 
 	generateParticle: (count) ->
+
 		for num in [count..1]
 			newParticle = new Particle()
 
@@ -66,13 +69,19 @@ ParticleGenerator = Class.extend
 
 		return
 
+	reset: ->
+
+		return
+
 	removeParticle: (index) ->
+
 		this.particlesArray.splice(index, 1)
 		this.particlesArrayIds.splice(index, 1)
 
 		return
 
 	setupParticleTapDetection: ->
+
 		self = this
 
 		this.particlesToTestForTaps = []
@@ -81,8 +90,7 @@ ParticleGenerator = Class.extend
 			tapX = event.touches[0].pageX
 			tapY = event.touches[0].pageY
 
-			$('.debug .tapX').text(tapX)
-			$('.debug .tapY').text(tapY)
+			targetHit = false
 
 			for particleId in self.particlesToTestForTaps
 				particleIndex = self.particlesArrayIds.indexOf(particleId)
@@ -105,6 +113,28 @@ ParticleGenerator = Class.extend
 						self.particlesToTestForTaps.splice(deletionIndex, 1)
 						self.removeParticle(particleIndex)
 
+						targetSizeMultiplier = Math.abs(Math.round((particle.size / particle.finalSize) * 100) - 100)
+
+						targetHit = true
+
+						break
+
+			if targetHit
+				headsUp.updateScore(targetSizeMultiplier)
+				headsUp.comboMultiplier += 1
+			else
+				headsUp.comboMultiplier = 1
+
+			self.comboMultiplierCounter.text(headsUp.comboMultiplier)
+
 			return
+
+		return
+
+	start: ->
+
+		this.comboMultiplierCounter.text(headsUp.comboMultiplier)
+
+		particleGenerator.requestAnimationFrame()
 
 		return

@@ -5,5 +5,4 @@
 
 Input = Class.extend
 	init: ->
-		self = this
 		return

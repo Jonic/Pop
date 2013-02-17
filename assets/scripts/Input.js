@@ -10,8 +10,5 @@
 var Input;
 
 Input = Class.extend({
-  init: function() {
-    var self;
-    self = this;
-  }
+  init: function() {}
 });

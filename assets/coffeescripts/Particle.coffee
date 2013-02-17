@@ -6,6 +6,7 @@
 
 Particle = Class.extend
 	init: ->
+
 		self = this
 
 		colors =
@@ -40,10 +41,12 @@ Particle = Class.extend
 		return
 
 	determineTargetParticle: ->
+
 		if this.finalSize >= game.config.minTargetSize
 			Math.floor(Math.random() * 101) < game.config.chanceParticleIsTarget
 
 	draw: ->
+
 		if this.withinCanvasBounds()
 			context.beginPath()
 			context.arc(this.position.x, this.position.y, this.half, 0, Math.PI * 2, true)
@@ -66,6 +69,7 @@ Particle = Class.extend
 		return
 
 	updateValues: ->
+
 		if this.size < this.finalSize
 			this.size = this.size * game.config.particleGrowthMultiplier
 
@@ -80,6 +84,7 @@ Particle = Class.extend
 		return
 
 	withinCanvasBounds: ->
+
 		beyondBoundsX = this.position.x < -(this.size) or this.position.x > canvas.width  + this.size
 		beyondBoundsY = this.position.y < -(this.size) or this.position.y > canvas.height + this.size
 

@@ -9,6 +9,7 @@ Utils = Class.extend
 		return
 
 	randomInteger: (min, max) ->
+
 		if max == undefined
 			max = min
 			min = 0
@@ -16,6 +17,7 @@ Utils = Class.extend
 		Math.floor(Math.random() * (max + 1 - min)) + min
 
 	random: (min, max) ->
+
 		if min == undefined
 			min = 0
 			max = 1

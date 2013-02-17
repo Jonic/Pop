@@ -1,6 +1,6 @@
 ###jshint plusplus:false, forin:false ###
 ###global Class ###
-###global particleGenerator ###
+###global game, particleGenerator ###
 
 'use strict'
 
@@ -11,12 +11,14 @@ Screens = Class.extend
 		return
 
 	gameOver: ->
+
 		alert('GAME OVER')
 
 		return
 
 	ident: ->
-		particleGenerator.requestAnimationFrame()
+
+		game.start()
 
 		return
 

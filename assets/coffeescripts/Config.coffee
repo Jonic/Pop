@@ -11,6 +11,9 @@ Config = Class.extend
 		this.chanceParticleIsTarget = 5
 		this.particleGrowthMultiplier = 1.05
 		this.maxLineWidth = 10
+		this.levelUpInterval = 15
+		this.maxLevel = 50
+		this.pointsPerPop = 10
 
 		this.sizeMin = 0
 		this.sizeMax = 70

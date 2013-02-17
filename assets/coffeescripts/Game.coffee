@@ -1,6 +1,6 @@
 ###jshint plusplus:false, forin:false ###
 ###global Class, Config ###
-###global particleGenerator, screens ###
+###global headsUp, particleGenerator, screens ###
 
 'use strict'
 
@@ -8,6 +8,20 @@ Game = Class.extend
 	init: ->
 
 		this.config = new Config()
+
+		window.addEventListener('touchmove', (event) ->
+			event.preventDefault()
+		)
+
+		return
+
+	gameOver: (animationId) ->
+
+		window.cancelAnimationFrame(animationId)
+
+		screens.gameOver()
+
+		this.reset()
 
 		return
 
@@ -19,13 +33,16 @@ Game = Class.extend
 
 	reset: ->
 
-		particleGenerator.reset();
+		headsUp.reset()
+
+		particleGenerator.reset()
 
 		return
 
-	gameOver: (animationId) ->
-		window.cancelAnimationFrame(animationId)
+	start: ->
 
-		screens.gameOver()
+		headsUp.setToInitialValues()
+
+		particleGenerator.start()
 
 		return

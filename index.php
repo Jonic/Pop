@@ -15,9 +15,9 @@
 
 	<body>
 		<ul class="debug">
-			<li class="event"></li>
-			<li class="tapX"></li>
-			<li class="tapY"></li>
+			<li>Level: <span class="level"></li>
+			<li>Score: <span class="score"></li>
+			<li>Combo Multiplier: <span class="combo"></li>
 		</ul>
 
 		<script src="assets/vendor/dat.gui.min.js"></script>

@@ -5,7 +5,7 @@
 /*global Class
 */
 
-/*global particleGenerator
+/*global game, particleGenerator
 */
 
 'use strict';
@@ -18,7 +18,7 @@ Screens = Class.extend({
     alert('GAME OVER');
   },
   ident: function() {
-    particleGenerator.requestAnimationFrame();
+    game.start();
   },
   title: function() {}
 });

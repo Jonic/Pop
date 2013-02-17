@@ -1,6 +1,7 @@
 
 body {
 	background: #f0f0f0;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	height: 100%;
 	margin: 0;
 	width: 100%;
@@ -8,15 +9,13 @@ body {
 
 .debug {
 	background: rgba(255, 255, 255, 0.25);
-	display: none;
-	height: 50%;
+	box-sizing: border-box;
 	left: 0;
 	list-style: none;
 	margin: 0;
-	padding: 0;
+	padding: 1em;
 	position: absolute;
 	top: 0;
-	width: 50%;
 	z-index: 1000;
 }
 
