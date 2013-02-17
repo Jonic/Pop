@@ -113,6 +113,6 @@ ParticleGenerator = Class.extend({
   },
   start: function() {
     this.comboMultiplierCounter.text(headsUp.comboMultiplier);
-    particleGenerator.requestAnimationFrame();
+    this.requestAnimationFrame();
   }
 });

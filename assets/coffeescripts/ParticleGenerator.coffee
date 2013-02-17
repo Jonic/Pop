@@ -135,6 +135,6 @@ ParticleGenerator = Class.extend
 
 		this.comboMultiplierCounter.text(headsUp.comboMultiplier)
 
-		particleGenerator.requestAnimationFrame()
+		this.requestAnimationFrame()
 
 		return
