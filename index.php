@@ -7,7 +7,12 @@
 
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width" />
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" media="(device-height: 568px)" />
+
+		<!--link href="assets/splashs/splash_1096.png" rel="apple-touch-startup-image" media="(device-height: 568px)" /-->
+		<!--link href="assets/splashs/splash_iphone_2x.png" rel="apple-touch-startup-image" sizes="640x960" media="(device-height: 480px)" /-->
 
 		<link href="assets/images/icon.png" rel="apple-touch-icon" />
 		<link href="assets/styles/master.css" rel="stylesheet" />
