@@ -12,6 +12,18 @@ HeadsUp = Class.extend
 
 		return
 
+	installPrompt: ->
+
+		$('body').empty().text('ADD THIS TO YOUR HOME SCREEN TO PLAY')
+
+		return
+
+	mobilePrompt: ->
+
+		$('body').empty().text('YOU NEED TO RUN THIS ON A MOBILE DEVICE, YOU MUG')
+
+		return
+
 	reset: ->
 
 		window.clearInterval this.levelUpCounter

@@ -17,6 +17,12 @@ HeadsUp = Class.extend({
     this.levelCounter = $('.level');
     this.scoreCounter = $('.score');
   },
+  installPrompt: function() {
+    $('body').empty().text('ADD THIS TO YOUR HOME SCREEN TO PLAY');
+  },
+  mobilePrompt: function() {
+    $('body').empty().text('YOU NEED TO RUN THIS ON A MOBILE DEVICE, YOU MUG');
+  },
   reset: function() {
     window.clearInterval(this.levelUpCounter);
   },

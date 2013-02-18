@@ -7,28 +7,30 @@
 
 'use strict';
 
-var canvas, context, game, headsUp, input, particleGenerator, screens, utils;
+var android, canvas, context, game, headsUp, homeScreenApp, iOS, input, particleGenerator, screens, utils;
 
-canvas = document.createElement('canvas');
+android = navigator.userAgent.match(/android/i) ? true : false;
 
-context = canvas.getContext('2d');
+iOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/i) ? true : false;
 
-document.body.appendChild(canvas);
-
-canvas.width = document.width;
-
-canvas.height = document.height;
-
-game = new Game();
+homeScreenApp = iOS && navigator.standalone;
 
 headsUp = new HeadsUp();
 
-input = new Input();
-
-particleGenerator = new ParticleGenerator();
-
-screens = new Screens();
-
-utils = new Utils();
-
-game.run();
+if (android || homeScreenApp) {
+  canvas = document.createElement('canvas');
+  context = canvas.getContext('2d');
+  document.body.appendChild(canvas);
+  canvas.width = document.width;
+  canvas.height = document.height;
+  game = new Game();
+  input = new Input();
+  particleGenerator = new ParticleGenerator();
+  screens = new Screens();
+  utils = new Utils();
+  game.run();
+} else if (iOS) {
+  headsUp.installPrompt();
+} else {
+  headsUp.mobilePrompt();
+}
