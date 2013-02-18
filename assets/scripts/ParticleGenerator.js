@@ -66,6 +66,18 @@ ParticleGenerator = Class.extend({
       }
     }
   },
+  particleWasTapped: function(particle, touchData) {
+    var hitX, hitY, maxX, maxY, minX, minY, tapX, tapY;
+    tapX = touchData.pageX;
+    tapY = touchData.pageY;
+    minX = particle.position.x - particle.half;
+    maxX = minX + particle.size;
+    hitX = tapX >= minX && tapX <= maxX;
+    minY = particle.position.y - particle.half;
+    maxY = minY + particle.size;
+    hitY = tapY >= minY && tapY <= maxY;
+    return hitX && hitY;
+  },
   reset: function() {},
   removeParticle: function(index) {
     this.particlesArray.splice(index, 1);
@@ -76,34 +88,23 @@ ParticleGenerator = Class.extend({
     self = this;
     this.particlesToTestForTaps = [];
     window.addEventListener('touchstart', function(event) {
-      var deletionIndex, hitX, hitY, maxX, maxY, minX, minY, particle, particleId, particleIndex, tapX, tapY, targetHit, targetSizeMultiplier, _i, _len, _ref;
-      tapX = event.touches[0].pageX;
-      tapY = event.touches[0].pageY;
+      var deletionIndex, particle, particleId, particleIndex, targetHit, _i, _len, _ref;
       targetHit = false;
       _ref = self.particlesToTestForTaps;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         particleId = _ref[_i];
         particleIndex = self.particlesArrayIds.indexOf(particleId);
         particle = self.particlesArray[particleIndex];
-        if (particle != null) {
-          minX = particle.position.x - particle.half;
-          maxX = minX + particle.size;
-          hitX = tapX >= minX && tapX <= maxX;
-          minY = particle.position.y - particle.half;
-          maxY = minY + particle.size;
-          hitY = tapY >= minY && tapY <= maxY;
-          if (hitX && hitY) {
-            deletionIndex = self.particlesToTestForTaps.indexOf(particleId);
-            self.particlesToTestForTaps.splice(deletionIndex, 1);
-            self.removeParticle(particleIndex);
-            targetSizeMultiplier = Math.abs(Math.round((particle.size / particle.finalSize) * 100) - 100);
-            targetHit = true;
-            break;
-          }
+        if ((particle != null) && self.particleWasTapped(particle, event.touches[0])) {
+          deletionIndex = self.particlesToTestForTaps.indexOf(particleId);
+          self.particlesToTestForTaps.splice(deletionIndex, 1);
+          self.removeParticle(particleIndex);
+          targetHit = true;
+          break;
         }
       }
       if (targetHit) {
-        headsUp.updateScore(targetSizeMultiplier);
+        headsUp.updateScore(particle.size, particle.finalSize);
         headsUp.comboMultiplier += 1;
       } else {
         headsUp.comboMultiplier = 1;

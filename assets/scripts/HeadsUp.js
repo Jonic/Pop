@@ -45,12 +45,12 @@ HeadsUp = Class.extend({
       window.clearInterval(this.levelUpCounter);
     }
   },
-  updateScore: function(targetSizeMultiplier) {
-    var levelMultiplier, points, pointsAfterComboMultiplier;
-    points = game.config.pointsPerPop + targetSizeMultiplier;
-    pointsAfterComboMultiplier = points * this.comboMultiplier;
+  updateScore: function(sizeWhenTapped, sizeWhenFullyGrown) {
+    var levelMultiplier, popPointValue, targetSizeBonus;
+    targetSizeBonus = Math.round(100 - ((sizeWhenTapped / sizeWhenFullyGrown) * 100));
+    popPointValue = game.config.pointsPerPop + targetSizeBonus;
     levelMultiplier = this.level + 1;
-    this.score += pointsAfterComboMultiplier * levelMultiplier;
+    this.score += (popPointValue * this.comboMultiplier) * levelMultiplier;
     this.scoreCounter.text(this.score);
   }
 });

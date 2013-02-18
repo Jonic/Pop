@@ -17,7 +17,7 @@ homeScreenApp = iOS && navigator.standalone;
 
 headsUp = new HeadsUp();
 
-if (android || homeScreenApp) {
+if (android || homeScreenApp || true) {
   canvas = document.createElement('canvas');
   context = canvas.getContext('2d');
   document.body.appendChild(canvas);

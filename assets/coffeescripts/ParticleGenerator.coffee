@@ -69,6 +69,22 @@ ParticleGenerator = Class.extend
 
 		return
 
+	particleWasTapped: (particle, touchData) ->
+		tapX = touchData.pageX
+		tapY = touchData.pageY
+
+		minX = particle.position.x - particle.half
+		maxX = minX + particle.size
+
+		hitX = tapX >= minX and tapX <= maxX
+
+		minY = particle.position.y - particle.half
+		maxY = minY + particle.size
+
+		hitY = tapY >= minY and tapY <= maxY
+
+		hitX and hitY
+
 	reset: ->
 
 		return
@@ -87,40 +103,24 @@ ParticleGenerator = Class.extend
 		this.particlesToTestForTaps = []
 
 		window.addEventListener 'touchstart', (event) ->
-			tapX = event.touches[0].pageX
-			tapY = event.touches[0].pageY
-
 			targetHit = false
 
 			for particleId in self.particlesToTestForTaps
 				particleIndex = self.particlesArrayIds.indexOf(particleId)
 				particle = self.particlesArray[particleIndex]
 
-				if particle?
-					minX = particle.position.x - particle.half
-					maxX = minX + particle.size
+				if particle? and self.particleWasTapped(particle, event.touches[0])
+					deletionIndex = self.particlesToTestForTaps.indexOf(particleId)
 
-					hitX = tapX >= minX and tapX <= maxX
+					self.particlesToTestForTaps.splice(deletionIndex, 1)
+					self.removeParticle(particleIndex)
 
-					minY = particle.position.y - particle.half
-					maxY = minY + particle.size
+					targetHit = true
 
-					hitY = tapY >= minY and tapY <= maxY
-
-					if hitX and hitY
-						deletionIndex = self.particlesToTestForTaps.indexOf(particleId)
-
-						self.particlesToTestForTaps.splice(deletionIndex, 1)
-						self.removeParticle(particleIndex)
-
-						targetSizeMultiplier = Math.abs(Math.round((particle.size / particle.finalSize) * 100) - 100)
-
-						targetHit = true
-
-						break
+					break
 
 			if targetHit
-				headsUp.updateScore(targetSizeMultiplier)
+				headsUp.updateScore(particle.size, particle.finalSize)
 				headsUp.comboMultiplier += 1
 			else
 				headsUp.comboMultiplier = 1

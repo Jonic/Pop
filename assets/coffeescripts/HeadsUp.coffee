@@ -59,13 +59,16 @@ HeadsUp = Class.extend
 
 		return
 
-	updateScore: (targetSizeMultiplier) ->
+	updateScore: (sizeWhenTapped, sizeWhenFullyGrown) ->
 
-		points = game.config.pointsPerPop + targetSizeMultiplier
-		pointsAfterComboMultiplier = points * this.comboMultiplier
+		#((defaultScorePerPop + (100 - ((sizeWhenTapped / sizeWhenFullyGrown) * 100))) * comboMultiplier) * (levelNumber + 1)
+
+		targetSizeBonus = Math.round(100 - ((sizeWhenTapped / sizeWhenFullyGrown) * 100))
+		popPointValue = game.config.pointsPerPop + targetSizeBonus
 		levelMultiplier = this.level + 1
 
-		this.score += pointsAfterComboMultiplier * levelMultiplier
+		this.score += (popPointValue * this.comboMultiplier) * (levelMultiplier)
+
 		this.scoreCounter.text(this.score)
 
 		return
