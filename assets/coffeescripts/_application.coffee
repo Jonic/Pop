@@ -10,7 +10,7 @@ homeScreenApp = iOS and navigator.standalone
 # MOVE THIS ONE OF THESE BLOODY DAYS
 headsUp = new HeadsUp()
 
-if android or homeScreenApp or true
+if android or homeScreenApp
 	canvas = document.createElement('canvas')
 	context = canvas.getContext('2d')
 

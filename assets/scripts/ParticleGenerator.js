@@ -31,7 +31,7 @@ ParticleGenerator = Class.extend({
     this.animationId = window.requestAnimationFrame(function() {
       self.requestAnimationFrame();
     });
-    context.clearRect(0, 0, canvas.width, canvas.height);
+    canvas.width = canvas.width;
     this.generateParticle(1);
     _ref = this.particlesArray;
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
