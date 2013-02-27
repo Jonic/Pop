@@ -1,4 +1,4 @@
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/jonic\/Sites\/pop\/assets\/sass\/master\.scss}line{font-family:\000032}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/jonic\/Workspace\/Games\/Pop\/assets\/sass\/master\.scss}line{font-family:\000032}}
 body {
   background: #f0f0f0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -7,7 +7,7 @@ body {
   width: 100%;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/jonic\/Sites\/pop\/assets\/sass\/master\.scss}line{font-family:\0000310}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/jonic\/Workspace\/Games\/Pop\/assets\/sass\/master\.scss}line{font-family:\0000310}}
 .debug {
   background: rgba(255, 255, 255, 0.25);
   box-sizing: border-box;
@@ -20,13 +20,13 @@ body {
   z-index: 1000;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/jonic\/Sites\/pop\/assets\/sass\/master\.scss}line{font-family:\0000322}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/jonic\/Workspace\/Games\/Pop\/assets\/sass\/master\.scss}line{font-family:\0000322}}
 .dg {
   display: none;
 }
 
 @media only screen and (min-width: 1200px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/jonic\/Sites\/pop\/assets\/sass\/master\.scss}line{font-family:\0000327}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/jonic\/Workspace\/Games\/Pop\/assets\/sass\/master\.scss}line{font-family:\0000327}}
   .dg {
     display: block;
   }
