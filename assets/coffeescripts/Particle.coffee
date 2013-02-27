@@ -5,10 +5,10 @@ Particle = Class.extend
         self = this
 
         colors =
-            r: utils.randomInteger(0, 255)
-            g: utils.randomInteger(0, 255)
-            b: utils.randomInteger(0, 255)
-            a: utils.random(0.8, 1)
+            r: utils.randomInteger(0, 200)
+            g: utils.randomInteger(0, 200)
+            b: utils.randomInteger(0, 200)
+            a: utils.random(0.9, 1)
 
         this.color = 'rgba(' + colors.r + ', ' + colors.g + ', ' + colors.b + ', ' + colors.a + ')'
 
