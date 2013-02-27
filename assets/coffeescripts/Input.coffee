@@ -1,8 +1,9 @@
-###jshint plusplus:false, forin:false ###
-###global Class ###
-
-'use strict'
-
 Input = Class.extend
-	init: ->
-		return
+
+    init: ->
+
+        window.addEventListener('touchmove', (event) ->
+            event.preventDefault()
+        )
+
+        return

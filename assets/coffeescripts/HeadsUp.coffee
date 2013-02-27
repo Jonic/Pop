@@ -1,74 +1,70 @@
-###jshint plusplus:false, forin:false ###
-###global Class ###
-###global game ###
-
-'use strict'
-
 HeadsUp = Class.extend
-	init: ->
 
-		this.levelCounter = $('.level')
-		this.scoreCounter = $('.score')
+    init: ->
 
-		return
+        this.levelCounter = '.level'
+        this.scoreCounter = '.score'
+        this.comboMultiplierCounter = '.combo'
 
-	installPrompt: ->
+        this.tapX = '.tapX'
+        this.tapY = '.tapY'
 
-		$('body').empty().text('ADD THIS TO YOUR HOME SCREEN TO PLAY')
+        return
 
-		return
+    reset: ->
 
-	mobilePrompt: ->
+        window.clearInterval this.levelUpCounter
 
-		$('body').empty().text('YOU NEED TO RUN THIS ON A MOBILE DEVICE, YOU MUG')
+        return
 
-		return
+    setToInitialValues: ->
 
-	reset: ->
+        self = this
 
-		window.clearInterval this.levelUpCounter
+        this.level = 1
+        this.score = 0
+        this.comboMultiplier = 1
 
-		return
+        utils.updateUITextNode(this.levelCounter, this.level)
+        utils.updateUITextNode(this.scoreCounter, this.score)
+        utils.updateUITextNode(this.comboMultiplierCounter, this.comboMultiplier)
 
-	setToInitialValues: ->
+        this.levelUpCounter = window.setInterval ->
+            self.updateLevel()
+            return
+        , config.levelUpInterval * 1000
 
-		self = this
+        return
 
-		this.level = 1
-		this.score = 0
+    updateComboMultiplierCounter: (comboMultiplier) ->
 
-		this.comboMultiplier = 1
+        headsUp.comboMultiplier = comboMultiplier
 
-		this.levelCounter.text(this.level)
-		this.scoreCounter.text(this.score)
+        utils.updateUITextNode(this.comboMultiplierCounter, this.comboMultiplier)
 
-		this.levelUpCounter = window.setInterval ->
-			self.updateLevel()
-			return
-		, game.config.levelUpInterval * 1000
+        return
 
-		return
+    updateLevel: ->
 
-	updateLevel: ->
+        this.level += 1
 
-		this.level += 1
-		this.levelCounter.text(this.level)
+        utils.updateUITextNode(this.levelCounter, this.level)
 
-		if this.level >= game.config.maxLevel
-			window.clearInterval this.levelUpCounter
+        if this.level >= config.maxLevel
+            window.clearInterval this.levelUpCounter
 
-		return
+        return
 
-	updateScore: (sizeWhenTapped, sizeWhenFullyGrown) ->
+    updateScore: (sizeWhenTapped, sizeWhenFullyGrown) ->
 
-		#((defaultScorePerPop + (100 - ((sizeWhenTapped / sizeWhenFullyGrown) * 100))) * comboMultiplier) * (levelNumber + 1)
+        #((defaultScorePerPop + (100 - ((sizeWhenTapped / sizeWhenFullyGrown) * 100))) * comboMultiplier) * (levelNumber + 1)
 
-		targetSizeBonus = Math.round(100 - ((sizeWhenTapped / sizeWhenFullyGrown) * 100))
-		popPointValue = game.config.pointsPerPop + targetSizeBonus
-		levelMultiplier = this.level + 1
+        targetSizeBonus = Math.round(100 - ((sizeWhenTapped / sizeWhenFullyGrown) * 100))
+        popPointValue = config.pointsPerPop + targetSizeBonus
+        levelMultiplier = this.level + 1
 
-		this.score += (popPointValue * this.comboMultiplier) * (levelMultiplier)
+        this.score += (popPointValue * this.comboMultiplier) * (levelMultiplier)
 
-		this.scoreCounter.text(this.score)
+        utils.updateUITextNode(this.scoreCounter, this.score)
 
-		return
+        return

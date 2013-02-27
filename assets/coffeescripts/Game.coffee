@@ -1,48 +1,30 @@
-###jshint plusplus:false, forin:false ###
-###global Class, Config ###
-###global headsUp, particleGenerator, screens ###
-
-'use strict'
-
 Game = Class.extend
-	init: ->
 
-		this.config = new Config()
+    init: ->
 
-		window.addEventListener('touchmove', (event) ->
-			event.preventDefault()
-		)
+        config.setupDatGui() if debug
 
-		return
+        return
 
-	gameOver: (animationId) ->
+    run: ->
 
-		window.cancelAnimationFrame(animationId)
+        animationLoop.requestAnimationFrame()
 
-		screens.gameOver()
+        headsUp.setToInitialValues()
+        scenes.title()
 
-		this.reset()
+        return
 
-		return
+    reset: ->
 
-	run: ->
+        headsUp.reset()
 
-		screens.ident()
+        particleGenerator.reset()
 
-		return
+        return
 
-	reset: ->
+    start: ->
 
-		headsUp.reset()
+        particleGenerator.start()
 
-		particleGenerator.reset()
-
-		return
-
-	start: ->
-
-		headsUp.setToInitialValues()
-
-		particleGenerator.start()
-
-		return
+        return

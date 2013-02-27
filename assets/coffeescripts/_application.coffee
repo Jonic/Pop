@@ -1,5 +1,5 @@
-###jshint plusplus:false, forin:false ###
-###global Game, HeadsUp, Input, ParticleGenerator, Screens, Utils ###
+###jshint plusplus:false, forin:false, eqeqeq:false ###
+###global Class, dat ###
 
 'use strict'
 
@@ -7,27 +7,31 @@ android = if navigator.userAgent.match(/android/i) then true else false
 iOS = if navigator.userAgent.match(/(iPad|iPhone|iPod)/i) then true else false
 homeScreenApp = iOS and navigator.standalone
 
-# MOVE THIS ONE OF THESE BLOODY DAYS
-headsUp = new HeadsUp()
+debug = true
 
-if android or homeScreenApp or true
-	canvas = document.createElement('canvas')
-	context = canvas.getContext('2d')
+animationLoopId = null
+canvas = document.createElement('canvas')
+context = canvas.getContext('2d')
 
-	document.body.appendChild(canvas)
+document.body.appendChild(canvas)
 
-	canvas.width = document.width
-	canvas.height = document.height
+canvas.width = document.width
+canvas.height = document.height
 
-	game = new Game()
+devicePixelRatio = window.devicePixelRatio || 1
+backingStoreRatio = context.webkitBackingStorePixelRatio || context.backingStorePixelRatio || 1
+ratio = devicePixelRatio / backingStoreRatio
 
-	input = new Input()
-	particleGenerator = new ParticleGenerator()
-	screens = new Screens()
-	utils = new Utils()
+if devicePixelRatio != backingStoreRatio
+    oldWidth = canvas.width
+    oldHeight = canvas.height
 
-	game.run()
-else if iOS
-	headsUp.installPrompt()
-else
-	headsUp.mobilePrompt()
+    canvas.width = oldWidth * ratio
+    canvas.height = oldHeight * ratio
+
+    canvas.style.width = oldWidth + 'px'
+    canvas.style.height = oldHeight + 'px'
+
+    context.scale(ratio, ratio)
+
+#alert(devicePixelRatio.toString() + ' ' + backingStoreRatio.toString() + ' ' + ratio.toString())

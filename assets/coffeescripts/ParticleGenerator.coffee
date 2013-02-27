@@ -1,140 +1,138 @@
-###jshint plusplus:false, forin:false, eqeqeq: false ###
-###global Class, Particle ###
-###global canvas, context, game, headsUp ###
-
-'use strict'
-
 ParticleGenerator = Class.extend
-	init: ->
 
-		this.particlesOrigin =
-			x: canvas.width / 2
-			y: canvas.height / 2
+    init: ->
 
-		this.particlesArray = []
-		this.particlesArrayIds = []
-		this.particlesToDelete = []
-		this.particlesToTestForTaps = []
+        this.particlesOrigin =
+            x: canvas.width / 2
+            y: canvas.height / 2
 
-		this.comboMultiplierCounter = $('.combo')
+        this.particlesArray = []
+        this.particlesArrayIds = []
+        this.particlesToDelete = []
+        this.particlesToTestForTaps = []
 
-		this.setupParticleTapDetection()
+        this.setupParticleTapDetection()
 
-		return
+        return
 
-	requestAnimationFrame: ->
+    destroyParticlesOutsideCanvasBounds: ->
 
-		self = this
+        for particleId in this.particlesToDelete
+            particleIndex = this.particlesArrayIds.indexOf(particleId)
+            particle = this.particlesArray[particleIndex]
 
-		this.animationId = window.requestAnimationFrame ->
-			self.requestAnimationFrame()
+            if particle.isTarget
+                scenes.gameOver()
 
-			return
+            this.removeParticle(particleIndex)
 
-		context.clearRect(0, 0, canvas.width, canvas.height)
+        this.particlesToDelete = []
 
-		this.generateParticle(1)
+        return
 
-		for particle in this.particlesArray
-			context.fillStyle = particle.color
-			context.strokeStyle = particle.color
+    generateParticle: (count) ->
 
-			particle.draw()
-			particle.updateValues()
+        for num in [count..1]
+            newParticle = new Particle()
 
-		for particleId in this.particlesToDelete
-			particleIndex = this.particlesArrayIds.indexOf(particleId)
-			particle = this.particlesArray[particleIndex]
+            if newParticle.isTarget
+                this.particlesArray.push(newParticle)
+                this.particlesArrayIds.push(newParticle.id)
+            else
+                this.particlesArray.unshift(newParticle)
+                this.particlesArrayIds.unshift(newParticle.id)
 
-			if particle.isTarget
-				game.gameOver(this.animationId)
+        return
 
-			this.removeParticle(particleIndex)
+    particleTapDetectionHandler: ->
 
-		this.particlesToDelete = []
+        targetHit = false
 
-		return
+        for particleId in this.particlesToTestForTaps.reverse()
+            particleIndex = this.particlesArrayIds.indexOf(particleId)
+            particle = this.particlesArray[particleIndex]
 
-	generateParticle: (count) ->
+            touchData = event.touches[0]
 
-		for num in [count..1]
-			newParticle = new Particle()
+            if particle? and this.particleWasTapped(particle, touchData)
+                deletionIndex = this.particlesToTestForTaps.indexOf(particleId)
 
-			if newParticle.isTarget
-				this.particlesArray.push(newParticle)
-				this.particlesArrayIds.push(newParticle.id)
-			else
-				this.particlesArray.unshift(newParticle)
-				this.particlesArrayIds.unshift(newParticle.id)
+                this.particlesToTestForTaps.splice(deletionIndex, 1)
+                this.removeParticle(particleIndex)
 
-		return
+                targetHit = true
 
-	particleWasTapped: (particle, touchData) ->
-		tapX = touchData.pageX
-		tapY = touchData.pageY
+                break
 
-		minX = particle.position.x - particle.half
-		maxX = minX + particle.size
+        if targetHit
+            headsUp.updateScore(particle.size, particle.finalSize)
+            comboMultiplier = headsUp.comboMultiplier + 1
+        else
+            comboMultiplier = 1
 
-		hitX = tapX >= minX and tapX <= maxX
+        headsUp.updateComboMultiplierCounter(comboMultiplier)
 
-		minY = particle.position.y - particle.half
-		maxY = minY + particle.size
+        return
 
-		hitY = tapY >= minY and tapY <= maxY
+    particleWasTapped: (particle, touchData) ->
 
-		hitX and hitY
+        tapX = touchData.pageX * devicePixelRatio
+        tapY = touchData.pageY * devicePixelRatio
 
-	reset: ->
+        utils.updateUITextNode(headsUp.tapX, tapX)
+        utils.updateUITextNode(headsUp.tapY, tapY)
 
-		return
+        minX = particle.position.x - particle.half
+        maxX = minX + particle.size
 
-	removeParticle: (index) ->
+        hitX = tapX >= minX and tapX <= maxX
 
-		this.particlesArray.splice(index, 1)
-		this.particlesArrayIds.splice(index, 1)
+        minY = particle.position.y - particle.half
+        maxY = minY + particle.size
 
-		return
+        hitY = tapY >= minY and tapY <= maxY
 
-	setupParticleTapDetection: ->
+        hitX and hitY
 
-		self = this
+    removeParticle: (index) ->
 
-		this.particlesToTestForTaps = []
+        this.particlesArray.splice(index, 1)
+        this.particlesArrayIds.splice(index, 1)
 
-		window.addEventListener 'touchstart', (event) ->
-			targetHit = false
+        return
 
-			for particleId in self.particlesToTestForTaps
-				particleIndex = self.particlesArrayIds.indexOf(particleId)
-				particle = self.particlesArray[particleIndex]
+    reset: ->
 
-				if particle? and self.particleWasTapped(particle, event.touches[0])
-					deletionIndex = self.particlesToTestForTaps.indexOf(particleId)
+        return
 
-					self.particlesToTestForTaps.splice(deletionIndex, 1)
-					self.removeParticle(particleIndex)
+    setupParticleTapDetection: ->
 
-					targetHit = true
+        self = this
 
-					break
+        this.particlesToTestForTaps = []
 
-			if targetHit
-				headsUp.updateScore(particle.size, particle.finalSize)
-				headsUp.comboMultiplier += 1
-			else
-				headsUp.comboMultiplier = 1
+        window.addEventListener 'touchstart', ->
+            self.particleTapDetectionHandler()
 
-			self.comboMultiplierCounter.text(headsUp.comboMultiplier)
+            return
 
-			return
+        return
 
-		return
+    start: ->
 
-	start: ->
+        this.comboMultiplierCounter.text(headsUp.comboMultiplier)
 
-		this.comboMultiplierCounter.text(headsUp.comboMultiplier)
+        this.requestAnimationFrame()
 
-		this.requestAnimationFrame()
+        return
 
-		return
+    updateValuesAndDraw: ->
+
+        for particle in this.particlesArray
+            context.fillStyle = particle.color
+            context.strokeStyle = particle.color
+
+            particle.draw()
+            particle.updateValues()
+
+        return

@@ -21,21 +21,14 @@
 			<li>Level: <span class="level"></li>
 			<li>Score: <span class="score"></li>
 			<li>Combo Multiplier: <span class="combo"></li>
+
+			<li>tapX: <span class="tapX"></li>
+			<li>tapY: <span class="tapY"></li>
 		</ul>
 
 		<script src="assets/vendor/dat.gui.min.js"></script>
 		<script src="assets/vendor/ejohn.inheritance.js"></script>
 		<script src="assets/vendor/requestAnimationFrame.js"></script>
-		<script src="assets/vendor/zepto-1.0rc1.min.js"></script>
-
-		<script src="assets/scripts/Config.js"></script>
-		<script src="assets/scripts/Game.js"></script>
-		<script src="assets/scripts/HeadsUp.js"></script>
-		<script src="assets/scripts/Input.js"></script>
-		<script src="assets/scripts/Particle.js"></script>
-		<script src="assets/scripts/ParticleGenerator.js"></script>
-		<script src="assets/scripts/Screens.js"></script>
-		<script src="assets/scripts/Utils.js"></script>
 
 		<script src="assets/scripts/_application.js"></script>
 
