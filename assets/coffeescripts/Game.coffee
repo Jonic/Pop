@@ -1,30 +1,35 @@
 Game = Class.extend
 
-    init: ->
+	init: ->
 
-        config.setupDatGui() if debug
+		config.setupDatGui() if debug
 
-        return
+		return
 
-    run: ->
+	run: ->
 
-        animationLoop.requestAnimationFrame()
+		animationLoop.requestAnimationFrame()
 
-        headsUp.setToInitialValues()
-        scenes.title()
+		this.reset()
 
-        return
+		scenes.title()
 
-    reset: ->
+		return
 
-        headsUp.reset()
+	reset: ->
 
-        particleGenerator.reset()
+		state.reset()
 
-        return
+		headsUp.reset()
 
-    start: ->
+		particleGenerator.reset()
 
-        particleGenerator.start()
+		return
 
-        return
+	start: ->
+
+		state.setupLevelUpIncrement()
+
+		particleGenerator.start()
+
+		return

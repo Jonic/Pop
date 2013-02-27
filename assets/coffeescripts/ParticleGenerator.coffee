@@ -1,138 +1,135 @@
 ParticleGenerator = Class.extend
 
-    init: ->
+	init: ->
 
-        this.particlesOrigin =
-            x: canvas.width / 2
-            y: canvas.height / 2
+		this.particlesOrigin =
+			x: canvas.width / 2
+			y: canvas.height / 2
 
-        this.particlesArray = []
-        this.particlesArrayIds = []
-        this.particlesToDelete = []
-        this.particlesToTestForTaps = []
+		this.reset()
 
-        this.setupParticleTapDetection()
+		this.setupParticleTapDetection()
 
-        return
+		return
 
-    destroyParticlesOutsideCanvasBounds: ->
+	destroyParticlesOutsideCanvasBounds: ->
 
-        for particleId in this.particlesToDelete
-            particleIndex = this.particlesArrayIds.indexOf(particleId)
-            particle = this.particlesArray[particleIndex]
+		for particleId in this.particlesToDelete
+			particleIndex = this.particlesArrayIds.indexOf(particleId)
+			particle = this.particlesArray[particleIndex]
 
-            if particle.isTarget
-                scenes.gameOver()
+			if particle.isTarget
+				scenes.gameOver()
 
-            this.removeParticle(particleIndex)
+			this.removeParticle(particleIndex)
 
-        this.particlesToDelete = []
+		this.particlesToDelete = []
 
-        return
+		return
 
-    generateParticle: (count) ->
+	generateParticle: (count) ->
 
-        for num in [count..1]
-            newParticle = new Particle()
+		for num in [count..1]
+			newParticle = new Particle()
 
-            if newParticle.isTarget
-                this.particlesArray.push(newParticle)
-                this.particlesArrayIds.push(newParticle.id)
-            else
-                this.particlesArray.unshift(newParticle)
-                this.particlesArrayIds.unshift(newParticle.id)
+			if newParticle.isTarget
+				this.particlesArray.push(newParticle)
+				this.particlesArrayIds.push(newParticle.id)
+			else
+				this.particlesArray.unshift(newParticle)
+				this.particlesArrayIds.unshift(newParticle.id)
 
-        return
+		return
 
-    particleTapDetectionHandler: ->
+	particleTapDetectionHandler: ->
 
-        targetHit = false
+		targetHit = false
 
-        for particleId in this.particlesToTestForTaps.reverse()
-            particleIndex = this.particlesArrayIds.indexOf(particleId)
-            particle = this.particlesArray[particleIndex]
+		for particleId in this.particlesToTestForTaps.reverse()
+			particleIndex = this.particlesArrayIds.indexOf(particleId)
+			particle = this.particlesArray[particleIndex]
 
-            touchData = event.touches[0]
+			touchData = event.touches[0]
 
-            if particle? and this.particleWasTapped(particle, touchData)
-                deletionIndex = this.particlesToTestForTaps.indexOf(particleId)
+			if particle? and this.particleWasTapped(particle, touchData)
+				deletionIndex = this.particlesToTestForTaps.indexOf(particleId)
 
-                this.particlesToTestForTaps.splice(deletionIndex, 1)
-                this.removeParticle(particleIndex)
+				this.particlesToTestForTaps.splice(deletionIndex, 1)
+				this.removeParticle(particleIndex)
 
-                targetHit = true
+				targetHit = true
 
-                break
+				break
 
-        if targetHit
-            headsUp.updateScore(particle.size, particle.finalSize)
-            comboMultiplier = headsUp.comboMultiplier + 1
-        else
-            comboMultiplier = 1
+		state.updateComboMultiplier(targetHit)
 
-        headsUp.updateComboMultiplierCounter(comboMultiplier)
+		if targetHit
+			state.updateScore(particle.size, particle.finalSize)
 
-        return
+		return
 
-    particleWasTapped: (particle, touchData) ->
+	particleWasTapped: (particle, touchData) ->
 
-        tapX = touchData.pageX * devicePixelRatio
-        tapY = touchData.pageY * devicePixelRatio
+		tapX = touchData.pageX * devicePixelRatio
+		tapY = touchData.pageY * devicePixelRatio
 
-        utils.updateUITextNode(headsUp.tapX, tapX)
-        utils.updateUITextNode(headsUp.tapY, tapY)
+		#utils.updateUITextNode(headsUp.tapX, tapX)
+		#utils.updateUITextNode(headsUp.tapY, tapY)
 
-        minX = particle.position.x - particle.half
-        maxX = minX + particle.size
+		minX = particle.position.x - particle.half
+		maxX = minX + particle.size
 
-        hitX = tapX >= minX and tapX <= maxX
+		hitX = tapX >= minX and tapX <= maxX
 
-        minY = particle.position.y - particle.half
-        maxY = minY + particle.size
+		minY = particle.position.y - particle.half
+		maxY = minY + particle.size
 
-        hitY = tapY >= minY and tapY <= maxY
+		hitY = tapY >= minY and tapY <= maxY
 
-        hitX and hitY
+		hitX and hitY
 
-    removeParticle: (index) ->
+	removeParticle: (index) ->
 
-        this.particlesArray.splice(index, 1)
-        this.particlesArrayIds.splice(index, 1)
+		this.particlesArray.splice(index, 1)
+		this.particlesArrayIds.splice(index, 1)
 
-        return
+		return
 
-    reset: ->
+	reset: ->
 
-        return
+		this.particlesArray = []
+		this.particlesArrayIds = []
+		this.particlesToDelete = []
+		this.particlesToTestForTaps = []
 
-    setupParticleTapDetection: ->
+		return
 
-        self = this
+	setupParticleTapDetection: ->
 
-        this.particlesToTestForTaps = []
+		self = this
 
-        window.addEventListener 'touchstart', ->
-            self.particleTapDetectionHandler()
+		this.particlesToTestForTaps = []
 
-            return
+		window.addEventListener 'touchstart', ->
+			self.particleTapDetectionHandler()
 
-        return
+			return
 
-    start: ->
+		return
 
-        this.comboMultiplierCounter.text(headsUp.comboMultiplier)
+	start: ->
 
-        this.requestAnimationFrame()
+		state.updateGameState('playing')
 
-        return
+		return
 
-    updateValuesAndDraw: ->
+	updateValuesAndDraw: ->
 
-        for particle in this.particlesArray
-            context.fillStyle = particle.color
-            context.strokeStyle = particle.color
+		for particle in this.particlesArray
+			context.fillStyle = particle.color
+			context.strokeStyle = particle.color
 
-            particle.draw()
-            particle.updateValues()
+			particle.draw()
+			particle.updateValues()
 
-        return
+		return

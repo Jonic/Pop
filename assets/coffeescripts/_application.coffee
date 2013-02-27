@@ -23,13 +23,13 @@ backingStoreRatio = context.webkitBackingStorePixelRatio || context.backingStore
 ratio = devicePixelRatio / backingStoreRatio
 
 if devicePixelRatio != backingStoreRatio
-    oldWidth = canvas.width
-    oldHeight = canvas.height
+	oldWidth = canvas.width
+	oldHeight = canvas.height
 
-    canvas.width = oldWidth * ratio
-    canvas.height = oldHeight * ratio
+	canvas.width = oldWidth * ratio
+	canvas.height = oldHeight * ratio
 
-    canvas.style.width = oldWidth + 'px'
-    canvas.style.height = oldHeight + 'px'
+	canvas.style.width = oldWidth + 'px'
+	canvas.style.height = oldHeight + 'px'
 
-    context.scale(ratio, ratio)
+	context.scale(ratio, ratio)

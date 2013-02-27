@@ -1,45 +1,47 @@
 Scenes = Class.extend
 
-    init: ->
+	init: ->
 
-        this.splash()
+		this.splash()
 
-        return
+		return
 
-    credits: ->
+	credits: ->
 
-        return
+		return
 
-    gameOver: ->
+	gameOver: ->
 
-        alert('GAME OVER')
+		alert('GAME OVER')
 
-        animationLoop.cancelAnimationFrame()
+		animationLoop.cancelAnimationFrame()
 
-        game.reset()
+		game.reset()
 
-        return
+		return
 
-    howToPlay: ->
+	howToPlay: ->
 
-        return
+		return
 
-    installationPrompt: ->
+	installationPrompt: ->
 
-        $('body').empty().text('ADD THIS TO YOUR HOME SCREEN TO PLAY')
+		utils.updateUITextNode('body', 'ADD THIS TO YOUR HOME SCREEN TO PLAY')
 
-        return
+		return
 
-    mobilePrompt: ->
+	mobilePrompt: ->
 
-        $('body').empty().text('YOU NEED TO RUN THIS ON A MOBILE DEVICE, YOU MUG')
+		utils.updateUITextNode('body', 'YOU NEED TO RUN THIS ON A MOBILE DEVICE')
 
-        return
+		return
 
-    splash: ->
+	splash: ->
 
-        return
+		return
 
-    title: ->
+	title: ->
 
-        return
+		game.start()
+
+		return

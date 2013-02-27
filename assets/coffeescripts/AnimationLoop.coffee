@@ -1,28 +1,28 @@
 AnimationLoop = Class.extend
 
-    init: ->
+	init: ->
 
-        return
+		return
 
-    cancelAnimationFrame: ->
+	cancelAnimationFrame: ->
 
-        window.cancelAnimationFrame(animationLoopId)
+		window.cancelAnimationFrame(animationLoopId)
 
-        return
+		return
 
-    requestAnimationFrame: ->
+	requestAnimationFrame: ->
 
-        self = this
+		self = this
 
-        animationLoopId = window.requestAnimationFrame ->
-            self.requestAnimationFrame()
+		animationLoopId = window.requestAnimationFrame ->
+			self.requestAnimationFrame()
 
-            return
+			return
 
-        canvas.width = canvas.width
+		canvas.width = canvas.width
 
-        particleGenerator.generateParticle(1)
-        particleGenerator.updateValuesAndDraw()
-        particleGenerator.destroyParticlesOutsideCanvasBounds()
+		particleGenerator.generateParticle(1)
+		particleGenerator.updateValuesAndDraw()
+		particleGenerator.destroyParticlesOutsideCanvasBounds()
 
-        return
+		return

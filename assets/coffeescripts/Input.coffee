@@ -1,9 +1,9 @@
 Input = Class.extend
 
-    init: ->
+	init: ->
 
-        window.addEventListener('touchmove', (event) ->
-            event.preventDefault()
-        )
+		window.addEventListener('touchmove', (event) ->
+			event.preventDefault()
+		)
 
-        return
+		return
