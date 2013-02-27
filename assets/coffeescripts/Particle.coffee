@@ -28,7 +28,7 @@ Particle = Class.extend
         this.isTarget = this.determineTargetParticle()
 
         if this.isTarget
-            this.color = 'rgb(' + colors.r + ', ' + colors.g + ', ' + colors.b + ')'
+            this.color = 'rgba(' + colors.r + ', ' + colors.g + ', ' + colors.b + ', 1)'
             this.velocity.x = this.velocity.x * config.targetVelocityMultiplier
             this.velocity.y = this.velocity.y * config.targetVelocityMultiplier
             this.lineWidth = 1;

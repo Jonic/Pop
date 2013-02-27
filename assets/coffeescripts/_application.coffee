@@ -33,5 +33,3 @@ if devicePixelRatio != backingStoreRatio
     canvas.style.height = oldHeight + 'px'
 
     context.scale(ratio, ratio)
-
-#alert(devicePixelRatio.toString() + ' ' + backingStoreRatio.toString() + ' ' + ratio.toString())
