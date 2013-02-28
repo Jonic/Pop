@@ -12,14 +12,6 @@ Utils = Class.extend
 		else
 			value * devicePixelRatio
 
-	randomInteger: (min, max) ->
-
-		if max == undefined
-			max = min
-			min = 0
-
-		Math.floor(Math.random() * (max + 1 - min)) + min
-
 	random: (min, max) ->
 
 		if min == undefined
@@ -30,6 +22,18 @@ Utils = Class.extend
 			min = 0
 
 		(Math.random() * (max - min)) + min;
+
+	randomInteger: (min, max) ->
+
+		if max == undefined
+			max = min
+			min = 0
+
+		Math.floor(Math.random() * (max + 1 - min)) + min
+
+	randomPercentage: ->
+
+		Math.floor(Math.random() * 101)
 
 	updateUITextNode: (selector, value) ->
 

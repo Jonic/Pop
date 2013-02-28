@@ -2,23 +2,53 @@ Config = Class.extend
 
 	init: ->
 
-		this.particleSpawnChance = 100
-		this.chanceParticleIsTarget = 5
-		this.particleGrowthMultiplier = 1.05
 		this.maxLineWidth = 10
 		this.levelUpInterval = 20
 		this.maxLevel = 50
 		this.pointsPerPop = 10
 
-		this.sizeMin = 0
-		this.sizeMax = 70
+		this.particleSpawnChance =
+			easy: 60
+			difficult: 100
 
-		this.minTargetSize = 40
+		this.chanceParticleIsTarget =
+			easy: 2
+			difficult: 5
 
-		this.velocityMin = -5
-		this.velocityMax = 5
+		this.particleGrowthMultiplier =
+			easy: 1.05
+			difficult: 1.5
 
-		this.targetVelocityMultiplier = 0.3
+		this.sizeMax =
+			easy: 80
+			difficult: 40
+
+		this.minTargetSize =
+			easy: 80
+			difficult: 30
+
+		this.velocityMin =
+			easy: -5
+			difficult: -15
+
+		this.velocityMax =
+			easy: 5
+			difficult: 15
+
+		this.targetVelocityMultiplier =
+			easy: 0.3
+			difficult: 1
+
+		this.propertiesToUpdateWithDifficulty = [
+			'particleSpawnChance',
+			'chanceParticleIsTarget',
+			'particleGrowthMultiplier',
+			'sizeMax',
+			'minTargetSize',
+			'velocityMin',
+			'velocityMax'
+			'targetVelocityMultiplier'
+		]
 
 		return
 
@@ -45,18 +75,12 @@ Config = Class.extend
 
 	updateValuesForDifficulty: ->
 
-		minValue = -50
-		maxValue = 50
+		for property in this.propertiesToUpdateWithDifficulty
+			propertyConfig = this[property]
 
-		valueDifference = Math.abs(maxValue - minValue)
+			valueDifference = propertyConfig.difficult - propertyConfig.easy
+			levelMulitplier = state.level / this.maxLevel
 
-		currentLevel = 2
-		maxLevel = 100
-
-		levelMulitplier = currentLevel / maxLevel
-
-		value = (valueDifference * levelMulitplier) + minValue
-
-		#value = ((Math.abs(maxValue - minValue)) * (currentLevel / maxLevel)) + minValue
+			state[property] = (valueDifference * levelMulitplier) + propertyConfig.easy
 
 		return

@@ -13,7 +13,7 @@ Particle = Class.extend
 		this.color = 'rgba(' + colors.r + ', ' + colors.g + ', ' + colors.b + ', ' + colors.a + ')'
 
 		this.size = 1
-		this.finalSize = utils.randomInteger(config.sizeMin, config.sizeMax)
+		this.finalSize = utils.randomInteger(0, state.sizeMax)
 		this.half = Math.round(this.size / 2)
 
 		this.position =
@@ -21,16 +21,17 @@ Particle = Class.extend
 			y: particleGenerator.particlesOrigin.y
 
 		this.velocity =
-			x: utils.random(config.velocityMin, config.velocityMax)
-			y: utils.random(config.velocityMin, config.velocityMax)
+			x: utils.random(state.velocityMin, state.velocityMax)
+			y: utils.random(state.velocityMin, state.velocityMax)
 
 		this.id = Math.random().toString(36).substr(2, 5)
 		this.isTarget = this.determineTargetParticle()
 
 		if this.isTarget
+			this.finalSize = utils.randomInteger(state.minTargetSize, state.sizeMax)
 			this.color = 'rgba(' + colors.r + ', ' + colors.g + ', ' + colors.b + ', 1)'
-			this.velocity.x = this.velocity.x * config.targetVelocityMultiplier
-			this.velocity.y = this.velocity.y * config.targetVelocityMultiplier
+			this.velocity.x = this.velocity.x * state.targetVelocityMultiplier
+			this.velocity.y = this.velocity.y * state.targetVelocityMultiplier
 			this.lineWidth = 1;
 
 			particleGenerator.particlesToTestForTaps.push(this.id)
@@ -39,8 +40,7 @@ Particle = Class.extend
 
 	determineTargetParticle: ->
 
-		if this.finalSize >= config.minTargetSize
-			Math.floor(Math.random() * 101) < config.chanceParticleIsTarget
+		utils.randomPercentage() < state.chanceParticleIsTarget
 
 	draw: ->
 
@@ -68,7 +68,7 @@ Particle = Class.extend
 	updateValues: ->
 
 		if this.size < this.finalSize
-			this.size = this.size * config.particleGrowthMultiplier
+			this.size = this.size * state.particleGrowthMultiplier
 
 		if this.size > this.finalSize
 			this.size = this.finalSize

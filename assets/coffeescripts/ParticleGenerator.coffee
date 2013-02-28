@@ -27,17 +27,13 @@ ParticleGenerator = Class.extend
 
 		return
 
-	generateParticle: (count) ->
+	generateParticle: ->
 
-		for num in [count..1]
+		if utils.randomPercentage() < state.particleSpawnChance
 			newParticle = new Particle()
 
-			if newParticle.isTarget
-				this.particlesArray.push(newParticle)
-				this.particlesArrayIds.push(newParticle.id)
-			else
-				this.particlesArray.unshift(newParticle)
-				this.particlesArrayIds.unshift(newParticle.id)
+			this.particlesArray.push(newParticle)
+			this.particlesArrayIds.push(newParticle.id)
 
 		return
 
@@ -72,9 +68,6 @@ ParticleGenerator = Class.extend
 
 		tapX = touchData.pageX * devicePixelRatio
 		tapY = touchData.pageY * devicePixelRatio
-
-		#utils.updateUITextNode(headsUp.tapX, tapX)
-		#utils.updateUITextNode(headsUp.tapY, tapY)
 
 		minX = particle.position.x - particle.half
 		maxX = minX + particle.size

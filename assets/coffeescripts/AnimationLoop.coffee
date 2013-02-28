@@ -21,7 +21,7 @@ AnimationLoop = Class.extend
 
 		canvas.width = canvas.width
 
-		particleGenerator.generateParticle(1)
+		particleGenerator.generateParticle()
 		particleGenerator.updateValuesAndDraw()
 		particleGenerator.destroyParticlesOutsideCanvasBounds()
 

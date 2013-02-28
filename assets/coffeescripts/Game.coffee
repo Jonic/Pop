@@ -2,7 +2,7 @@ Game = Class.extend
 
 	init: ->
 
-		config.setupDatGui() if debug
+		#config.setupDatGui() if debug
 
 		return
 

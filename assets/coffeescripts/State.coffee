@@ -3,7 +3,7 @@ State = Class.extend
 	init: ->
 
 		this.defaults =
-			level: 0
+			level: 1
 			score: 0
 			comboMultiplier: 0
 
@@ -34,6 +34,15 @@ State = Class.extend
 		this.score = this.defaults.score
 		this.comboMultiplier = this.defaults.comboMultiplier
 
+		this.particleSpawnChance = config.particleSpawnChance.easy
+		this.chanceParticleIsTarget = config.chanceParticleIsTarget.easy
+		this.particleGrowthMultiplier = config.particleGrowthMultiplier.easy
+		this.sizeMax = config.sizeMax.easy
+		this.minTargetSize = config.minTargetSize.easy
+		this.velocityMin = config.velocityMin.easy
+		this.velocityMax = config.velocityMax.easy
+		this.targetVelocityMultiplier = config.targetVelocityMultiplier.easy
+
 		return
 
 	updateComboMultiplier: (targetHit) ->
@@ -58,6 +67,7 @@ State = Class.extend
 			window.clearInterval this.levelUpCounter
 
 		headsUp.updateLevelCounter()
+		config.updateValuesForDifficulty()
 
 		return
 

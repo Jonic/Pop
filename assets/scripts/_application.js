@@ -63,7 +63,7 @@ AnimationLoop = Class.extend({
       self.requestAnimationFrame();
     });
     canvas.width = canvas.width;
-    particleGenerator.generateParticle(1);
+    particleGenerator.generateParticle();
     particleGenerator.updateValuesAndDraw();
     particleGenerator.destroyParticlesOutsideCanvasBounds();
   }
@@ -77,19 +77,43 @@ AnimationLoop = Class.extend({
 
 Config = Class.extend({
   init: function() {
-    this.particleSpawnChance = 100;
-    this.chanceParticleIsTarget = 5;
-    this.particleGrowthMultiplier = 1.05;
     this.maxLineWidth = 10;
     this.levelUpInterval = 20;
     this.maxLevel = 50;
     this.pointsPerPop = 10;
-    this.sizeMin = 0;
-    this.sizeMax = 70;
-    this.minTargetSize = 40;
-    this.velocityMin = -5;
-    this.velocityMax = 5;
-    this.targetVelocityMultiplier = 0.3;
+    this.particleSpawnChance = {
+      easy: 60,
+      difficult: 100
+    };
+    this.chanceParticleIsTarget = {
+      easy: 2,
+      difficult: 5
+    };
+    this.particleGrowthMultiplier = {
+      easy: 1.05,
+      difficult: 1.5
+    };
+    this.sizeMax = {
+      easy: 80,
+      difficult: 40
+    };
+    this.minTargetSize = {
+      easy: 80,
+      difficult: 30
+    };
+    this.velocityMin = {
+      easy: -5,
+      difficult: -15
+    };
+    this.velocityMax = {
+      easy: 5,
+      difficult: 15
+    };
+    this.targetVelocityMultiplier = {
+      easy: 0.3,
+      difficult: 1
+    };
+    this.propertiesToUpdateWithDifficulty = ['particleSpawnChance', 'chanceParticleIsTarget', 'particleGrowthMultiplier', 'sizeMax', 'minTargetSize', 'velocityMin', 'velocityMax', 'targetVelocityMultiplier'];
   },
   setupDatGui: function() {
     var environment, gui, size, velocity;
@@ -108,14 +132,15 @@ Config = Class.extend({
     velocity.add(this, 'velocityMax', 5);
   },
   updateValuesForDifficulty: function() {
-    var currentLevel, levelMulitplier, maxLevel, maxValue, minValue, value, valueDifference;
-    minValue = -50;
-    maxValue = 50;
-    valueDifference = Math.abs(maxValue - minValue);
-    currentLevel = 2;
-    maxLevel = 100;
-    levelMulitplier = currentLevel / maxLevel;
-    value = (valueDifference * levelMulitplier) + minValue;
+    var levelMulitplier, property, propertyConfig, valueDifference, _i, _len, _ref;
+    _ref = this.propertiesToUpdateWithDifficulty;
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      property = _ref[_i];
+      propertyConfig = this[property];
+      valueDifference = propertyConfig.difficult - propertyConfig.easy;
+      levelMulitplier = state.level / this.maxLevel;
+      state[property] = (valueDifference * levelMulitplier) + propertyConfig.easy;
+    }
   }
 });
 
@@ -126,11 +151,7 @@ Config = Class.extend({
 
 
 Game = Class.extend({
-  init: function() {
-    if (debug) {
-      config.setupDatGui();
-    }
-  },
+  init: function() {},
   run: function() {
     animationLoop.requestAnimationFrame();
     this.reset();
@@ -209,30 +230,29 @@ Particle = Class.extend({
     };
     this.color = 'rgba(' + colors.r + ', ' + colors.g + ', ' + colors.b + ', ' + colors.a + ')';
     this.size = 1;
-    this.finalSize = utils.randomInteger(config.sizeMin, config.sizeMax);
+    this.finalSize = utils.randomInteger(0, state.sizeMax);
     this.half = Math.round(this.size / 2);
     this.position = {
       x: particleGenerator.particlesOrigin.x,
       y: particleGenerator.particlesOrigin.y
     };
     this.velocity = {
-      x: utils.random(config.velocityMin, config.velocityMax),
-      y: utils.random(config.velocityMin, config.velocityMax)
+      x: utils.random(state.velocityMin, state.velocityMax),
+      y: utils.random(state.velocityMin, state.velocityMax)
     };
     this.id = Math.random().toString(36).substr(2, 5);
     this.isTarget = this.determineTargetParticle();
     if (this.isTarget) {
+      this.finalSize = utils.randomInteger(state.minTargetSize, state.sizeMax);
       this.color = 'rgba(' + colors.r + ', ' + colors.g + ', ' + colors.b + ', 1)';
-      this.velocity.x = this.velocity.x * config.targetVelocityMultiplier;
-      this.velocity.y = this.velocity.y * config.targetVelocityMultiplier;
+      this.velocity.x = this.velocity.x * state.targetVelocityMultiplier;
+      this.velocity.y = this.velocity.y * state.targetVelocityMultiplier;
       this.lineWidth = 1;
       particleGenerator.particlesToTestForTaps.push(this.id);
     }
   },
   determineTargetParticle: function() {
-    if (this.finalSize >= config.minTargetSize) {
-      return Math.floor(Math.random() * 101) < config.chanceParticleIsTarget;
-    }
+    return utils.randomPercentage() < state.chanceParticleIsTarget;
   },
   draw: function() {
     if (this.withinCanvasBounds()) {
@@ -256,7 +276,7 @@ Particle = Class.extend({
   },
   updateValues: function() {
     if (this.size < this.finalSize) {
-      this.size = this.size * config.particleGrowthMultiplier;
+      this.size = this.size * state.particleGrowthMultiplier;
     }
     if (this.size > this.finalSize) {
       this.size = this.finalSize;
@@ -302,17 +322,12 @@ ParticleGenerator = Class.extend({
     }
     this.particlesToDelete = [];
   },
-  generateParticle: function(count) {
-    var newParticle, num, _i;
-    for (num = _i = count; count <= 1 ? _i <= 1 : _i >= 1; num = count <= 1 ? ++_i : --_i) {
+  generateParticle: function() {
+    var newParticle;
+    if (utils.randomPercentage() < state.particleSpawnChance) {
       newParticle = new Particle();
-      if (newParticle.isTarget) {
-        this.particlesArray.push(newParticle);
-        this.particlesArrayIds.push(newParticle.id);
-      } else {
-        this.particlesArray.unshift(newParticle);
-        this.particlesArrayIds.unshift(newParticle.id);
-      }
+      this.particlesArray.push(newParticle);
+      this.particlesArrayIds.push(newParticle.id);
     }
   },
   particleTapDetectionHandler: function() {
@@ -421,7 +436,7 @@ Scenes = Class.extend({
 State = Class.extend({
   init: function() {
     this.defaults = {
-      level: 0,
+      level: 1,
       score: 0,
       comboMultiplier: 0
     };
@@ -441,6 +456,14 @@ State = Class.extend({
     this.level = this.defaults.level;
     this.score = this.defaults.score;
     this.comboMultiplier = this.defaults.comboMultiplier;
+    this.particleSpawnChance = config.particleSpawnChance.easy;
+    this.chanceParticleIsTarget = config.chanceParticleIsTarget.easy;
+    this.particleGrowthMultiplier = config.particleGrowthMultiplier.easy;
+    this.sizeMax = config.sizeMax.easy;
+    this.minTargetSize = config.minTargetSize.easy;
+    this.velocityMin = config.velocityMin.easy;
+    this.velocityMax = config.velocityMax.easy;
+    this.targetVelocityMultiplier = config.targetVelocityMultiplier.easy;
   },
   updateComboMultiplier: function(targetHit) {
     state.comboMultiplier = targetHit ? state.comboMultiplier + 1 : 1;
@@ -455,6 +478,7 @@ State = Class.extend({
       window.clearInterval(this.levelUpCounter);
     }
     headsUp.updateLevelCounter();
+    config.updateValuesForDifficulty();
   },
   updateScore: function(sizeWhenTapped, sizeWhenFullyGrown) {
     var levelMultiplier, popPointValue, targetSizeBonus;
@@ -484,13 +508,6 @@ Utils = Class.extend({
       return value * devicePixelRatio;
     }
   },
-  randomInteger: function(min, max) {
-    if (max === void 0) {
-      max = min;
-      min = 0;
-    }
-    return Math.floor(Math.random() * (max + 1 - min)) + min;
-  },
   random: function(min, max) {
     if (min === void 0) {
       min = 0;
@@ -500,6 +517,16 @@ Utils = Class.extend({
       min = 0;
     }
     return (Math.random() * (max - min)) + min;
+  },
+  randomInteger: function(min, max) {
+    if (max === void 0) {
+      max = min;
+      min = 0;
+    }
+    return Math.floor(Math.random() * (max + 1 - min)) + min;
+  },
+  randomPercentage: function() {
+    return Math.floor(Math.random() * 101);
   },
   updateUITextNode: function(selector, value) {
     var element;
