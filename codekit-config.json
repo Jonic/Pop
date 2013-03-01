@@ -106,18 +106,6 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
-    "\/assets\/coffeescripts\/Particle.coffee" : {
-      "ignoreWasSetByUser" : 1,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/assets\/coffeescripts\/Particle.coffee",
-      "checkOutputStyle" : 1,
-      "minifyOutput" : 0,
-      "outputAbbreviatedPath" : "\/assets\/scripts\/Particle.js",
-      "outputStyle" : 1,
-      "fileType" : 32
-    },
     "\/assets\/coffeescripts\/ParticleGenerator.coffee" : {
       "ignoreWasSetByUser" : 1,
       "ignore" : 1,
@@ -127,6 +115,18 @@
       "checkOutputStyle" : 1,
       "minifyOutput" : 0,
       "outputAbbreviatedPath" : "\/assets\/scripts\/ParticleGenerator.js",
+      "outputStyle" : 1,
+      "fileType" : 32
+    },
+    "\/assets\/coffeescripts\/Particle.coffee" : {
+      "ignoreWasSetByUser" : 1,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/assets\/coffeescripts\/Particle.coffee",
+      "checkOutputStyle" : 1,
+      "minifyOutput" : 0,
+      "outputAbbreviatedPath" : "\/assets\/scripts\/Particle.js",
       "outputStyle" : 1,
       "fileType" : 32
     },
@@ -432,12 +432,12 @@
     "uglifyFlags" : {
       "no-mangle-functions" : 0,
       "no-mangle" : 0,
-      "no-copyright" : 0,
+      "no-copyright" : 1,
       "no-dead-code" : 0,
       "inline-script" : 0,
       "ascii" : 0,
       "unsafe" : 0,
-      "mangle-toplevel" : 0,
+      "mangle-toplevel" : 1,
       "no-seqs" : 1,
       "beautify" : 0,
       "lift-vars" : 0,
