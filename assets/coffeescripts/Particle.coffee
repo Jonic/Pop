@@ -40,7 +40,8 @@ Particle = Class.extend
 
 	determineTargetParticle: ->
 
-		utils.randomPercentage() < state.chanceParticleIsTarget
+		if particleGenerator.particlesToTestForTaps.length < state.maxTargetsAtOnce
+			utils.randomPercentage() < state.chanceParticleIsTarget
 
 	draw: ->
 

@@ -81,39 +81,43 @@ Config = Class.extend({
     this.levelUpInterval = 20;
     this.maxLevel = 50;
     this.pointsPerPop = 10;
-    this.particleSpawnChance = {
-      easy: 60,
-      difficult: 100
-    };
     this.chanceParticleIsTarget = {
       easy: 2,
-      difficult: 5
+      difficult: 3
     };
-    this.particleGrowthMultiplier = {
-      easy: 1.05,
-      difficult: 1.5
-    };
-    this.sizeMax = {
-      easy: 80,
-      difficult: 40
+    this.maxTargetsAtOnce = {
+      easy: 2,
+      difficult: 4
     };
     this.minTargetSize = {
       easy: 80,
-      difficult: 30
+      difficult: 50
     };
-    this.velocityMin = {
-      easy: -5,
-      difficult: -15
+    this.particleGrowthMultiplier = {
+      easy: 1.05,
+      difficult: 1.10
     };
-    this.velocityMax = {
-      easy: 5,
-      difficult: 15
+    this.particleSpawnChance = {
+      easy: 40,
+      difficult: 100
+    };
+    this.sizeMax = {
+      easy: 100,
+      difficult: 60
     };
     this.targetVelocityMultiplier = {
       easy: 0.3,
-      difficult: 1
+      difficult: 0.5
     };
-    this.propertiesToUpdateWithDifficulty = ['particleSpawnChance', 'chanceParticleIsTarget', 'particleGrowthMultiplier', 'sizeMax', 'minTargetSize', 'velocityMin', 'velocityMax', 'targetVelocityMultiplier'];
+    this.velocityMin = {
+      easy: -5,
+      difficult: -8
+    };
+    this.velocityMax = {
+      easy: 5,
+      difficult: 8
+    };
+    this.propertiesToUpdateWithDifficulty = ['particleSpawnChance', 'chanceParticleIsTarget', 'particleGrowthMultiplier', 'sizeMax', 'maxTargetsAtOnce', 'minTargetSize', 'velocityMin', 'velocityMax', 'targetVelocityMultiplier'];
   },
   setupDatGui: function() {
     var environment, gui, size, velocity;
@@ -252,7 +256,9 @@ Particle = Class.extend({
     }
   },
   determineTargetParticle: function() {
-    return utils.randomPercentage() < state.chanceParticleIsTarget;
+    if (particleGenerator.particlesToTestForTaps.length < state.maxTargetsAtOnce) {
+      return utils.randomPercentage() < state.chanceParticleIsTarget;
+    }
   },
   draw: function() {
     if (this.withinCanvasBounds()) {
@@ -443,6 +449,7 @@ State = Class.extend({
   },
   setup: function() {
     this.reset();
+    config.updateValuesForDifficulty();
   },
   setupLevelUpIncrement: function() {
     var self;
@@ -456,14 +463,15 @@ State = Class.extend({
     this.level = this.defaults.level;
     this.score = this.defaults.score;
     this.comboMultiplier = this.defaults.comboMultiplier;
-    this.particleSpawnChance = config.particleSpawnChance.easy;
     this.chanceParticleIsTarget = config.chanceParticleIsTarget.easy;
-    this.particleGrowthMultiplier = config.particleGrowthMultiplier.easy;
-    this.sizeMax = config.sizeMax.easy;
+    this.maxTargetsAtOnce = config.maxTargetsAtOnce.easy;
     this.minTargetSize = config.minTargetSize.easy;
+    this.particleGrowthMultiplier = config.particleGrowthMultiplier.easy;
+    this.particleSpawnChance = config.particleSpawnChance.easy;
+    this.sizeMax = config.sizeMax.easy;
+    this.targetVelocityMultiplier = config.targetVelocityMultiplier.easy;
     this.velocityMin = config.velocityMin.easy;
     this.velocityMax = config.velocityMax.easy;
-    this.targetVelocityMultiplier = config.targetVelocityMultiplier.easy;
   },
   updateComboMultiplier: function(targetHit) {
     state.comboMultiplier = targetHit ? state.comboMultiplier + 1 : 1;

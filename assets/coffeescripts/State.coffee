@@ -13,6 +13,8 @@ State = Class.extend
 
 		this.reset()
 
+		config.updateValuesForDifficulty()
+
 		return
 
 	setupLevelUpIncrement: ->
@@ -34,14 +36,15 @@ State = Class.extend
 		this.score = this.defaults.score
 		this.comboMultiplier = this.defaults.comboMultiplier
 
-		this.particleSpawnChance = config.particleSpawnChance.easy
 		this.chanceParticleIsTarget = config.chanceParticleIsTarget.easy
-		this.particleGrowthMultiplier = config.particleGrowthMultiplier.easy
-		this.sizeMax = config.sizeMax.easy
+		this.maxTargetsAtOnce = config.maxTargetsAtOnce.easy
 		this.minTargetSize = config.minTargetSize.easy
+		this.particleGrowthMultiplier = config.particleGrowthMultiplier.easy
+		this.particleSpawnChance = config.particleSpawnChance.easy
+		this.sizeMax = config.sizeMax.easy
+		this.targetVelocityMultiplier = config.targetVelocityMultiplier.easy
 		this.velocityMin = config.velocityMin.easy
 		this.velocityMax = config.velocityMax.easy
-		this.targetVelocityMultiplier = config.targetVelocityMultiplier.easy
 
 		return
 

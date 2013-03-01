@@ -7,43 +7,50 @@ Config = Class.extend
 		this.maxLevel = 50
 		this.pointsPerPop = 10
 
-		this.particleSpawnChance =
-			easy: 60
-			difficult: 100
-
 		this.chanceParticleIsTarget =
 			easy: 2
-			difficult: 5
+			difficult: 3
 
-		this.particleGrowthMultiplier =
-			easy: 1.05
-			difficult: 1.5
-
-		this.sizeMax =
-			easy: 80
-			difficult: 40
+		this.maxTargetsAtOnce =
+			easy: 2
+			difficult: 4
 
 		this.minTargetSize =
 			easy: 80
-			difficult: 30
+			difficult: 50
 
-		this.velocityMin =
-			easy: -5
-			difficult: -15
+		this.particleGrowthMultiplier =
+			easy: 1.05
+			difficult: 1.10
 
-		this.velocityMax =
-			easy: 5
-			difficult: 15
+		this.particleSpawnChance =
+			easy: 40
+			difficult: 100
+
+		this.sizeMax =
+			easy: 100
+			difficult: 60
 
 		this.targetVelocityMultiplier =
 			easy: 0.3
-			difficult: 1
+			difficult: 0.5
+
+		this.velocityMin =
+			easy: -5
+			difficult: -8
+
+		this.velocityMax =
+			easy: 5
+			difficult: 8
+
+
 
 		this.propertiesToUpdateWithDifficulty = [
 			'particleSpawnChance',
 			'chanceParticleIsTarget',
 			'particleGrowthMultiplier',
 			'sizeMax',
+			'maxTargetsAtOnce',
 			'minTargetSize',
 			'velocityMin',
 			'velocityMax'
