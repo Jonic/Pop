@@ -22,6 +22,8 @@ canvas.width = document.width;
 
 canvas.height = document.height;
 
+context.globalCompositeOperation = 'source-atop';
+
 devicePixelRatio = window.devicePixelRatio || 1;
 
 backingStoreRatio = context.webkitBackingStorePixelRatio || context.backingStorePixelRatio || 1;
@@ -333,7 +335,7 @@ Particle = (function() {
 
   Particle.prototype.updateValues = function() {
     if (this.destroying) {
-      this.size *= 0.5;
+      this.size *= 0.7;
     } else {
       if (this.size < this.finalSize) {
         this.size *= state.particleGrowthMultiplier;

@@ -75,7 +75,7 @@ class Particle
 	updateValues: ->
 
 		if this.destroying
-			this.size *= 0.5
+			this.size *= 0.7
 		else
 			if this.size < this.finalSize
 				this.size *= state.particleGrowthMultiplier
