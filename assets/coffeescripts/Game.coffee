@@ -1,35 +1,25 @@
-Game = Class.extend
-
-	init: ->
-
-		#config.setupDatGui() if debug
-
-		return
+class Game
 
 	run: ->
 
+		input.cancelTouchMoveEvents()
+		particleGenerator.init()
+		state.reset()
+		headsUp.reset()
+
 		animationLoop.requestAnimationFrame()
 
-		this.reset()
+		scenes.splash()
 
-		scenes.title()
-
-		return
+		@
 
 	reset: ->
 
-		state.reset()
-
-		headsUp.reset()
-
-		particleGenerator.reset()
-
-		return
+		@
 
 	start: ->
 
 		state.setupLevelUpIncrement()
-
 		particleGenerator.start()
 
-		return
+		@

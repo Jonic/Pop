@@ -1,14 +1,8 @@
-Scenes = Class.extend
-
-	init: ->
-
-		this.splash()
-
-		return
+class Scenes
 
 	credits: ->
 
-		return
+		@
 
 	gameOver: ->
 
@@ -18,30 +12,32 @@ Scenes = Class.extend
 
 		game.reset()
 
-		return
+		@
 
 	howToPlay: ->
 
-		return
+		@
 
 	installationPrompt: ->
 
 		utils.updateUITextNode('body', 'ADD THIS TO YOUR HOME SCREEN TO PLAY')
 
-		return
+		@
 
 	mobilePrompt: ->
 
 		utils.updateUITextNode('body', 'YOU NEED TO RUN THIS ON A MOBILE DEVICE')
 
-		return
+		@
 
 	splash: ->
 
-		return
+		this.title()
+
+		@
 
 	title: ->
 
 		game.start()
 
-		return
+		@

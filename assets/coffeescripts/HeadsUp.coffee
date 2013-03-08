@@ -1,14 +1,10 @@
-HeadsUp = Class.extend
+class HeadsUp
 
-	init: ->
-
-		this.levelCounter = '.level'
-		this.scoreCounter = '.score'
-		this.comboMultiplierCounter = '.combo'
-		this.tapX = '.tapX'
-		this.tapY = '.tapY'
-
-		return
+	levelCounter: '.level'
+	scoreCounter: '.score'
+	comboMultiplierCounter: '.combo'
+	tapX: '.tapX'
+	tapY: '.tapY'
 
 	reset: ->
 
@@ -16,22 +12,22 @@ HeadsUp = Class.extend
 		this.updateLevelCounter()
 		this.updateScoreCounter()
 
-		return
+		@
 
 	updateComboMultiplierCounter: ->
 
 		utils.updateUITextNode(this.comboMultiplierCounter, state.comboMultiplier)
 
-		return
+		@
 
 	updateLevelCounter: ->
 
 		utils.updateUITextNode(this.levelCounter, state.level)
 
-		return
+		@
 
 	updateScoreCounter: ->
 
 		utils.updateUITextNode(this.scoreCounter, state.score)
 
-		return
+		@

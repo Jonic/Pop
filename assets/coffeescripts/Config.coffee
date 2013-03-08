@@ -1,84 +1,57 @@
-Config = Class.extend
+class Config
 
-	init: ->
+	maxLineWidth: 5
+	levelUpInterval: 20
+	maxLevel: 50
+	pointsPerPop: 10
 
-		this.maxLineWidth = 10
-		this.levelUpInterval = 20
-		this.maxLevel = 50
-		this.pointsPerPop = 10
+	chanceParticleIsTarget:
+		easy: 2
+		difficult: 3
 
-		this.chanceParticleIsTarget =
-			easy: 2
-			difficult: 3
+	maxTargetsAtOnce:
+		easy: 2
+		difficult: 4
 
-		this.maxTargetsAtOnce =
-			easy: 2
-			difficult: 4
+	minTargetSize:
+		easy: 80
+		difficult: 50
 
-		this.minTargetSize =
-			easy: 80
-			difficult: 50
+	particleGrowthMultiplier:
+		easy: 1.05
+		difficult: 1.10
 
-		this.particleGrowthMultiplier =
-			easy: 1.05
-			difficult: 1.10
+	particleSpawnChance:
+		easy: 40
+		difficult: 100
 
-		this.particleSpawnChance =
-			easy: 40
-			difficult: 100
+	sizeMax:
+		easy: 100
+		difficult: 60
 
-		this.sizeMax =
-			easy: 100
-			difficult: 60
+	targetVelocityMultiplier:
+		easy: 0.3
+		difficult: 0.5
 
-		this.targetVelocityMultiplier =
-			easy: 0.3
-			difficult: 0.5
+	velocityMin:
+		easy: -5
+		difficult: -8
 
-		this.velocityMin =
-			easy: -5
-			difficult: -8
+	velocityMax:
+		easy: 5
+		difficult: 8
 
-		this.velocityMax =
-			easy: 5
-			difficult: 8
-
-
-
-		this.propertiesToUpdateWithDifficulty = [
-			'particleSpawnChance',
-			'chanceParticleIsTarget',
-			'particleGrowthMultiplier',
-			'sizeMax',
-			'maxTargetsAtOnce',
-			'minTargetSize',
-			'velocityMin',
-			'velocityMax'
-			'targetVelocityMultiplier'
-		]
-
-		return
-
-	setupDatGui: ->
-
-		gui = new dat.GUI()
-
-		environment = gui.addFolder('Environment')
-		environment.add(this, 'chanceParticleIsTarget', 0, 100)
-		environment.add(this, 'particleSpawnChance', 0, 100)
-		environment.add(this, 'maxLineWidth')
-
-		size = gui.addFolder('Size')
-		size.add(this, 'minTargetSize', 40)
-		size.add(this, 'sizeMin', 0)
-		size.add(this, 'sizeMax', 70)
-
-		velocity = gui.addFolder('Velocity')
-		velocity.add(this, 'targetVelocityMultiplier', 0.3)
-		velocity.add(this, 'velocityMin', -5)
-		velocity.add(this, 'velocityMax', 5)
-
-		return
+	propertiesToUpdateWithDifficulty: [
+		'particleSpawnChance',
+		'chanceParticleIsTarget',
+		'particleGrowthMultiplier',
+		'sizeMax',
+		'maxTargetsAtOnce',
+		'minTargetSize',
+		'velocityMin',
+		'velocityMax'
+		'targetVelocityMultiplier'
+	]
 
 	updateValuesForDifficulty: ->
 
@@ -90,4 +63,4 @@ Config = Class.extend
 
 			state[property] = (valueDifference * levelMulitplier) + propertyConfig.easy
 
-		return
+		@

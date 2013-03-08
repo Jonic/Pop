@@ -1,6 +1,3 @@
-###jshint plusplus:false, forin:false, eqeqeq:false ###
-###global Class, dat ###
-
 'use strict'
 
 android = if navigator.userAgent.match(/android/i) then true else false

@@ -1,13 +1,9 @@
-State = Class.extend
+class State
 
-	init: ->
-
-		this.defaults =
-			level: 1
-			score: 0
-			comboMultiplier: 0
-
-		return
+	defaults:
+		level: 1
+		score: 0
+		comboMultiplier: 0
 
 	setup: ->
 
@@ -15,7 +11,7 @@ State = Class.extend
 
 		config.updateValuesForDifficulty()
 
-		return
+		@
 
 	setupLevelUpIncrement: ->
 
@@ -26,7 +22,7 @@ State = Class.extend
 			return
 		, config.levelUpInterval * 1000
 
-		return
+		@
 
 	reset: ->
 
@@ -46,7 +42,7 @@ State = Class.extend
 		this.velocityMin = config.velocityMin.easy
 		this.velocityMax = config.velocityMax.easy
 
-		return
+		@
 
 	updateComboMultiplier: (targetHit) ->
 
@@ -54,13 +50,13 @@ State = Class.extend
 
 		headsUp.updateComboMultiplierCounter()
 
-		return
+		@
 
 	updateGameState: (newState) ->
 
 		this.gameState = newState
 
-		return
+		@
 
 	updateLevel: ->
 
@@ -72,7 +68,7 @@ State = Class.extend
 		headsUp.updateLevelCounter()
 		config.updateValuesForDifficulty()
 
-		return
+		@
 
 	updateScore: (sizeWhenTapped, sizeWhenFullyGrown) ->
 
@@ -86,4 +82,4 @@ State = Class.extend
 
 		headsUp.updateScoreCounter()
 
-		return
+		@

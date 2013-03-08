@@ -23,25 +23,21 @@
 			<li>Combo Multiplier: <span class="combo"></li>
 		</ul>
 
-		<script src="assets/vendor/dat.gui.min.js"></script>
-		<script src="assets/vendor/ejohn.inheritance.js"></script>
 		<script src="assets/vendor/requestAnimationFrame.js"></script>
 
 		<script src="assets/scripts/_application.js"></script>
 
 		<script>
-			if (!debug) {
-				var _gauges = _gauges || [];
-				(function() {
-					var t = document.createElement('script');
-					t.async = true;
-					t.id = 'gauges-tracker';
-					t.setAttribute('data-site-id', '511e9c71f5a1f51c4c000020');
-					t.src = '//secure.gaug.es/track.js';
-					var s = document.getElementsByTagName('script')[0];
-					s.parentNode.insertBefore(t, s);
-				}());
-			}
+			var _gauges = _gauges || [];
+			(function() {
+				var t = document.createElement('script');
+				t.async = true;
+				t.id = 'gauges-tracker';
+				t.setAttribute('data-site-id', '511e9c71f5a1f51c4c000020');
+				t.src = '//secure.gaug.es/track.js';
+				var s = document.getElementsByTagName('script')[0];
+				s.parentNode.insertBefore(t, s);
+			}());
 		</script>
 	</body>
 </html>

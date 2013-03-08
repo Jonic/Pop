@@ -8,6 +8,8 @@ utils = new Utils()
 scenes = new Scenes()
 state = new State()
 
+
+
 if android or homeScreenApp or debug
 	game.run()
 else if iOS

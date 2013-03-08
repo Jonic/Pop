@@ -1,9 +1,10 @@
-Input = Class.extend
+class Input
 
-	init: ->
+	cancelTouchMoveEvents: ->
 
 		window.addEventListener('touchmove', (event) ->
 			event.preventDefault()
+			return
 		)
 
-		return
+		@

@@ -1,6 +1,6 @@
 {
   "CodeKitInfo" : "This is a CodeKit project configuration file. It is designed to sync project settings across multiple machines. Modifying the contents of this file can be a poor life decision if you don't know what you're doing. This file is not useful unless accompanied by the project that created it in CodeKit. For more information, see: http:\/\/incident57.com\/codekit",
-  "creatorBuild" : "8248",
+  "creatorBuild" : "8283",
   "files" : {
     "\/assets\/coffeescripts\/Scenes.coffee" : {
       "ignoreWasSetByUser" : 1,
@@ -97,15 +97,6 @@
       "outputAbbreviatedPath" : "\/assets\/scripts\/_application-min.js",
       "fileType" : 64
     },
-    "\/index.php" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/index.php",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
-    },
     "\/assets\/coffeescripts\/ParticleGenerator.coffee" : {
       "ignoreWasSetByUser" : 1,
       "ignore" : 1,
@@ -117,6 +108,15 @@
       "outputAbbreviatedPath" : "\/assets\/scripts\/ParticleGenerator.js",
       "outputStyle" : 1,
       "fileType" : 32
+    },
+    "\/index.php" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/index.php",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
     },
     "\/assets\/coffeescripts\/Particle.coffee" : {
       "ignoreWasSetByUser" : 1,
@@ -151,17 +151,16 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 16
     },
-    "\/assets\/coffeescripts\/Utils.coffee" : {
-      "ignoreWasSetByUser" : 1,
-      "ignore" : 1,
+    "\/assets\/images\/icon.png" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/assets\/coffeescripts\/Utils.coffee",
-      "checkOutputStyle" : 1,
-      "minifyOutput" : 0,
-      "outputAbbreviatedPath" : "\/assets\/scripts\/Utils.js",
-      "outputStyle" : 1,
-      "fileType" : 32
+      "inputAbbreviatedPath" : "\/assets\/images\/icon.png",
+      "processed" : 0,
+      "outputAbbreviatedPath" : "\/assets\/images\/icon.png",
+      "initialSize" : 10975,
+      "fileType" : 8192
     },
     "\/assets\/coffeescripts\/State.coffee" : {
       "ignoreWasSetByUser" : 1,
@@ -175,16 +174,17 @@
       "outputStyle" : 1,
       "fileType" : 32
     },
-    "\/assets\/images\/icon.png" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
+    "\/assets\/coffeescripts\/Utils.coffee" : {
+      "ignoreWasSetByUser" : 1,
+      "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/assets\/images\/icon.png",
-      "processed" : 0,
-      "outputAbbreviatedPath" : "\/assets\/images\/icon.png",
-      "initialSize" : 10975,
-      "fileType" : 8192
+      "inputAbbreviatedPath" : "\/assets\/coffeescripts\/Utils.coffee",
+      "checkOutputStyle" : 1,
+      "minifyOutput" : 0,
+      "outputAbbreviatedPath" : "\/assets\/scripts\/Utils.js",
+      "outputStyle" : 1,
+      "fileType" : 32
     },
     "\/assets\/sass\/master.scss" : {
       "ignoreWasSetByUser" : 0,
@@ -395,7 +395,7 @@
       "forin" : 1,
       "loopfunc" : 0,
       "laxbreak" : 0,
-      "plusplus" : 1
+      "plusplus" : 0
     },
     "jsLintFlags" : {
       "white" : 0,

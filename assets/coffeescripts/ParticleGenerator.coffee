@@ -1,4 +1,4 @@
-ParticleGenerator = Class.extend
+class ParticleGenerator
 
 	init: ->
 
@@ -10,7 +10,18 @@ ParticleGenerator = Class.extend
 
 		this.setupParticleTapDetection()
 
-		return
+		@
+
+	animationLoopActions: ->
+
+		this.generateParticle()
+		this.updateParticlesValues()
+		this.removeParticlesAfterTap()
+
+		if this.particlesToDelete.length > 0
+			this.destroyParticlesOutsideCanvasBounds()
+
+		@
 
 	destroyParticlesOutsideCanvasBounds: ->
 
@@ -18,24 +29,41 @@ ParticleGenerator = Class.extend
 			particleIndex = this.particlesArrayIds.indexOf(particleId)
 			particle = this.particlesArray[particleIndex]
 
-			if particle.isTarget
-				scenes.gameOver()
+			if particle?
+				if particle.isTarget
+					this.gameOver()
 
-			this.removeParticle(particleIndex)
+				this.removeParticle(particle)
 
 		this.particlesToDelete = []
 
-		return
+		@
+
+	gameOver: ->
+
+		state.particleSpawnChance = 0
+
+		for particle in this.particlesArray
+			particle.destroying = true
+
+		scenes.gameOver()
+
+		@
 
 	generateParticle: ->
 
 		if utils.randomPercentage() < state.particleSpawnChance
 			newParticle = new Particle()
 
-			this.particlesArray.push(newParticle)
-			this.particlesArrayIds.push(newParticle.id)
+			particle = newParticle.init()
 
-		return
+			this.particlesArray.push(particle)
+			this.particlesArrayIds.push(particle.id)
+
+			if particle.isTarget
+				this.particlesToTestForTaps.push(particle.id)
+
+		@
 
 	particleTapDetectionHandler: ->
 
@@ -49,10 +77,9 @@ ParticleGenerator = Class.extend
 
 			if particle? and this.particleWasTapped(particle, touchData)
 				deletionIndex = this.particlesToTestForTaps.indexOf(particleId)
-
 				this.particlesToTestForTaps.splice(deletionIndex, 1)
-				this.removeParticle(particleIndex)
 
+				particle.destroying = true
 				targetHit = true
 
 				break
@@ -62,7 +89,7 @@ ParticleGenerator = Class.extend
 		if targetHit
 			state.updateScore(particle.size, particle.finalSize)
 
-		return
+		@
 
 	particleWasTapped: (particle, touchData) ->
 
@@ -81,12 +108,24 @@ ParticleGenerator = Class.extend
 
 		hitX and hitY
 
-	removeParticle: (index) ->
+	removeParticle: (particle) ->
+
+		id = particle.id
+
+		index = this.particlesArrayIds.indexOf(id)
 
 		this.particlesArray.splice(index, 1)
 		this.particlesArrayIds.splice(index, 1)
 
-		return
+		@
+
+	removeParticlesAfterTap: ->
+
+		for particle in this.particlesArray
+			if particle? and particle.size < 1
+				this.removeParticle(particle)
+
+		@
 
 	reset: ->
 
@@ -95,7 +134,7 @@ ParticleGenerator = Class.extend
 		this.particlesToDelete = []
 		this.particlesToTestForTaps = []
 
-		return
+		@
 
 	setupParticleTapDetection: ->
 
@@ -108,21 +147,21 @@ ParticleGenerator = Class.extend
 
 			return
 
-		return
+		@
 
 	start: ->
 
 		state.updateGameState('playing')
 
-		return
+		@
 
-	updateValuesAndDraw: ->
+	updateParticlesValues: ->
 
 		for particle in this.particlesArray
-			context.fillStyle = particle.color
-			context.strokeStyle = particle.color
+			if particle?
+				context.fillStyle = particle.color
+				context.strokeStyle = particle.color
 
-			particle.draw()
-			particle.updateValues()
+				particle.updateValues()
 
-		return
+		@

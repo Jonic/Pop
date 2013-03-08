@@ -1,14 +1,10 @@
-AnimationLoop = Class.extend
-
-	init: ->
-
-		return
+class AnimationLoop
 
 	cancelAnimationFrame: ->
 
 		window.cancelAnimationFrame(animationLoopId)
 
-		return
+		@
 
 	requestAnimationFrame: ->
 
@@ -21,8 +17,6 @@ AnimationLoop = Class.extend
 
 		canvas.width = canvas.width
 
-		particleGenerator.generateParticle()
-		particleGenerator.updateValuesAndDraw()
-		particleGenerator.destroyParticlesOutsideCanvasBounds()
+		particleGenerator.animationLoopActions()
 
-		return
+		@
