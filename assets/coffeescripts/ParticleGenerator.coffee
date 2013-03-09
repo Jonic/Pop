@@ -14,7 +14,9 @@ class ParticleGenerator
 
 	animationLoopActions: ->
 
-		this.generateParticle()
+		if state.gameState == 'playing'
+			this.generateParticle()
+
 		this.updateParticlesValues()
 		this.removeParticlesAfterTap()
 
@@ -41,10 +43,12 @@ class ParticleGenerator
 
 	gameOver: ->
 
-		state.particleSpawnChance = 0
+		this.stop()
 
 		for particle in this.particlesArray
 			particle.destroying = true
+
+		state.particleSpawnChance = 0
 
 		scenes.gameOver()
 
@@ -149,9 +153,10 @@ class ParticleGenerator
 
 		@
 
-	start: ->
+	stop: ->
 
-		state.updateGameState('playing')
+		state.updateGameState('stopped')
+		state.stopLevelUpIncrement()
 
 		@
 

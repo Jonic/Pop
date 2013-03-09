@@ -19,7 +19,10 @@ class Game
 
 	start: ->
 
-		state.setupLevelUpIncrement()
-		particleGenerator.start()
+		state.setup()
+		state.updateGameState('playing')
+
+		headsUp.reset()
+		particleGenerator.reset()
 
 		@

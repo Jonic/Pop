@@ -17,14 +17,22 @@
 	</head>
 
 	<body>
-		<ul class="debug">
-			<li>Level: <span class="level"></li>
-			<li>Score: <span class="score"></li>
-			<li>Combo Multiplier: <span class="combo"></li>
-		</ul>
+		<dl class="headsup hidden">
+			<dt class="hu-label hu-label-level">Level</dt>
+			<dd class="hu-value hu-value-level"></dd>
+
+			<dt class="hu-label hu-label-score">Score</dt>
+			<dd class="hu-value hu-value-score"></dd>
+
+			<dt class="hu-label hu-label-combo">Combo</dt>
+			<dd class="hu-value hu-value-combo"></dd>
+		</dl>
+
+		<div class="summary hidden">
+			<a class="play-again" href="#">Play Again</a>
+		</div>
 
 		<script src="assets/vendor/requestAnimationFrame.js"></script>
-
 		<script src="assets/scripts/_application.js"></script>
 
 		<script>

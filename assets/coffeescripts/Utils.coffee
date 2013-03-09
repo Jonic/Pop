@@ -2,10 +2,16 @@ class Utils
 
 	correctValueForDPR: (value, integer = false) ->
 
+		value *= devicePixelRatio
+
 		if integer
-			Math.round(value * devicePixelRatio)
-		else
-			value * devicePixelRatio
+			value = Math.round(value)
+
+		value
+
+	formatWithComma: (num) ->
+
+		num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 
 	random: (min, max) ->
 

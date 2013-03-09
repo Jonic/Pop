@@ -1,16 +1,29 @@
 class HeadsUp
 
-	levelCounter: '.level'
-	scoreCounter: '.score'
-	comboMultiplierCounter: '.combo'
-	tapX: '.tapX'
-	tapY: '.tapY'
+	containerElement: document.querySelector('.headsup')
+	levelCounter: '.hu-value-level'
+	scoreCounter: '.hu-value-score'
+	comboMultiplierCounter: '.hu-value-combo'
 
 	reset: ->
 
 		this.updateComboMultiplierCounter()
 		this.updateLevelCounter()
 		this.updateScoreCounter()
+
+		this.show()
+
+		@
+
+	hide: ->
+
+		this.containerElement.classList.add('hidden');
+
+		@
+
+	show: ->
+
+		this.containerElement.classList.remove('hidden');
 
 		@
 
@@ -28,6 +41,8 @@ class HeadsUp
 
 	updateScoreCounter: ->
 
-		utils.updateUITextNode(this.scoreCounter, state.score)
+		scoreToFormat = utils.formatWithComma(state.score)
+
+		utils.updateUITextNode(this.scoreCounter, scoreToFormat)
 
 		@

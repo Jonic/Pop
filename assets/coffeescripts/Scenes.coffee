@@ -6,11 +6,20 @@ class Scenes
 
 	gameOver: ->
 
-		alert('GAME OVER')
+		summary = document.querySelector('.summary')
+		playAgain = document.querySelector('.play-again')
 
-		animationLoop.cancelAnimationFrame()
+		summary.classList.remove('hidden')
 
-		game.reset()
+		playAgain.addEventListener('click', (event) ->
+			event.preventDefault();
+
+			summary.classList.add('hidden')
+
+			game.start()
+
+			return
+		)
 
 		@
 

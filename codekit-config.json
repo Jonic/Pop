@@ -57,7 +57,7 @@
       "outputPathIsSetByUser" : 0,
       "inputAbbreviatedPath" : "\/assets\/coffeescripts\/_application.coffee",
       "checkOutputStyle" : 1,
-      "minifyOutput" : 0,
+      "minifyOutput" : 1,
       "outputAbbreviatedPath" : "\/assets\/scripts\/_application.js",
       "outputStyle" : 1,
       "fileType" : 32
@@ -97,18 +97,6 @@
       "outputAbbreviatedPath" : "\/assets\/scripts\/_application-min.js",
       "fileType" : 64
     },
-    "\/assets\/coffeescripts\/Particle.coffee" : {
-      "ignoreWasSetByUser" : 1,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/assets\/coffeescripts\/Particle.coffee",
-      "checkOutputStyle" : 1,
-      "minifyOutput" : 0,
-      "outputAbbreviatedPath" : "\/assets\/scripts\/Particle.js",
-      "outputStyle" : 1,
-      "fileType" : 32
-    },
     "\/assets\/coffeescripts\/ParticleGenerator.coffee" : {
       "ignoreWasSetByUser" : 1,
       "ignore" : 1,
@@ -118,6 +106,18 @@
       "checkOutputStyle" : 1,
       "minifyOutput" : 0,
       "outputAbbreviatedPath" : "\/assets\/scripts\/ParticleGenerator.js",
+      "outputStyle" : 1,
+      "fileType" : 32
+    },
+    "\/assets\/coffeescripts\/Particle.coffee" : {
+      "ignoreWasSetByUser" : 1,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/assets\/coffeescripts\/Particle.coffee",
+      "checkOutputStyle" : 1,
+      "minifyOutput" : 0,
+      "outputAbbreviatedPath" : "\/assets\/scripts\/Particle.js",
       "outputStyle" : 1,
       "fileType" : 32
     },
@@ -163,6 +163,17 @@
       "outputStyle" : 1,
       "fileType" : 32
     },
+    "\/assets\/images\/icon.png" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/assets\/images\/icon.png",
+      "processed" : 0,
+      "outputAbbreviatedPath" : "\/assets\/images\/icon.png",
+      "initialSize" : 10975,
+      "fileType" : 8192
+    },
     "\/assets\/coffeescripts\/State.coffee" : {
       "ignoreWasSetByUser" : 1,
       "ignore" : 1,
@@ -175,28 +186,17 @@
       "outputStyle" : 1,
       "fileType" : 32
     },
-    "\/assets\/images\/icon.png" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/assets\/images\/icon.png",
-      "processed" : 0,
-      "outputAbbreviatedPath" : "\/assets\/images\/icon.png",
-      "initialSize" : 10975,
-      "fileType" : 8192
-    },
     "\/assets\/sass\/master.scss" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
       "inputAbbreviatedPath" : "\/assets\/sass\/master.scss",
-      "outputStyle" : 1,
+      "outputStyle" : 3,
       "shouldRunBless" : 1,
       "outputAbbreviatedPath" : "\/assets\/styles\/master.css",
       "fileType" : 4,
-      "debugStyle" : 2
+      "debugStyle" : 0
     }
   },
   "manualImportLinks" : [
@@ -454,7 +454,7 @@
     "slimAutoOutputPathStyle" : 0
   },
   "projectAttributes" : {
-    "bourbonEnabled" : 0,
+    "bourbonEnabled" : 1,
     "displayValue" : "Pop",
     "displayValueWasSetByUser" : 0,
     "compassEnabled" : 0

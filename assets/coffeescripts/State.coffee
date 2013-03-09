@@ -11,6 +11,14 @@ class State
 
 		config.updateValuesForDifficulty()
 
+		state.setupLevelUpIncrement()
+
+		@
+
+	stopLevelUpIncrement: ->
+
+		window.clearInterval this.levelUpCounter
+
 		@
 
 	setupLevelUpIncrement: ->
@@ -19,6 +27,7 @@ class State
 
 		this.levelUpCounter = window.setInterval ->
 			self.updateLevel()
+
 			return
 		, config.levelUpInterval * 1000
 
@@ -26,7 +35,7 @@ class State
 
 	reset: ->
 
-		window.clearInterval this.levelUpCounter
+		this.stopLevelUpIncrement()
 
 		this.level = this.defaults.level
 		this.score = this.defaults.score
