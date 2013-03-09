@@ -109,6 +109,15 @@
       "outputStyle" : 1,
       "fileType" : 32
     },
+    "\/index.php" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/index.php",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
     "\/assets\/coffeescripts\/Particle.coffee" : {
       "ignoreWasSetByUser" : 1,
       "ignore" : 1,
@@ -120,15 +129,6 @@
       "outputAbbreviatedPath" : "\/assets\/scripts\/Particle.js",
       "outputStyle" : 1,
       "fileType" : 32
-    },
-    "\/index.php" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/index.php",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
     },
     "\/assets\/coffeescripts\/_bootstrap.coffee" : {
       "ignoreWasSetByUser" : 1,
@@ -163,17 +163,6 @@
       "outputStyle" : 1,
       "fileType" : 32
     },
-    "\/assets\/images\/icon.png" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/assets\/images\/icon.png",
-      "processed" : 0,
-      "outputAbbreviatedPath" : "\/assets\/images\/icon.png",
-      "initialSize" : 10975,
-      "fileType" : 8192
-    },
     "\/assets\/coffeescripts\/State.coffee" : {
       "ignoreWasSetByUser" : 1,
       "ignore" : 1,
@@ -185,6 +174,17 @@
       "outputAbbreviatedPath" : "\/assets\/scripts\/State.js",
       "outputStyle" : 1,
       "fileType" : 32
+    },
+    "\/assets\/images\/icon.png" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/assets\/images\/icon.png",
+      "processed" : 0,
+      "outputAbbreviatedPath" : "\/assets\/images\/icon.png",
+      "initialSize" : 10975,
+      "fileType" : 8192
     },
     "\/assets\/sass\/master.scss" : {
       "ignoreWasSetByUser" : 0,

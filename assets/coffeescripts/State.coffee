@@ -55,7 +55,7 @@ class State
 
 	updateComboMultiplier: (targetHit) ->
 
-		state.comboMultiplier = if targetHit then state.comboMultiplier + 1 else 1
+		this.comboMultiplier = if targetHit then this.comboMultiplier + 1 else this.defaults.comboMultiplier
 
 		headsUp.updateComboMultiplierCounter()
 
