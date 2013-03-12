@@ -1,17 +1,13 @@
 class State
 
-	defaults:
-		level: 1
-		score: 0
-		comboMultiplier: 0
+	init: ->
 
-	setup: ->
+		this.defaults =
+			level: 1
+			score: 0
+			comboMultiplier: 0
 
-		this.reset()
-
-		config.updateValuesForDifficulty()
-
-		state.setupLevelUpIncrement()
+		this.setToInitialState()
 
 		@
 
@@ -33,9 +29,7 @@ class State
 
 		@
 
-	reset: ->
-
-		this.stopLevelUpIncrement()
+	setToInitialState: ->
 
 		this.level = this.defaults.level
 		this.score = this.defaults.score
@@ -50,6 +44,10 @@ class State
 		this.targetVelocityMultiplier = config.targetVelocityMultiplier.easy
 		this.velocityMin = config.velocityMin.easy
 		this.velocityMax = config.velocityMax.easy
+
+		state.updateGameState('playing')
+		config.updateValuesForDifficulty()
+		state.setupLevelUpIncrement()
 
 		@
 

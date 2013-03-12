@@ -1,57 +1,61 @@
 class Config
 
-	maxLineWidth: 5
-	levelUpInterval: 20
-	maxLevel: 50
-	pointsPerPop: 10
+	init: ->
 
-	chanceParticleIsTarget:
-		easy: 2
-		difficult: 3
+		this.maxLineWidth = 5
+		this.levelUpInterval = 20
+		this.maxLevel = 50
+		this.pointsPerPop = 10
 
-	maxTargetsAtOnce:
-		easy: 2
-		difficult: 4
+		this.chanceParticleIsTarget =
+			easy: 2
+			difficult: 3
 
-	minTargetSize:
-		easy: 80
-		difficult: 50
+		this.maxTargetsAtOnce =
+			easy: 2
+			difficult: 4
 
-	particleGrowthMultiplier:
-		easy: 1.05
-		difficult: 1.10
+		this.minTargetSize =
+			easy: 80
+			difficult: 50
 
-	particleSpawnChance:
-		easy: 40
-		difficult: 100
+		this.particleGrowthMultiplier =
+			easy: 1.05
+			difficult: 1.10
 
-	sizeMax:
-		easy: 100
-		difficult: 60
+		this.particleSpawnChance =
+			easy: 40
+			difficult: 100
 
-	targetVelocityMultiplier:
-		easy: 0.3
-		difficult: 0.5
+		this.sizeMax =
+			easy: 100
+			difficult: 60
 
-	velocityMin:
-		easy: -5
-		difficult: -8
+		this.targetVelocityMultiplier =
+			easy: 0.3
+			difficult: 0.5
 
-	velocityMax:
-		easy: 5
-		difficult: 8
+		this.velocityMin =
+			easy: -5
+			difficult: -8
 
-	propertiesToUpdateWithDifficulty: [
-		'particleSpawnChance',
-		'chanceParticleIsTarget',
-		'particleGrowthMultiplier',
-		'sizeMax',
-		'maxTargetsAtOnce',
-		'minTargetSize',
-		'velocityMin',
-		'velocityMax'
-		'targetVelocityMultiplier'
-	]
+		this.velocityMax =
+			easy: 5
+			difficult: 8
+
+		this.propertiesToUpdateWithDifficulty = [
+			'particleSpawnChance',
+			'chanceParticleIsTarget',
+			'particleGrowthMultiplier',
+			'sizeMax',
+			'maxTargetsAtOnce',
+			'minTargetSize',
+			'velocityMin',
+			'velocityMax'
+			'targetVelocityMultiplier'
+		]
+
+		@
 
 	updateValuesForDifficulty: ->
 

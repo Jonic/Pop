@@ -6,8 +6,7 @@ class ParticleGenerator
 			x: canvas.width / 2
 			y: canvas.height / 2
 
-		this.reset()
-
+		this.setToInitialState()
 		this.setupParticleTapDetection()
 
 		@
@@ -50,7 +49,7 @@ class ParticleGenerator
 
 		state.particleSpawnChance = 0
 
-		scenes.gameOver()
+		game.over()
 
 		@
 
@@ -131,7 +130,7 @@ class ParticleGenerator
 
 		@
 
-	reset: ->
+	setToInitialState: ->
 
 		this.particlesArray = []
 		this.particlesArrayIds = []

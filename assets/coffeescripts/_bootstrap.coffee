@@ -11,7 +11,7 @@ state = new State()
 
 
 if android or homeScreenApp or debug
-	game.run()
+	game.init()
 else if iOS
 	scenes.installationPrompt()
 else

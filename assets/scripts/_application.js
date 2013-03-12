@@ -1,1 +1,802 @@
-"use strict";var e,t,n,r,i,s,o,u,a,f,l,c,h,p,d,v,m,g,y,b,w,E,S,x,T,N,C,k,L,A,O;l=navigator.userAgent.match(/android/i)?!0:!1;S=navigator.userAgent.match(/(iPad|iPhone|iPod)/i)?!0:!1;E=S&&navigator.standalone;g=!0;h=null;d=document.createElement("canvas");m=d.getContext("2d");document.body.appendChild(d);d.width=document.width;d.height=document.height;m.globalCompositeOperation="source-atop";y=window.devicePixelRatio||1;p=m.webkitBackingStorePixelRatio||m.backingStorePixelRatio||1;k=y/p;if(y!==p){N=d.width;T=d.height;d.width=N*k;d.height=T*k;d.style.width=N+"px";d.style.height=T+"px";m.scale(k,k)}e=function(){function e(){}e.prototype.cancelAnimationFrame=function(){window.cancelAnimationFrame(h);return this};e.prototype.requestAnimationFrame=function(){var e;e=this;h=window.requestAnimationFrame(function(){e.requestAnimationFrame()});d.width=d.width;C.animationLoopActions();return this};return e}();t=function(){function e(){}e.prototype.maxLineWidth=5;e.prototype.levelUpInterval=20;e.prototype.maxLevel=50;e.prototype.pointsPerPop=10;e.prototype.chanceParticleIsTarget={easy:2,difficult:3};e.prototype.maxTargetsAtOnce={easy:2,difficult:4};e.prototype.minTargetSize={easy:80,difficult:50};e.prototype.particleGrowthMultiplier={easy:1.05,difficult:1.1};e.prototype.particleSpawnChance={easy:40,difficult:100};e.prototype.sizeMax={easy:100,difficult:60};e.prototype.targetVelocityMultiplier={easy:.3,difficult:.5};e.prototype.velocityMin={easy:-5,difficult:-8};e.prototype.velocityMax={easy:5,difficult:8};e.prototype.propertiesToUpdateWithDifficulty=["particleSpawnChance","chanceParticleIsTarget","particleGrowthMultiplier","sizeMax","maxTargetsAtOnce","minTargetSize","velocityMin","velocityMax","targetVelocityMultiplier"];e.prototype.updateValuesForDifficulty=function(){var e,t,n,r,i,s,o;o=this.propertiesToUpdateWithDifficulty;for(i=0,s=o.length;i<s;i++){t=o[i];n=this[t];r=n.difficult-n.easy;e=A.level/this.maxLevel;A[t]=r*e+n.easy}return this};return e}();n=function(){function e(){}e.prototype.run=function(){x.cancelTouchMoveEvents();C.init();A.reset();w.reset();c.requestAnimationFrame();L.splash();return this};e.prototype.reset=function(){return this};e.prototype.start=function(){A.setup();A.updateGameState("playing");w.reset();C.reset();return this};return e}();r=function(){function e(){}e.prototype.containerElement=document.querySelector(".headsup");e.prototype.levelCounter=".hu-value-level";e.prototype.scoreCounter=".hu-value-score";e.prototype.comboMultiplierCounter=".hu-value-combo";e.prototype.reset=function(){this.updateComboMultiplierCounter();this.updateLevelCounter();this.updateScoreCounter();this.show();return this};e.prototype.hide=function(){this.containerElement.classList.add("hidden");return this};e.prototype.show=function(){this.containerElement.classList.remove("hidden");return this};e.prototype.updateComboMultiplierCounter=function(){O.updateUITextNode(this.comboMultiplierCounter,A.comboMultiplier);return this};e.prototype.updateLevelCounter=function(){O.updateUITextNode(this.levelCounter,A.level);return this};e.prototype.updateScoreCounter=function(){var e;e=O.formatWithComma(A.score);O.updateUITextNode(this.scoreCounter,e);return this};return e}();i=function(){function e(){}e.prototype.cancelTouchMoveEvents=function(){window.addEventListener("touchmove",function(e){e.preventDefault()});return this};return e}();s=function(){function e(){}e.prototype.init=function(){var e;e={r:O.randomInteger(0,200),g:O.randomInteger(0,200),b:O.randomInteger(0,200),a:O.random(.75,1)};this.color="rgba("+e.r+", "+e.g+", "+e.b+", "+e.a+")";this.destroying=!1;this.finalSize=O.randomInteger(0,A.sizeMax);this.id=Math.random().toString(36).substr(2,5);this.isTarget=this.determineTargetParticle();this.position={x:C.particlesOrigin.x,y:C.particlesOrigin.y};this.size=1;this.velocity={x:O.random(A.velocityMin,A.velocityMax),y:O.random(A.velocityMin,A.velocityMax)};if(this.isTarget){this.color="rgba("+e.r+", "+e.g+", "+e.b+", 0.8)";this.finalSize=O.randomInteger(A.minTargetSize,A.sizeMax);this.velocity.x*=A.targetVelocityMultiplier;this.velocity.y*=A.targetVelocityMultiplier}return this};e.prototype.determineTargetParticle=function(){var e;e=!1;C.particlesToTestForTaps.length<A.maxTargetsAtOnce&&(e=O.randomPercentage()<A.chanceParticleIsTarget);return e};e.prototype.draw=function(){if(this.outsideCanvasBounds()){C.particlesToDelete.push(this.id);return}if(this.isTarget){this.lineWidth=this.size/10;this.lineWidth>v.maxLineWidth&&(this.lineWidth=v.maxLineWidth);m.fillStyle="rgba(247, 247, 247, 0.9)";m.lineWidth=this.lineWidth}m.beginPath();m.arc(this.position.x,this.position.y,this.half,0,Math.PI*2,!0);m.fill();this.isTarget&&m.stroke();m.closePath();return this};e.prototype.outsideCanvasBounds=function(){var e,t;e=this.position.x<-this.finalSize||this.position.x>d.width+this.finalSize;t=this.position.y<-this.finalSize||this.position.y>d.height+this.finalSize;return e||t};e.prototype.updateValues=function(){var e;if(this.destroying){e=A.gameState==="playing"?.7:.9;this.size*=e}else{this.size<this.finalSize&&(this.size*=A.particleGrowthMultiplier);this.size>this.finalSize&&(this.size=this.finalSize)}this.half=this.size/2;this.position.x+=this.velocity.x;this.position.y+=this.velocity.y;this.draw();return this};return e}();o=function(){function e(){}e.prototype.init=function(){this.particlesOrigin={x:d.width/2,y:d.height/2};this.reset();this.setupParticleTapDetection();return this};e.prototype.animationLoopActions=function(){A.gameState==="playing"&&this.generateParticle();this.updateParticlesValues();this.removeParticlesAfterTap();this.particlesToDelete.length>0&&this.destroyParticlesOutsideCanvasBounds();return this};e.prototype.destroyParticlesOutsideCanvasBounds=function(){var e,t,n,r,i,s;s=this.particlesToDelete;for(r=0,i=s.length;r<i;r++){t=s[r];n=this.particlesArrayIds.indexOf(t);e=this.particlesArray[n];if(e!=null){e.isTarget&&this.gameOver();this.removeParticle(e)}}this.particlesToDelete=[];return this};e.prototype.gameOver=function(){var e,t,n,r;this.stop();r=this.particlesArray;for(t=0,n=r.length;t<n;t++){e=r[t];e.destroying=!0}A.particleSpawnChance=0;L.gameOver();return this};e.prototype.generateParticle=function(){var e,t;if(O.randomPercentage()<A.particleSpawnChance){e=new s;t=e.init();this.particlesArray.push(t);this.particlesArrayIds.push(t.id);t.isTarget&&this.particlesToTestForTaps.push(t.id)}return this};e.prototype.particleTapDetectionHandler=function(){var e,t,n,r,i,s,o,u,a;i=!1;a=this.particlesToTestForTaps.reverse();for(o=0,u=a.length;o<u;o++){n=a[o];r=this.particlesArrayIds.indexOf(n);t=this.particlesArray[r];s=event.touches[0];if(t!=null&&this.particleWasTapped(t,s)){e=this.particlesToTestForTaps.indexOf(n);this.particlesToTestForTaps.splice(e,1);t.destroying=!0;i=!0;break}}A.updateComboMultiplier(i);i&&A.updateScore(t.size,t.finalSize);return this};e.prototype.particleWasTapped=function(e,t){var n,r,i,s,o,u,a,f;a=t.pageX*y;f=t.pageY*y;o=e.position.x-e.half;i=o+e.size;n=a>=o&&a<=i;u=e.position.y-e.half;s=u+e.size;r=f>=u&&f<=s;return n&&r};e.prototype.removeParticle=function(e){var t,n;t=e.id;n=this.particlesArrayIds.indexOf(t);this.particlesArray.splice(n,1);this.particlesArrayIds.splice(n,1);return this};e.prototype.removeParticlesAfterTap=function(){var e,t,n,r;r=this.particlesArray;for(t=0,n=r.length;t<n;t++){e=r[t];e!=null&&e.size<1&&this.removeParticle(e)}return this};e.prototype.reset=function(){this.particlesArray=[];this.particlesArrayIds=[];this.particlesToDelete=[];this.particlesToTestForTaps=[];return this};e.prototype.setupParticleTapDetection=function(){var e;e=this;this.particlesToTestForTaps=[];window.addEventListener("touchstart",function(){e.particleTapDetectionHandler()});return this};e.prototype.stop=function(){A.updateGameState("stopped");A.stopLevelUpIncrement();return this};e.prototype.updateParticlesValues=function(){var e,t,n,r;r=this.particlesArray;for(t=0,n=r.length;t<n;t++){e=r[t];if(e!=null){m.fillStyle=e.color;m.strokeStyle=e.color;e.updateValues()}}return this};return e}();u=function(){function e(){}e.prototype.credits=function(){return this};e.prototype.gameOver=function(){var e,t;t=document.querySelector(".summary");e=document.querySelector(".play-again");t.classList.remove("hidden");e.addEventListener("click",function(e){e.preventDefault();t.classList.add("hidden");b.start()});return this};e.prototype.howToPlay=function(){return this};e.prototype.installationPrompt=function(){O.updateUITextNode("body","ADD THIS TO YOUR HOME SCREEN TO PLAY");return this};e.prototype.mobilePrompt=function(){O.updateUITextNode("body","YOU NEED TO RUN THIS ON A MOBILE DEVICE");return this};e.prototype.splash=function(){this.title();return this};e.prototype.title=function(){b.start();return this};return e}();a=function(){function e(){}e.prototype.defaults={level:1,score:0,comboMultiplier:0};e.prototype.setup=function(){this.reset();v.updateValuesForDifficulty();A.setupLevelUpIncrement();return this};e.prototype.stopLevelUpIncrement=function(){window.clearInterval(this.levelUpCounter);return this};e.prototype.setupLevelUpIncrement=function(){var e;e=this;this.levelUpCounter=window.setInterval(function(){e.updateLevel()},v.levelUpInterval*1e3);return this};e.prototype.reset=function(){this.stopLevelUpIncrement();this.level=this.defaults.level;this.score=this.defaults.score;this.comboMultiplier=this.defaults.comboMultiplier;this.chanceParticleIsTarget=v.chanceParticleIsTarget.easy;this.maxTargetsAtOnce=v.maxTargetsAtOnce.easy;this.minTargetSize=v.minTargetSize.easy;this.particleGrowthMultiplier=v.particleGrowthMultiplier.easy;this.particleSpawnChance=v.particleSpawnChance.easy;this.sizeMax=v.sizeMax.easy;this.targetVelocityMultiplier=v.targetVelocityMultiplier.easy;this.velocityMin=v.velocityMin.easy;this.velocityMax=v.velocityMax.easy;return this};e.prototype.updateComboMultiplier=function(e){this.comboMultiplier=e?this.comboMultiplier+1:this.defaults.comboMultiplier;w.updateComboMultiplierCounter();return this};e.prototype.updateGameState=function(e){this.gameState=e;return this};e.prototype.updateLevel=function(){this.level+=1;this.level>=v.maxLevel&&window.clearInterval(this.levelUpCounter);w.updateLevelCounter();v.updateValuesForDifficulty();return this};e.prototype.updateScore=function(e,t){var n,r,i;i=Math.round(100-e/t*100);r=v.pointsPerPop+i;n=this.level+1;this.score+=r*this.comboMultiplier*n;w.updateScoreCounter();return this};return e}();f=function(){function e(){}e.prototype.correctValueForDPR=function(e,t){t==null&&(t=!1);e*=y;t&&(e=Math.round(e));return e};e.prototype.formatWithComma=function(e){return e.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")};e.prototype.random=function(e,t){if(e===void 0){e=0;t=1}else if(t===void 0){t=e;e=0}return Math.random()*(t-e)+e};e.prototype.randomColor=function(e){var t;e==null&&(e=!1);t={r:this.randomInteger(0,200),g:this.randomInteger(0,200),b:this.randomInteger(0,200),a:e?e:this.random(.75,1)};return"rgba("+t.r+", "+t.g+", "+t.b+", "+t.a+")"};e.prototype.randomInteger=function(e,t){if(t===void 0){t=e;e=0}return Math.floor(Math.random()*(t+1-e))+e};e.prototype.randomPercentage=function(){return Math.floor(Math.random()*100)};e.prototype.updateUITextNode=function(e,t){var n;n=document.querySelector(e);n.innerHTML=t;return this};return e}();c=new e;v=new t;b=new n;w=new r;x=new i;C=new o;O=new f;L=new u;A=new a;l||E||g?b.run():S?L.installationPrompt():L.mobilePrompt();
+// Generated by CoffeeScript 1.6.1
+'use strict';
+var AnimationLoop, Config, Game, HeadsUp, Input, Particle, ParticleGenerator, Scenes, State, Utils, android, animationLoop, animationLoopId, backingStoreRatio, canvas, config, context, debug, devicePixelRatio, game, headsUp, homeScreenApp, iOS, input, oldHeight, oldWidth, particleGenerator, ratio, scenes, state, utils;
+
+android = navigator.userAgent.match(/android/i) ? true : false;
+
+iOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/i) ? true : false;
+
+homeScreenApp = iOS && navigator.standalone;
+
+debug = true;
+
+animationLoopId = null;
+
+canvas = document.createElement('canvas');
+
+context = canvas.getContext('2d');
+
+document.body.appendChild(canvas);
+
+canvas.width = document.width;
+
+canvas.height = document.height;
+
+context.globalCompositeOperation = 'source-atop';
+
+devicePixelRatio = window.devicePixelRatio || 1;
+
+backingStoreRatio = context.webkitBackingStorePixelRatio || context.backingStorePixelRatio || 1;
+
+ratio = devicePixelRatio / backingStoreRatio;
+
+if (devicePixelRatio !== backingStoreRatio) {
+  oldWidth = canvas.width;
+  oldHeight = canvas.height;
+  canvas.width = oldWidth * ratio;
+  canvas.height = oldHeight * ratio;
+  canvas.style.width = oldWidth + 'px';
+  canvas.style.height = oldHeight + 'px';
+  context.scale(ratio, ratio);
+}
+
+/* --------------------------------------------
+     Begin AnimationLoop.coffee
+--------------------------------------------
+*/
+
+
+AnimationLoop = (function() {
+
+  function AnimationLoop() {}
+
+  AnimationLoop.prototype.init = function() {
+    this.requestAnimationFrame();
+    return this;
+  };
+
+  AnimationLoop.prototype.cancelAnimationFrame = function() {
+    window.cancelAnimationFrame(animationLoopId);
+    return this;
+  };
+
+  AnimationLoop.prototype.requestAnimationFrame = function() {
+    var self;
+    self = this;
+    animationLoopId = window.requestAnimationFrame(function() {
+      self.requestAnimationFrame();
+    });
+    canvas.width = canvas.width;
+    particleGenerator.animationLoopActions();
+    return this;
+  };
+
+  return AnimationLoop;
+
+})();
+
+/* --------------------------------------------
+     Begin Config.coffee
+--------------------------------------------
+*/
+
+
+Config = (function() {
+
+  function Config() {}
+
+  Config.prototype.init = function() {
+    this.maxLineWidth = 5;
+    this.levelUpInterval = 20;
+    this.maxLevel = 50;
+    this.pointsPerPop = 10;
+    this.chanceParticleIsTarget = {
+      easy: 2,
+      difficult: 3
+    };
+    this.maxTargetsAtOnce = {
+      easy: 2,
+      difficult: 4
+    };
+    this.minTargetSize = {
+      easy: 80,
+      difficult: 50
+    };
+    this.particleGrowthMultiplier = {
+      easy: 1.05,
+      difficult: 1.10
+    };
+    this.particleSpawnChance = {
+      easy: 40,
+      difficult: 100
+    };
+    this.sizeMax = {
+      easy: 100,
+      difficult: 60
+    };
+    this.targetVelocityMultiplier = {
+      easy: 0.3,
+      difficult: 0.5
+    };
+    this.velocityMin = {
+      easy: -5,
+      difficult: -8
+    };
+    this.velocityMax = {
+      easy: 5,
+      difficult: 8
+    };
+    this.propertiesToUpdateWithDifficulty = ['particleSpawnChance', 'chanceParticleIsTarget', 'particleGrowthMultiplier', 'sizeMax', 'maxTargetsAtOnce', 'minTargetSize', 'velocityMin', 'velocityMax', 'targetVelocityMultiplier'];
+    return this;
+  };
+
+  Config.prototype.updateValuesForDifficulty = function() {
+    var levelMulitplier, property, propertyConfig, valueDifference, _i, _len, _ref;
+    _ref = this.propertiesToUpdateWithDifficulty;
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      property = _ref[_i];
+      propertyConfig = this[property];
+      valueDifference = propertyConfig.difficult - propertyConfig.easy;
+      levelMulitplier = state.level / this.maxLevel;
+      state[property] = (valueDifference * levelMulitplier) + propertyConfig.easy;
+    }
+    return this;
+  };
+
+  return Config;
+
+})();
+
+/* --------------------------------------------
+     Begin Game.coffee
+--------------------------------------------
+*/
+
+
+Game = (function() {
+
+  function Game() {}
+
+  Game.prototype.init = function() {
+    config.init();
+    particleGenerator.init();
+    state.init();
+    headsUp.init();
+    input.init();
+    animationLoop.init();
+    scenes.splash();
+    return this;
+  };
+
+  Game.prototype.over = function() {
+    scenes.gameOver();
+    state.stopLevelUpIncrement();
+    return this;
+  };
+
+  Game.prototype.reset = function() {
+    return this;
+  };
+
+  Game.prototype.start = function() {
+    state.setToInitialState();
+    headsUp.setToInitialState();
+    particleGenerator.setToInitialState();
+    return this;
+  };
+
+  return Game;
+
+})();
+
+/* --------------------------------------------
+     Begin HeadsUp.coffee
+--------------------------------------------
+*/
+
+
+HeadsUp = (function() {
+
+  function HeadsUp() {}
+
+  HeadsUp.prototype.init = function() {
+    this.containerElement = document.querySelector('.headsup');
+    this.levelCounter = '.hu-value-level';
+    this.scoreCounter = '.hu-value-score';
+    this.comboMultiplierCounter = '.hu-value-combo';
+    return this;
+  };
+
+  HeadsUp.prototype.hide = function() {
+    this.containerElement.classList.add('hidden');
+    return this;
+  };
+
+  HeadsUp.prototype.setToInitialState = function() {
+    this.updateComboMultiplierCounter();
+    this.updateLevelCounter();
+    this.updateScoreCounter();
+    this.show();
+    return this;
+  };
+
+  HeadsUp.prototype.show = function() {
+    this.containerElement.classList.remove('hidden');
+    return this;
+  };
+
+  HeadsUp.prototype.updateComboMultiplierCounter = function() {
+    utils.updateUITextNode(this.comboMultiplierCounter, state.comboMultiplier);
+    return this;
+  };
+
+  HeadsUp.prototype.updateLevelCounter = function() {
+    utils.updateUITextNode(this.levelCounter, state.level);
+    return this;
+  };
+
+  HeadsUp.prototype.updateScoreCounter = function() {
+    var scoreToFormat;
+    scoreToFormat = utils.formatWithComma(state.score);
+    utils.updateUITextNode(this.scoreCounter, scoreToFormat);
+    return this;
+  };
+
+  return HeadsUp;
+
+})();
+
+/* --------------------------------------------
+     Begin Input.coffee
+--------------------------------------------
+*/
+
+
+Input = (function() {
+
+  function Input() {}
+
+  Input.prototype.init = function() {
+    this.cancelTouchMoveEvents();
+    return this;
+  };
+
+  Input.prototype.cancelTouchMoveEvents = function() {
+    window.addEventListener('touchmove', function(event) {
+      event.preventDefault();
+    });
+    return this;
+  };
+
+  return Input;
+
+})();
+
+/* --------------------------------------------
+     Begin Particle.coffee
+--------------------------------------------
+*/
+
+
+Particle = (function() {
+
+  function Particle() {}
+
+  Particle.prototype.init = function() {
+    var colors;
+    colors = {
+      r: utils.randomInteger(0, 200),
+      g: utils.randomInteger(0, 200),
+      b: utils.randomInteger(0, 200),
+      a: utils.random(0.75, 1)
+    };
+    this.color = 'rgba(' + colors.r + ', ' + colors.g + ', ' + colors.b + ', ' + colors.a + ')';
+    this.destroying = false;
+    this.finalSize = utils.randomInteger(0, state.sizeMax);
+    this.id = Math.random().toString(36).substr(2, 5);
+    this.isTarget = this.determineTargetParticle();
+    this.position = {
+      x: particleGenerator.particlesOrigin.x,
+      y: particleGenerator.particlesOrigin.y
+    };
+    this.size = 1;
+    this.velocity = {
+      x: utils.random(state.velocityMin, state.velocityMax),
+      y: utils.random(state.velocityMin, state.velocityMax)
+    };
+    if (this.isTarget) {
+      this.color = 'rgba(' + colors.r + ', ' + colors.g + ', ' + colors.b + ', 0.8)';
+      this.finalSize = utils.randomInteger(state.minTargetSize, state.sizeMax);
+      this.velocity.x *= state.targetVelocityMultiplier;
+      this.velocity.y *= state.targetVelocityMultiplier;
+    }
+    return this;
+  };
+
+  Particle.prototype.determineTargetParticle = function() {
+    var isTarget;
+    isTarget = false;
+    if (particleGenerator.particlesToTestForTaps.length < state.maxTargetsAtOnce) {
+      isTarget = utils.randomPercentage() < state.chanceParticleIsTarget;
+    }
+    return isTarget;
+  };
+
+  Particle.prototype.draw = function() {
+    if (this.outsideCanvasBounds()) {
+      particleGenerator.particlesToDelete.push(this.id);
+      return;
+    }
+    if (this.isTarget) {
+      this.lineWidth = this.size / 10;
+      if (this.lineWidth > config.maxLineWidth) {
+        this.lineWidth = config.maxLineWidth;
+      }
+      context.fillStyle = 'rgba(247, 247, 247, 0.9)';
+      context.lineWidth = this.lineWidth;
+    }
+    context.beginPath();
+    context.arc(this.position.x, this.position.y, this.half, 0, Math.PI * 2, true);
+    context.fill();
+    if (this.isTarget) {
+      context.stroke();
+    }
+    context.closePath();
+    return this;
+  };
+
+  Particle.prototype.outsideCanvasBounds = function() {
+    var beyondBoundsX, beyondBoundsY;
+    beyondBoundsX = this.position.x < -this.finalSize || this.position.x > canvas.width + this.finalSize;
+    beyondBoundsY = this.position.y < -this.finalSize || this.position.y > canvas.height + this.finalSize;
+    return beyondBoundsX || beyondBoundsY;
+  };
+
+  Particle.prototype.updateValues = function() {
+    var shrinkMultiplier;
+    if (this.destroying) {
+      shrinkMultiplier = state.gameState === 'playing' ? 0.7 : 0.9;
+      this.size *= shrinkMultiplier;
+    } else {
+      if (this.size < this.finalSize) {
+        this.size *= state.particleGrowthMultiplier;
+      }
+      if (this.size > this.finalSize) {
+        this.size = this.finalSize;
+      }
+    }
+    this.half = this.size / 2;
+    this.position.x += this.velocity.x;
+    this.position.y += this.velocity.y;
+    this.draw();
+    return this;
+  };
+
+  return Particle;
+
+})();
+
+/* --------------------------------------------
+     Begin ParticleGenerator.coffee
+--------------------------------------------
+*/
+
+
+ParticleGenerator = (function() {
+
+  function ParticleGenerator() {}
+
+  ParticleGenerator.prototype.init = function() {
+    this.particlesOrigin = {
+      x: canvas.width / 2,
+      y: canvas.height / 2
+    };
+    this.setToInitialState();
+    this.setupParticleTapDetection();
+    return this;
+  };
+
+  ParticleGenerator.prototype.animationLoopActions = function() {
+    if (state.gameState === 'playing') {
+      this.generateParticle();
+    }
+    this.updateParticlesValues();
+    this.removeParticlesAfterTap();
+    if (this.particlesToDelete.length > 0) {
+      this.destroyParticlesOutsideCanvasBounds();
+    }
+    return this;
+  };
+
+  ParticleGenerator.prototype.destroyParticlesOutsideCanvasBounds = function() {
+    var particle, particleId, particleIndex, _i, _len, _ref;
+    _ref = this.particlesToDelete;
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      particleId = _ref[_i];
+      particleIndex = this.particlesArrayIds.indexOf(particleId);
+      particle = this.particlesArray[particleIndex];
+      if (particle != null) {
+        if (particle.isTarget) {
+          this.gameOver();
+        }
+        this.removeParticle(particle);
+      }
+    }
+    this.particlesToDelete = [];
+    return this;
+  };
+
+  ParticleGenerator.prototype.gameOver = function() {
+    var particle, _i, _len, _ref;
+    this.stop();
+    _ref = this.particlesArray;
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      particle = _ref[_i];
+      particle.destroying = true;
+    }
+    state.particleSpawnChance = 0;
+    game.over();
+    return this;
+  };
+
+  ParticleGenerator.prototype.generateParticle = function() {
+    var newParticle, particle;
+    if (utils.randomPercentage() < state.particleSpawnChance) {
+      newParticle = new Particle();
+      particle = newParticle.init();
+      this.particlesArray.push(particle);
+      this.particlesArrayIds.push(particle.id);
+      if (particle.isTarget) {
+        this.particlesToTestForTaps.push(particle.id);
+      }
+    }
+    return this;
+  };
+
+  ParticleGenerator.prototype.particleTapDetectionHandler = function() {
+    var deletionIndex, particle, particleId, particleIndex, targetHit, touchData, _i, _len, _ref;
+    targetHit = false;
+    _ref = this.particlesToTestForTaps.reverse();
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      particleId = _ref[_i];
+      particleIndex = this.particlesArrayIds.indexOf(particleId);
+      particle = this.particlesArray[particleIndex];
+      touchData = event.touches[0];
+      if ((particle != null) && this.particleWasTapped(particle, touchData)) {
+        deletionIndex = this.particlesToTestForTaps.indexOf(particleId);
+        this.particlesToTestForTaps.splice(deletionIndex, 1);
+        particle.destroying = true;
+        targetHit = true;
+        break;
+      }
+    }
+    state.updateComboMultiplier(targetHit);
+    if (targetHit) {
+      state.updateScore(particle.size, particle.finalSize);
+    }
+    return this;
+  };
+
+  ParticleGenerator.prototype.particleWasTapped = function(particle, touchData) {
+    var hitX, hitY, maxX, maxY, minX, minY, tapX, tapY;
+    tapX = touchData.pageX * devicePixelRatio;
+    tapY = touchData.pageY * devicePixelRatio;
+    minX = particle.position.x - particle.half;
+    maxX = minX + particle.size;
+    hitX = tapX >= minX && tapX <= maxX;
+    minY = particle.position.y - particle.half;
+    maxY = minY + particle.size;
+    hitY = tapY >= minY && tapY <= maxY;
+    return hitX && hitY;
+  };
+
+  ParticleGenerator.prototype.removeParticle = function(particle) {
+    var id, index;
+    id = particle.id;
+    index = this.particlesArrayIds.indexOf(id);
+    this.particlesArray.splice(index, 1);
+    this.particlesArrayIds.splice(index, 1);
+    return this;
+  };
+
+  ParticleGenerator.prototype.removeParticlesAfterTap = function() {
+    var particle, _i, _len, _ref;
+    _ref = this.particlesArray;
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      particle = _ref[_i];
+      if ((particle != null) && particle.size < 1) {
+        this.removeParticle(particle);
+      }
+    }
+    return this;
+  };
+
+  ParticleGenerator.prototype.setToInitialState = function() {
+    this.particlesArray = [];
+    this.particlesArrayIds = [];
+    this.particlesToDelete = [];
+    this.particlesToTestForTaps = [];
+    return this;
+  };
+
+  ParticleGenerator.prototype.setupParticleTapDetection = function() {
+    var self;
+    self = this;
+    this.particlesToTestForTaps = [];
+    window.addEventListener('touchstart', function() {
+      self.particleTapDetectionHandler();
+    });
+    return this;
+  };
+
+  ParticleGenerator.prototype.stop = function() {
+    state.updateGameState('stopped');
+    state.stopLevelUpIncrement();
+    return this;
+  };
+
+  ParticleGenerator.prototype.updateParticlesValues = function() {
+    var particle, _i, _len, _ref;
+    _ref = this.particlesArray;
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      particle = _ref[_i];
+      if (particle != null) {
+        context.fillStyle = particle.color;
+        context.strokeStyle = particle.color;
+        particle.updateValues();
+      }
+    }
+    return this;
+  };
+
+  return ParticleGenerator;
+
+})();
+
+/* --------------------------------------------
+     Begin Scenes.coffee
+--------------------------------------------
+*/
+
+
+Scenes = (function() {
+
+  function Scenes() {}
+
+  Scenes.prototype.credits = function() {
+    return this;
+  };
+
+  Scenes.prototype.gameOver = function() {
+    var playAgain, summary;
+    summary = document.querySelector('.summary');
+    playAgain = document.querySelector('.play-again');
+    summary.classList.remove('hidden');
+    playAgain.addEventListener('click', function(event) {
+      event.preventDefault();
+      summary.classList.add('hidden');
+      game.start();
+    });
+    return this;
+  };
+
+  Scenes.prototype.howToPlay = function() {
+    return this;
+  };
+
+  Scenes.prototype.installationPrompt = function() {
+    utils.updateUITextNode('body', 'ADD THIS TO YOUR HOME SCREEN TO PLAY');
+    return this;
+  };
+
+  Scenes.prototype.mobilePrompt = function() {
+    utils.updateUITextNode('body', 'YOU NEED TO RUN THIS ON A MOBILE DEVICE');
+    return this;
+  };
+
+  Scenes.prototype.splash = function() {
+    this.title();
+    return this;
+  };
+
+  Scenes.prototype.title = function() {
+    game.start();
+    return this;
+  };
+
+  return Scenes;
+
+})();
+
+/* --------------------------------------------
+     Begin State.coffee
+--------------------------------------------
+*/
+
+
+State = (function() {
+
+  function State() {}
+
+  State.prototype.init = function() {
+    this.defaults = {
+      level: 1,
+      score: 0,
+      comboMultiplier: 0
+    };
+    this.setToInitialState();
+    return this;
+  };
+
+  State.prototype.stopLevelUpIncrement = function() {
+    window.clearInterval(this.levelUpCounter);
+    return this;
+  };
+
+  State.prototype.setupLevelUpIncrement = function() {
+    var self;
+    self = this;
+    this.levelUpCounter = window.setInterval(function() {
+      self.updateLevel();
+    }, config.levelUpInterval * 1000);
+    return this;
+  };
+
+  State.prototype.setToInitialState = function() {
+    this.level = this.defaults.level;
+    this.score = this.defaults.score;
+    this.comboMultiplier = this.defaults.comboMultiplier;
+    this.chanceParticleIsTarget = config.chanceParticleIsTarget.easy;
+    this.maxTargetsAtOnce = config.maxTargetsAtOnce.easy;
+    this.minTargetSize = config.minTargetSize.easy;
+    this.particleGrowthMultiplier = config.particleGrowthMultiplier.easy;
+    this.particleSpawnChance = config.particleSpawnChance.easy;
+    this.sizeMax = config.sizeMax.easy;
+    this.targetVelocityMultiplier = config.targetVelocityMultiplier.easy;
+    this.velocityMin = config.velocityMin.easy;
+    this.velocityMax = config.velocityMax.easy;
+    state.updateGameState('playing');
+    config.updateValuesForDifficulty();
+    state.setupLevelUpIncrement();
+    return this;
+  };
+
+  State.prototype.updateComboMultiplier = function(targetHit) {
+    this.comboMultiplier = targetHit ? this.comboMultiplier + 1 : this.defaults.comboMultiplier;
+    headsUp.updateComboMultiplierCounter();
+    return this;
+  };
+
+  State.prototype.updateGameState = function(newState) {
+    this.gameState = newState;
+    return this;
+  };
+
+  State.prototype.updateLevel = function() {
+    this.level += 1;
+    if (this.level >= config.maxLevel) {
+      window.clearInterval(this.levelUpCounter);
+    }
+    headsUp.updateLevelCounter();
+    config.updateValuesForDifficulty();
+    return this;
+  };
+
+  State.prototype.updateScore = function(sizeWhenTapped, sizeWhenFullyGrown) {
+    var levelMultiplier, popPointValue, targetSizeBonus;
+    targetSizeBonus = Math.round(100 - ((sizeWhenTapped / sizeWhenFullyGrown) * 100));
+    popPointValue = config.pointsPerPop + targetSizeBonus;
+    levelMultiplier = this.level + 1;
+    this.score += (popPointValue * this.comboMultiplier) * levelMultiplier;
+    headsUp.updateScoreCounter();
+    return this;
+  };
+
+  return State;
+
+})();
+
+/* --------------------------------------------
+     Begin Utils.coffee
+--------------------------------------------
+*/
+
+
+Utils = (function() {
+
+  function Utils() {}
+
+  Utils.prototype.correctValueForDPR = function(value, integer) {
+    if (integer == null) {
+      integer = false;
+    }
+    value *= devicePixelRatio;
+    if (integer) {
+      value = Math.round(value);
+    }
+    return value;
+  };
+
+  Utils.prototype.formatWithComma = function(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
+  Utils.prototype.random = function(min, max) {
+    if (min === void 0) {
+      min = 0;
+      max = 1;
+    } else if (max === void 0) {
+      max = min;
+      min = 0;
+    }
+    return (Math.random() * (max - min)) + min;
+  };
+
+  Utils.prototype.randomColor = function(alpha) {
+    var colors;
+    if (alpha == null) {
+      alpha = false;
+    }
+    colors = {
+      r: this.randomInteger(0, 200),
+      g: this.randomInteger(0, 200),
+      b: this.randomInteger(0, 200),
+      a: !alpha ? this.random(0.75, 1) : alpha
+    };
+    return 'rgba(' + colors.r + ', ' + colors.g + ', ' + colors.b + ', ' + colors.a + ')';
+  };
+
+  Utils.prototype.randomInteger = function(min, max) {
+    if (max === void 0) {
+      max = min;
+      min = 0;
+    }
+    return Math.floor(Math.random() * (max + 1 - min)) + min;
+  };
+
+  Utils.prototype.randomPercentage = function() {
+    return Math.floor(Math.random() * 100);
+  };
+
+  Utils.prototype.updateUITextNode = function(selector, value) {
+    var element;
+    element = document.querySelector(selector);
+    element.innerHTML = value;
+    return this;
+  };
+
+  return Utils;
+
+})();
+
+/* --------------------------------------------
+     Begin _bootstrap.coffee
+--------------------------------------------
+*/
+
+
+animationLoop = new AnimationLoop();
+
+config = new Config();
+
+game = new Game();
+
+headsUp = new HeadsUp();
+
+input = new Input();
+
+particleGenerator = new ParticleGenerator();
+
+utils = new Utils();
+
+scenes = new Scenes();
+
+state = new State();
+
+if (android || homeScreenApp || debug) {
+  game.init();
+} else if (iOS) {
+  scenes.installationPrompt();
+} else {
+  scenes.mobilePrompt();
+}

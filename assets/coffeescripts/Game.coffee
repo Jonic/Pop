@@ -1,15 +1,23 @@
 class Game
 
-	run: ->
+	init: ->
 
-		input.cancelTouchMoveEvents()
+		config.init()
 		particleGenerator.init()
-		state.reset()
-		headsUp.reset()
+		state.init()
+		headsUp.init()
+		input.init()
 
-		animationLoop.requestAnimationFrame()
+		animationLoop.init()
 
 		scenes.splash()
+
+		@
+
+	over: ->
+
+		scenes.gameOver()
+		state.stopLevelUpIncrement()
 
 		@
 
@@ -19,10 +27,8 @@ class Game
 
 	start: ->
 
-		state.setup()
-		state.updateGameState('playing')
-
-		headsUp.reset()
-		particleGenerator.reset()
+		state.setToInitialState()
+		headsUp.setToInitialState()
+		particleGenerator.setToInitialState()
 
 		@

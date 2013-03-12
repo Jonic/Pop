@@ -1,23 +1,27 @@
 class HeadsUp
 
-	containerElement: document.querySelector('.headsup')
-	levelCounter: '.hu-value-level'
-	scoreCounter: '.hu-value-score'
-	comboMultiplierCounter: '.hu-value-combo'
+	init: ->
 
-	reset: ->
-
-		this.updateComboMultiplierCounter()
-		this.updateLevelCounter()
-		this.updateScoreCounter()
-
-		this.show()
+		this.containerElement = document.querySelector('.headsup')
+		this.levelCounter = '.hu-value-level'
+		this.scoreCounter = '.hu-value-score'
+		this.comboMultiplierCounter = '.hu-value-combo'
 
 		@
 
 	hide: ->
 
 		this.containerElement.classList.add('hidden');
+
+		@
+
+	setToInitialState: ->
+
+		this.updateComboMultiplierCounter()
+		this.updateLevelCounter()
+		this.updateScoreCounter()
+
+		this.show()
 
 		@
 

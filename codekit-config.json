@@ -57,7 +57,7 @@
       "outputPathIsSetByUser" : 0,
       "inputAbbreviatedPath" : "\/assets\/coffeescripts\/_application.coffee",
       "checkOutputStyle" : 1,
-      "minifyOutput" : 1,
+      "minifyOutput" : 0,
       "outputAbbreviatedPath" : "\/assets\/scripts\/_application.js",
       "outputStyle" : 1,
       "fileType" : 32
@@ -97,18 +97,6 @@
       "outputAbbreviatedPath" : "\/assets\/scripts\/_application-min.js",
       "fileType" : 64
     },
-    "\/assets\/coffeescripts\/ParticleGenerator.coffee" : {
-      "ignoreWasSetByUser" : 1,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/assets\/coffeescripts\/ParticleGenerator.coffee",
-      "checkOutputStyle" : 1,
-      "minifyOutput" : 0,
-      "outputAbbreviatedPath" : "\/assets\/scripts\/ParticleGenerator.js",
-      "outputStyle" : 1,
-      "fileType" : 32
-    },
     "\/index.php" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
@@ -127,6 +115,18 @@
       "checkOutputStyle" : 1,
       "minifyOutput" : 0,
       "outputAbbreviatedPath" : "\/assets\/scripts\/Particle.js",
+      "outputStyle" : 1,
+      "fileType" : 32
+    },
+    "\/assets\/coffeescripts\/ParticleGenerator.coffee" : {
+      "ignoreWasSetByUser" : 1,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/assets\/coffeescripts\/ParticleGenerator.coffee",
+      "checkOutputStyle" : 1,
+      "minifyOutput" : 0,
+      "outputAbbreviatedPath" : "\/assets\/scripts\/ParticleGenerator.js",
       "outputStyle" : 1,
       "fileType" : 32
     },

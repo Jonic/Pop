@@ -1,5 +1,11 @@
 class AnimationLoop
 
+	init: ->
+
+		this.requestAnimationFrame()
+
+		@
+
 	cancelAnimationFrame: ->
 
 		window.cancelAnimationFrame(animationLoopId)
