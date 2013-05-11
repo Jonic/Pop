@@ -472,7 +472,7 @@ ParticleGenerator = (function() {
       this.particlesArray.push(particle);
       this.particlesArrayIds.push(particle.id);
       if (particle.isTarget) {
-        this.particlesToTestForTaps.push(particle.id);
+        this.particlesToTestForTaps.unshift(particle.id);
       }
     }
     return this;
@@ -494,7 +494,7 @@ ParticleGenerator = (function() {
   ParticleGenerator.prototype.particleTapDetectionHandler = function(event) {
     var deletionIndex, particle, particleId, particleIndex, targetHit, touchData, _i, _len, _ref;
     targetHit = false;
-    _ref = this.particlesToTestForTaps.reverse();
+    _ref = this.particlesToTestForTaps;
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       particleId = _ref[_i];
       particleIndex = this.particlesArrayIds.indexOf(particleId);

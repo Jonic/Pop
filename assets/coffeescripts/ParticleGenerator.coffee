@@ -64,7 +64,7 @@ class ParticleGenerator
 			this.particlesArrayIds.push(particle.id)
 
 			if particle.isTarget
-				this.particlesToTestForTaps.push(particle.id)
+				this.particlesToTestForTaps.unshift(particle.id)
 
 		@
 
@@ -84,7 +84,7 @@ class ParticleGenerator
 
 		targetHit = false
 
-		for particleId in this.particlesToTestForTaps.reverse()
+		for particleId in this.particlesToTestForTaps
 			particleIndex = this.particlesArrayIds.indexOf(particleId)
 			particle = this.particlesArray[particleIndex]
 
