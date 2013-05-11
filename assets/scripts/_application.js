@@ -516,16 +516,13 @@ ParticleGenerator = (function() {
   };
 
   ParticleGenerator.prototype.particleWasTapped = function(particle, touchData) {
-    var hitX, hitY, maxX, maxY, minX, minY, tapX, tapY;
+    var distanceX, distanceY, radius, tapX, tapY;
     tapX = touchData.pageX * devicePixelRatio;
     tapY = touchData.pageY * devicePixelRatio;
-    minX = particle.position.x - particle.half;
-    maxX = minX + particle.size;
-    hitX = tapX >= minX && tapX <= maxX;
-    minY = particle.position.y - particle.half;
-    maxY = minY + particle.size;
-    hitY = tapY >= minY && tapY <= maxY;
-    return hitX && hitY;
+    distanceX = tapX - particle.position.x;
+    distanceY = tapY - particle.position.y;
+    radius = particle.half;
+    return (distanceX * distanceX) + (distanceY * distanceY) < (particle.half * particle.half);
   };
 
   ParticleGenerator.prototype.removeParticle = function(particle) {

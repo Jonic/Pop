@@ -111,17 +111,11 @@ class ParticleGenerator
 		tapX = touchData.pageX * devicePixelRatio
 		tapY = touchData.pageY * devicePixelRatio
 
-		minX = particle.position.x - particle.half
-		maxX = minX + particle.size
+		distanceX = tapX - particle.position.x
+		distanceY = tapY - particle.position.y
+		radius = particle.half
 
-		hitX = tapX >= minX and tapX <= maxX
-
-		minY = particle.position.y - particle.half
-		maxY = minY + particle.size
-
-		hitY = tapY >= minY and tapY <= maxY
-
-		hitX and hitY
+		return (distanceX * distanceX) + (distanceY * distanceY) < (particle.half * particle.half)
 
 	removeParticle: (particle) ->
 
