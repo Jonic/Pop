@@ -3,7 +3,7 @@
 android = if navigator.userAgent.match(/android/i) then true else false
 iOS = if navigator.userAgent.match(/(iPad|iPhone|iPod)/i) then true else false
 homeScreenApp = iOS and navigator.standalone
-hasTouchEvents = 'ontouchstart' in window
+hasTouchEvents = window.hasOwnProperty('ontouchstart') || window.hasOwnProperty('onmsgesturechange')
 inputVerb = if hasTouchEvents then 'touchstart' else 'click'
 
 debug = true
