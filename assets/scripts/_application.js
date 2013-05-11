@@ -14,13 +14,13 @@ animationLoopId = null;
 
 canvas = document.createElement('canvas');
 
-context = canvas.getContext('2d');
-
 document.body.appendChild(canvas);
 
 canvas.width = document.width;
 
 canvas.height = document.height;
+
+context = canvas.getContext('2d');
 
 context.globalCompositeOperation = 'source-atop';
 
@@ -87,7 +87,7 @@ Config = (function() {
 
   Config.prototype.init = function() {
     this.maxLineWidth = 5;
-    this.levelUpInterval = 20;
+    this.levelUpInterval = 10;
     this.maxLevel = 50;
     this.pointsPerPop = 10;
     this.chanceParticleIsTarget = {
@@ -160,6 +160,7 @@ Game = (function() {
   Game.prototype.init = function() {
     config.init();
     particleGenerator.init();
+    scenes.init();
     state.init();
     headsUp.init();
     input.init();
@@ -181,6 +182,7 @@ Game = (function() {
   Game.prototype.start = function() {
     state.setToInitialState();
     headsUp.setToInitialState();
+    input.removeGameStartTapEventHandler();
     particleGenerator.setToInitialState();
     return this;
   };
@@ -200,6 +202,8 @@ HeadsUp = (function() {
   function HeadsUp() {}
 
   HeadsUp.prototype.init = function() {
+    var self;
+    self = this;
     this.containerElement = document.querySelector('.headsup');
     this.levelCounter = '.hu-value-level';
     this.scoreCounter = '.hu-value-score';
@@ -261,10 +265,27 @@ Input = (function() {
     return this;
   };
 
+  Input.prototype.addGameStartTapEventHandler = function() {
+    document.body.addEventListener('click', this.gameStartTapEventHandler);
+    return this;
+  };
+
   Input.prototype.cancelTouchMoveEvents = function() {
     window.addEventListener('touchmove', function(event) {
       event.preventDefault();
     });
+    return this;
+  };
+
+  Input.prototype.gameStartTapEventHandler = function(event) {
+    event.preventDefault();
+    scenes.summary.classList.add('hidden');
+    game.start();
+    return this;
+  };
+
+  Input.prototype.removeGameStartTapEventHandler = function() {
+    document.body.removeEventListener('click', this.gameStartTapEventHandler);
     return this;
   };
 
@@ -563,20 +584,19 @@ Scenes = (function() {
 
   function Scenes() {}
 
+  Scenes.prototype.init = function() {
+    this.summary = document.querySelector('.summary');
+    this.playAgain = document.querySelector('.play-again');
+    return this;
+  };
+
   Scenes.prototype.credits = function() {
     return this;
   };
 
   Scenes.prototype.gameOver = function() {
-    var playAgain, summary;
-    summary = document.querySelector('.summary');
-    playAgain = document.querySelector('.play-again');
-    summary.classList.remove('hidden');
-    playAgain.addEventListener('click', function(event) {
-      event.preventDefault();
-      summary.classList.add('hidden');
-      game.start();
-    });
+    input.addGameStartTapEventHandler();
+    this.summary.classList.remove('hidden');
     return this;
   };
 
@@ -600,7 +620,7 @@ Scenes = (function() {
   };
 
   Scenes.prototype.title = function() {
-    game.start();
+    input.addGameStartTapEventHandler();
     return this;
   };
 
@@ -624,7 +644,6 @@ State = (function() {
       score: 0,
       comboMultiplier: 0
     };
-    this.setToInitialState();
     return this;
   };
 
@@ -655,9 +674,9 @@ State = (function() {
     this.targetVelocityMultiplier = config.targetVelocityMultiplier.easy;
     this.velocityMin = config.velocityMin.easy;
     this.velocityMax = config.velocityMax.easy;
-    state.updateGameState('playing');
+    this.updateGameState('playing');
     config.updateValuesForDifficulty();
-    state.setupLevelUpIncrement();
+    this.setupLevelUpIncrement();
     return this;
   };
 

@@ -7,8 +7,6 @@ class State
 			score: 0
 			comboMultiplier: 0
 
-		this.setToInitialState()
-
 		@
 
 	stopLevelUpIncrement: ->
@@ -45,9 +43,11 @@ class State
 		this.velocityMin = config.velocityMin.easy
 		this.velocityMax = config.velocityMax.easy
 
-		state.updateGameState('playing')
+		this.updateGameState('playing')
+
 		config.updateValuesForDifficulty()
-		state.setupLevelUpIncrement()
+
+		this.setupLevelUpIncrement()
 
 		@
 

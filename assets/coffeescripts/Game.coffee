@@ -4,6 +4,7 @@ class Game
 
 		config.init()
 		particleGenerator.init()
+		scenes.init()
 		state.init()
 		headsUp.init()
 		input.init()
@@ -29,6 +30,7 @@ class Game
 
 		state.setToInitialState()
 		headsUp.setToInitialState()
+		input.removeGameStartTapEventHandler()
 		particleGenerator.setToInitialState()
 
 		@

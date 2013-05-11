@@ -3,7 +3,7 @@ class Config
 	init: ->
 
 		this.maxLineWidth = 5
-		this.levelUpInterval = 20
+		this.levelUpInterval = 10
 		this.maxLevel = 50
 		this.pointsPerPop = 10
 

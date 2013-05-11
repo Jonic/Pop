@@ -2,6 +2,8 @@ class HeadsUp
 
 	init: ->
 
+		self = this
+
 		this.containerElement = document.querySelector('.headsup')
 		this.levelCounter = '.hu-value-level'
 		this.scoreCounter = '.hu-value-score'

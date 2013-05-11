@@ -38,6 +38,15 @@
       "outputStyle" : 1,
       "fileType" : 32
     },
+    "\/index.html" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/index.html",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
     "\/assets\/coffeescripts\/AnimationLoop.coffee" : {
       "ignoreWasSetByUser" : 1,
       "ignore" : 1,
@@ -47,18 +56,6 @@
       "checkOutputStyle" : 1,
       "minifyOutput" : 0,
       "outputAbbreviatedPath" : "\/assets\/scripts\/AnimationLoop.js",
-      "outputStyle" : 1,
-      "fileType" : 32
-    },
-    "\/assets\/coffeescripts\/_application.coffee" : {
-      "ignoreWasSetByUser" : 1,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/assets\/coffeescripts\/_application.coffee",
-      "checkOutputStyle" : 1,
-      "minifyOutput" : 0,
-      "outputAbbreviatedPath" : "\/assets\/scripts\/_application.js",
       "outputStyle" : 1,
       "fileType" : 32
     },
@@ -74,14 +71,17 @@
       "outputStyle" : 1,
       "fileType" : 32
     },
-    "\/index.html" : {
-      "ignoreWasSetByUser" : 0,
+    "\/assets\/coffeescripts\/_application.coffee" : {
+      "ignoreWasSetByUser" : 1,
       "ignore" : 0,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/index.html",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
+      "inputAbbreviatedPath" : "\/assets\/coffeescripts\/_application.coffee",
+      "checkOutputStyle" : 1,
+      "minifyOutput" : 0,
+      "outputAbbreviatedPath" : "\/assets\/scripts\/_application.js",
+      "outputStyle" : 1,
+      "fileType" : 32
     },
     "\/assets\/coffeescripts\/Input.coffee" : {
       "ignoreWasSetByUser" : 1,
@@ -106,18 +106,6 @@
       "outputAbbreviatedPath" : "\/assets\/scripts\/_application-min.js",
       "fileType" : 64
     },
-    "\/assets\/coffeescripts\/Particle.coffee" : {
-      "ignoreWasSetByUser" : 1,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/assets\/coffeescripts\/Particle.coffee",
-      "checkOutputStyle" : 1,
-      "minifyOutput" : 0,
-      "outputAbbreviatedPath" : "\/assets\/scripts\/Particle.js",
-      "outputStyle" : 1,
-      "fileType" : 32
-    },
     "\/assets\/coffeescripts\/ParticleGenerator.coffee" : {
       "ignoreWasSetByUser" : 1,
       "ignore" : 1,
@@ -127,6 +115,18 @@
       "checkOutputStyle" : 1,
       "minifyOutput" : 0,
       "outputAbbreviatedPath" : "\/assets\/scripts\/ParticleGenerator.js",
+      "outputStyle" : 1,
+      "fileType" : 32
+    },
+    "\/assets\/coffeescripts\/Particle.coffee" : {
+      "ignoreWasSetByUser" : 1,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/assets\/coffeescripts\/Particle.coffee",
+      "checkOutputStyle" : 1,
+      "minifyOutput" : 0,
+      "outputAbbreviatedPath" : "\/assets\/scripts\/Particle.js",
       "outputStyle" : 1,
       "fileType" : 32
     },
@@ -365,8 +365,8 @@
       "nonstandard" : 0,
       "asi" : 0,
       "smarttabs" : 0,
-      "rhino" : 0,
       "noempty" : 1,
+      "rhino" : 0,
       "lastsemic" : 0,
       "eqnull" : 1,
       "eqeqeq" : 1,

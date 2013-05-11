@@ -7,13 +7,15 @@ homeScreenApp = iOS and navigator.standalone
 debug = true
 
 animationLoopId = null
+
 canvas = document.createElement('canvas')
-context = canvas.getContext('2d')
 
 document.body.appendChild(canvas)
 
 canvas.width = document.width
 canvas.height = document.height
+
+context = canvas.getContext('2d')
 context.globalCompositeOperation = 'source-atop';
 
 devicePixelRatio = window.devicePixelRatio || 1

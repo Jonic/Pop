@@ -1,25 +1,21 @@
 class Scenes
 
+	init: ->
+
+		this.summary = document.querySelector('.summary')
+		this.playAgain = document.querySelector('.play-again')
+
+		@
+
 	credits: ->
 
 		@
 
 	gameOver: ->
 
-		summary = document.querySelector('.summary')
-		playAgain = document.querySelector('.play-again')
+		input.addGameStartTapEventHandler()
 
-		summary.classList.remove('hidden')
-
-		playAgain.addEventListener('click', (event) ->
-			event.preventDefault();
-
-			summary.classList.add('hidden')
-
-			game.start()
-
-			return
-		)
+		this.summary.classList.remove('hidden')
 
 		@
 
@@ -47,6 +43,6 @@ class Scenes
 
 	title: ->
 
-		game.start()
+		input.addGameStartTapEventHandler();
 
 		@
