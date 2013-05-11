@@ -68,7 +68,19 @@ class ParticleGenerator
 
 		@
 
-	particleTapDetectionHandler: ->
+	getTapCoordinates: (event) ->
+
+		if hasTouchEvents
+			tapCoordinates = event.touches[0]
+		else
+			tapCoordinates = {
+				pageX: event.clientX,
+				pageY: event.clientY
+			}
+
+		return tapCoordinates
+
+	particleTapDetectionHandler: (event) ->
 
 		targetHit = false
 
@@ -76,7 +88,7 @@ class ParticleGenerator
 			particleIndex = this.particlesArrayIds.indexOf(particleId)
 			particle = this.particlesArray[particleIndex]
 
-			touchData = event.touches[0]
+			touchData = this.getTapCoordinates(event)
 
 			if particle? and this.particleWasTapped(particle, touchData)
 				deletionIndex = this.particlesToTestForTaps.indexOf(particleId)
@@ -145,10 +157,11 @@ class ParticleGenerator
 
 		this.particlesToTestForTaps = []
 
-		window.addEventListener 'touchstart', ->
-			self.particleTapDetectionHandler()
+		window.addEventListener(inputVerb, (event) ->
+			self.particleTapDetectionHandler(event)
 
 			return
+		)
 
 		@
 

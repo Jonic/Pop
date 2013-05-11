@@ -4,6 +4,7 @@
 html {
 	background: #ccc;
 	height: 100%;
+	overflow: hidden;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 	-khtml-user-select: none;
@@ -19,6 +20,7 @@ html {
 		font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 		height: 100%;
 		margin: 0 auto;
+		overflow: hidden;
 		position: relative;
 		width: 100%;
 	}
