@@ -266,7 +266,7 @@ Input = (function() {
   };
 
   Input.prototype.addGameStartTapEventHandler = function() {
-    document.body.addEventListener('click', this.gameStartTapEventHandler);
+    document.body.addEventListener('touchstart', this.gameStartTapEventHandler);
     return this;
   };
 
@@ -285,7 +285,7 @@ Input = (function() {
   };
 
   Input.prototype.removeGameStartTapEventHandler = function() {
-    document.body.removeEventListener('click', this.gameStartTapEventHandler);
+    document.body.removeEventListener('touchstart', this.gameStartTapEventHandler);
     return this;
   };
 

@@ -8,7 +8,7 @@ class Input
 
 	addGameStartTapEventHandler: () ->
 
-		document.body.addEventListener('click', this.gameStartTapEventHandler)
+		document.body.addEventListener('touchstart', this.gameStartTapEventHandler)
 
 		@
 
@@ -36,6 +36,6 @@ class Input
 
 	removeGameStartTapEventHandler: ->
 
-		document.body.removeEventListener('click', this.gameStartTapEventHandler)
+		document.body.removeEventListener('touchstart', this.gameStartTapEventHandler)
 
 		@
