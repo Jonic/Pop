@@ -288,8 +288,65 @@ Input = (function() {
     return this;
   };
 
+  Input.prototype.getTapCoordinates = function(event) {
+    var tapCoordinates;
+    if (hasTouchEvents) {
+      tapCoordinates = event.touches[0];
+    } else {
+      tapCoordinates = {
+        pageX: event.clientX,
+        pageY: event.clientY
+      };
+    }
+    return tapCoordinates;
+  };
+
+  Input.prototype.particleWasTapped = function(particle, touchData) {
+    var distanceX, distanceY, radius, tapX, tapY;
+    tapX = touchData.pageX * devicePixelRatio;
+    tapY = touchData.pageY * devicePixelRatio;
+    distanceX = tapX - particle.position.x;
+    distanceY = tapY - particle.position.y;
+    radius = particle.half;
+    return (distanceX * distanceX) + (distanceY * distanceY) < (particle.half * particle.half);
+  };
+
+  Input.prototype.particleTapDetectionHandler = function(event) {
+    var deletionIndex, particle, particleId, particleIndex, targetHit, touchData, _i, _len, _ref;
+    targetHit = false;
+    _ref = particleGenerator.particlesToTestForTaps;
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      particleId = _ref[_i];
+      particleIndex = particleGenerator.particlesArrayIds.indexOf(particleId);
+      particle = particleGenerator.particlesArray[particleIndex];
+      touchData = this.getTapCoordinates(event);
+      if ((particle != null) && this.particleWasTapped(particle, touchData)) {
+        deletionIndex = particleGenerator.particlesToTestForTaps.indexOf(particleId);
+        particleGenerator.particlesToTestForTaps.splice(deletionIndex, 1);
+        particle.destroying = true;
+        targetHit = true;
+        break;
+      }
+    }
+    state.updateComboMultiplier(targetHit);
+    if (targetHit) {
+      state.updateScore(particle.size, particle.finalSize);
+    }
+    return this;
+  };
+
   Input.prototype.removeGameStartTapEventHandler = function() {
     document.body.removeEventListener(inputVerb, this.gameStartTapEventHandler);
+    return this;
+  };
+
+  Input.prototype.setupParticleTapDetection = function() {
+    var self;
+    self = this;
+    particleGenerator.particlesToTestForTaps = [];
+    window.addEventListener(inputVerb, function(event) {
+      self.particleTapDetectionHandler(event);
+    });
     return this;
   };
 
@@ -417,7 +474,7 @@ ParticleGenerator = (function() {
       y: canvas.height / 2
     };
     this.setToInitialState();
-    this.setupParticleTapDetection();
+    input.setupParticleTapDetection();
     return this;
   };
 
@@ -478,53 +535,6 @@ ParticleGenerator = (function() {
     return this;
   };
 
-  ParticleGenerator.prototype.getTapCoordinates = function(event) {
-    var tapCoordinates;
-    if (hasTouchEvents) {
-      tapCoordinates = event.touches[0];
-    } else {
-      tapCoordinates = {
-        pageX: event.clientX,
-        pageY: event.clientY
-      };
-    }
-    return tapCoordinates;
-  };
-
-  ParticleGenerator.prototype.particleTapDetectionHandler = function(event) {
-    var deletionIndex, particle, particleId, particleIndex, targetHit, touchData, _i, _len, _ref;
-    targetHit = false;
-    _ref = this.particlesToTestForTaps;
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      particleId = _ref[_i];
-      particleIndex = this.particlesArrayIds.indexOf(particleId);
-      particle = this.particlesArray[particleIndex];
-      touchData = this.getTapCoordinates(event);
-      if ((particle != null) && this.particleWasTapped(particle, touchData)) {
-        deletionIndex = this.particlesToTestForTaps.indexOf(particleId);
-        this.particlesToTestForTaps.splice(deletionIndex, 1);
-        particle.destroying = true;
-        targetHit = true;
-        break;
-      }
-    }
-    state.updateComboMultiplier(targetHit);
-    if (targetHit) {
-      state.updateScore(particle.size, particle.finalSize);
-    }
-    return this;
-  };
-
-  ParticleGenerator.prototype.particleWasTapped = function(particle, touchData) {
-    var distanceX, distanceY, radius, tapX, tapY;
-    tapX = touchData.pageX * devicePixelRatio;
-    tapY = touchData.pageY * devicePixelRatio;
-    distanceX = tapX - particle.position.x;
-    distanceY = tapY - particle.position.y;
-    radius = particle.half;
-    return (distanceX * distanceX) + (distanceY * distanceY) < (particle.half * particle.half);
-  };
-
   ParticleGenerator.prototype.removeParticle = function(particle) {
     var id, index;
     id = particle.id;
@@ -551,16 +561,6 @@ ParticleGenerator = (function() {
     this.particlesArrayIds = [];
     this.particlesToDelete = [];
     this.particlesToTestForTaps = [];
-    return this;
-  };
-
-  ParticleGenerator.prototype.setupParticleTapDetection = function() {
-    var self;
-    self = this;
-    this.particlesToTestForTaps = [];
-    window.addEventListener(inputVerb, function(event) {
-      self.particleTapDetectionHandler(event);
-    });
     return this;
   };
 
