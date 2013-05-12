@@ -3,7 +3,11 @@ class Config
 	init: ->
 
 		this.particleWidthAsPercentageOfScreen = 15
-		this.baseParticleSize = utils.calculateBaseParticleSize(this.particleWidthAsPercentageOfScreen)
+
+		baseScreenWidth = Math.min(document.body.clientWidth, document.body.clientHeight)
+		baseParticleWidth = Math.round((baseScreenWidth / 100) * this.particleWidthAsPercentageOfScreen)
+
+		this.baseParticleSize = baseParticleWidth * devicePixelRatio
 
 		this.maxLineWidth = 5
 		this.levelUpInterval = 5

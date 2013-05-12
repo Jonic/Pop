@@ -90,8 +90,11 @@ Config = (function() {
   function Config() {}
 
   Config.prototype.init = function() {
+    var baseParticleWidth, baseScreenWidth;
     this.particleWidthAsPercentageOfScreen = 15;
-    this.baseParticleSize = utils.calculateBaseParticleSize(this.particleWidthAsPercentageOfScreen);
+    baseScreenWidth = Math.min(document.body.clientWidth, document.body.clientHeight);
+    baseParticleWidth = Math.round((baseScreenWidth / 100) * this.particleWidthAsPercentageOfScreen);
+    this.baseParticleSize = baseParticleWidth * devicePixelRatio;
     this.maxLineWidth = 5;
     this.levelUpInterval = 5;
     this.maxLevel = 50;
@@ -740,13 +743,6 @@ State = (function() {
 Utils = (function() {
 
   function Utils() {}
-
-  Utils.prototype.calculateBaseParticleSize = function(particleWidthAsPercentageOfScreen) {
-    var baseParticleWidth, baseScreenWidth;
-    baseScreenWidth = Math.min(document.body.clientWidth, document.body.clientHeight);
-    baseParticleWidth = Math.round((baseScreenWidth / 100) * particleWidthAsPercentageOfScreen);
-    return baseParticleWidth * devicePixelRatio;
-  };
 
   Utils.prototype.correctValueForDPR = function(value, integer) {
     if (integer == null) {

@@ -1,13 +1,5 @@
 class Utils
 
-	calculateBaseParticleSize: (particleWidthAsPercentageOfScreen) ->
-
-		baseScreenWidth = Math.min(document.body.clientWidth, document.body.clientHeight)
-
-		baseParticleWidth = Math.round((baseScreenWidth / 100) * particleWidthAsPercentageOfScreen)
-
-		return baseParticleWidth * devicePixelRatio
-
 	correctValueForDPR: (value, integer = false) ->
 
 		value *= devicePixelRatio
