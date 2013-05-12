@@ -1,5 +1,13 @@
 class Utils
 
+	calculateBaseParticleSize: (particleWidthAsPercentageOfScreen) ->
+
+		baseScreenWidth = Math.min(document.body.clientWidth, document.body.clientHeight)
+
+		baseParticleWidth = Math.round((baseScreenWidth / 100) * particleWidthAsPercentageOfScreen)
+
+		return baseParticleWidth * devicePixelRatio
+
 	correctValueForDPR: (value, integer = false) ->
 
 		value *= devicePixelRatio
@@ -7,7 +15,7 @@ class Utils
 		if integer
 			value = Math.round(value)
 
-		value
+		return value
 
 	formatWithComma: (num) ->
 
@@ -22,7 +30,7 @@ class Utils
 			max = min
 			min = 0
 
-		(Math.random() * (max - min)) + min;
+		return (Math.random() * (max - min)) + min;
 
 	randomColor: (alpha = false) ->
 
@@ -32,7 +40,7 @@ class Utils
 			b: this.randomInteger(0, 200)
 			a: if !alpha then this.random(0.75, 1) else alpha
 
-		'rgba(' + colors.r + ', ' + colors.g + ', ' + colors.b + ', ' + colors.a + ')'
+		return 'rgba(' + colors.r + ', ' + colors.g + ', ' + colors.b + ', ' + colors.a + ')'
 
 	randomInteger: (min, max) ->
 
@@ -40,11 +48,11 @@ class Utils
 			max = min
 			min = 0
 
-		Math.floor(Math.random() * (max + 1 - min)) + min
+		return Math.floor(Math.random() * (max + 1 - min)) + min
 
 	randomPercentage: ->
 
-		Math.floor(Math.random() * 100)
+		return Math.floor(Math.random() * 100)
 
 	updateUITextNode: (selector, value) ->
 

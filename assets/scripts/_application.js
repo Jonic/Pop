@@ -90,6 +90,8 @@ Config = (function() {
   function Config() {}
 
   Config.prototype.init = function() {
+    this.particleWidthAsPercentageOfScreen = 15;
+    this.baseParticleSize = utils.calculateBaseParticleSize(this.particleWidthAsPercentageOfScreen);
     this.maxLineWidth = 5;
     this.levelUpInterval = 5;
     this.maxLevel = 50;
@@ -103,8 +105,8 @@ Config = (function() {
       difficult: 6
     };
     this.minTargetSize = {
-      easy: 70,
-      difficult: 40
+      easy: this.baseParticleSize * 0.7,
+      difficult: this.baseParticleSize * 0.4
     };
     this.particleGrowthMultiplier = {
       easy: 1.05,
@@ -115,8 +117,8 @@ Config = (function() {
       difficult: 100
     };
     this.sizeMax = {
-      easy: 100,
-      difficult: 60
+      easy: this.baseParticleSize,
+      difficult: this.baseParticleSize * 0.6
     };
     this.targetVelocityMultiplier = {
       easy: 0.3,
@@ -738,6 +740,13 @@ State = (function() {
 Utils = (function() {
 
   function Utils() {}
+
+  Utils.prototype.calculateBaseParticleSize = function(particleWidthAsPercentageOfScreen) {
+    var baseParticleWidth, baseScreenWidth;
+    baseScreenWidth = Math.min(document.body.clientWidth, document.body.clientHeight);
+    baseParticleWidth = Math.round((baseScreenWidth / 100) * particleWidthAsPercentageOfScreen);
+    return baseParticleWidth * devicePixelRatio;
+  };
 
   Utils.prototype.correctValueForDPR = function(value, integer) {
     if (integer == null) {

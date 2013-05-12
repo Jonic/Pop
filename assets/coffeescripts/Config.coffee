@@ -2,6 +2,9 @@ class Config
 
 	init: ->
 
+		this.particleWidthAsPercentageOfScreen = 15
+		this.baseParticleSize = utils.calculateBaseParticleSize(this.particleWidthAsPercentageOfScreen)
+
 		this.maxLineWidth = 5
 		this.levelUpInterval = 5
 		this.maxLevel = 50
@@ -16,8 +19,8 @@ class Config
 			difficult: 6
 
 		this.minTargetSize =
-			easy: 70
-			difficult: 40
+			easy: this.baseParticleSize * 0.7
+			difficult: this.baseParticleSize * 0.4
 
 		this.particleGrowthMultiplier =
 			easy: 1.05
@@ -28,8 +31,8 @@ class Config
 			difficult: 100
 
 		this.sizeMax =
-			easy: 100
-			difficult: 60
+			easy: this.baseParticleSize
+			difficult: this.baseParticleSize * 0.6
 
 		this.targetVelocityMultiplier =
 			easy: 0.3
