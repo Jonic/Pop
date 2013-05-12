@@ -91,27 +91,27 @@ Config = (function() {
 
   Config.prototype.init = function() {
     this.maxLineWidth = 5;
-    this.levelUpInterval = 10;
+    this.levelUpInterval = 5;
     this.maxLevel = 50;
     this.pointsPerPop = 10;
     this.chanceParticleIsTarget = {
-      easy: 2,
-      difficult: 3
+      easy: 50,
+      difficult: 90
     };
     this.maxTargetsAtOnce = {
-      easy: 2,
-      difficult: 4
+      easy: 3,
+      difficult: 6
     };
     this.minTargetSize = {
-      easy: 80,
-      difficult: 50
+      easy: 70,
+      difficult: 40
     };
     this.particleGrowthMultiplier = {
       easy: 1.05,
       difficult: 1.10
     };
     this.particleSpawnChance = {
-      easy: 40,
+      easy: 60,
       difficult: 100
     };
     this.sizeMax = {
@@ -123,12 +123,12 @@ Config = (function() {
       difficult: 0.5
     };
     this.velocityMin = {
-      easy: -5,
-      difficult: -8
+      easy: -6,
+      difficult: -10
     };
     this.velocityMax = {
-      easy: 5,
-      difficult: 8
+      easy: 6,
+      difficult: 10
     };
     this.propertiesToUpdateWithDifficulty = ['particleSpawnChance', 'chanceParticleIsTarget', 'particleGrowthMultiplier', 'sizeMax', 'maxTargetsAtOnce', 'minTargetSize', 'velocityMin', 'velocityMax', 'targetVelocityMultiplier'];
     return this;
