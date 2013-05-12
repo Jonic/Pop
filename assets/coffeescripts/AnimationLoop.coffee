@@ -3,12 +3,13 @@ class AnimationLoop
 	init: ->
 
 		this.requestAnimationFrame()
+		this.animationLoopId
 
 		@
 
 	cancelAnimationFrame: ->
 
-		window.cancelAnimationFrame(animationLoopId)
+		window.cancelAnimationFrame(this.animationLoopId)
 
 		@
 
@@ -16,7 +17,8 @@ class AnimationLoop
 
 		self = this
 
-		animationLoopId = window.requestAnimationFrame ->
+		this.animationLoopId = window.requestAnimationFrame ->
+
 			self.requestAnimationFrame()
 
 			return

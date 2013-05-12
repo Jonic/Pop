@@ -11,7 +11,7 @@ class State
 
 	stopLevelUpIncrement: ->
 
-		window.clearInterval this.levelUpCounter
+		window.clearInterval(this.levelUpCounter)
 
 		@
 
@@ -20,9 +20,11 @@ class State
 		self = this
 
 		this.levelUpCounter = window.setInterval ->
+
 			self.updateLevel()
 
 			return
+
 		, config.levelUpInterval * 1000
 
 		@
@@ -70,7 +72,7 @@ class State
 		this.level += 1
 
 		if this.level >= config.maxLevel
-			window.clearInterval this.levelUpCounter
+			window.clearInterval(this.levelUpCounter)
 
 		headsUp.updateLevelCounter()
 		config.updateValuesForDifficulty()

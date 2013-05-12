@@ -14,19 +14,17 @@ class Input
 
 	cancelTouchMoveEvents: ->
 
-		window.addEventListener('touchmove', (event) ->
+		window.addEventListener 'touchmove', (event) ->
 
 			event.preventDefault()
 
 			return
 
-		)
-
 		@
 
 	gameStartTapEventHandler: (event) ->
 
-		event.preventDefault();
+		event.preventDefault()
 
 		scenes.summary.classList.add('hidden')
 
@@ -39,10 +37,9 @@ class Input
 		if hasTouchEvents
 			tapCoordinates = event.touches[0]
 		else
-			tapCoordinates = {
+			tapCoordinates =
 				pageX: event.clientX,
 				pageY: event.clientY
-			}
 
 		return tapCoordinates
 
@@ -95,10 +92,10 @@ class Input
 
 		particleGenerator.particlesToTestForTaps = []
 
-		window.addEventListener(inputVerb, (event) ->
+		window.addEventListener inputVerb, (event) ->
+
 			self.particleTapDetectionHandler(event)
 
 			return
-		)
 
 		@

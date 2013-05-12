@@ -2,12 +2,10 @@ class HeadsUp
 
 	init: ->
 
-		self = this
-
 		this.containerElement = document.querySelector('.headsup')
-		this.levelCounter = '.hu-value-level'
-		this.scoreCounter = '.hu-value-score'
-		this.comboMultiplierCounter = '.hu-value-combo'
+		this.levelCounter = document.querySelector('.hu-value-level')
+		this.scoreCounter = document.querySelector('.hu-value-score')
+		this.comboMultiplierCounter = document.querySelector('.hu-value-combo')
 
 		@
 
@@ -29,7 +27,7 @@ class HeadsUp
 
 	show: ->
 
-		this.containerElement.classList.remove('hidden');
+		this.containerElement.classList.remove('hidden')
 
 		@
 

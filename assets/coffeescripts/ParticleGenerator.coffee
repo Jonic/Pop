@@ -7,6 +7,7 @@ class ParticleGenerator
 			y: canvas.height / 2
 
 		this.setToInitialState()
+
 		input.setupParticleTapDetection()
 
 		@

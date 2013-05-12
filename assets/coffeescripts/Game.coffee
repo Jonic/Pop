@@ -22,10 +22,6 @@ class Game
 
 		@
 
-	reset: ->
-
-		@
-
 	start: ->
 
 		state.setToInitialState()

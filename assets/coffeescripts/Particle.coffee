@@ -46,6 +46,7 @@ class Particle
 
 		if this.outsideCanvasBounds()
 			particleGenerator.particlesToDelete.push(this.id)
+
 			return
 
 		if this.isTarget
@@ -70,7 +71,7 @@ class Particle
 		beyondBoundsX = this.position.x < -(this.finalSize) or this.position.x > canvas.width  + this.finalSize
 		beyondBoundsY = this.position.y < -(this.finalSize) or this.position.y > canvas.height + this.finalSize
 
-		beyondBoundsX or beyondBoundsY
+		return beyondBoundsX or beyondBoundsY
 
 	updateValues: ->
 

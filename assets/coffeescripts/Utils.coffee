@@ -46,9 +46,8 @@ class Utils
 
 		return Math.floor(Math.random() * 100)
 
-	updateUITextNode: (selector, value) ->
+	updateUITextNode: (element, value) ->
 
-		element = document.querySelector(selector)
 		element.innerHTML = value
 
 		@
