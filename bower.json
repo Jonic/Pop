@@ -1,0 +1,14 @@
+{
+  "name": "Pop",
+  "version": "0.0.0",
+  "author": {
+    "email": "jonic@100yen.co.uk",
+    "name": "Jonic Linley",
+    "url": "http://100yen.co.uk/"
+  },
+  "copyright": "Copyright 2014 100yen",
+  "dependencies": {},
+  "devDependencies": {
+    "bourbon": "~4.0.2"
+  }
+}
