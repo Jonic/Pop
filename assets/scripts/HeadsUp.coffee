@@ -2,9 +2,9 @@ class HeadsUp
 
 	init: ->
 
-		this.containerElement = document.querySelector('.headsup')
-		this.levelCounter = document.querySelector('.hu-value-level')
-		this.scoreCounter = document.querySelector('.hu-value-score')
+		this.containerElement       = document.querySelector('.headsup')
+		this.levelCounter           = document.querySelector('.hu-value-level')
+		this.scoreCounter           = document.querySelector('.hu-value-score')
 		this.comboMultiplierCounter = document.querySelector('.hu-value-combo')
 
 		@

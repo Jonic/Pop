@@ -3,7 +3,7 @@ class ParticleGenerator
 	init: ->
 
 		this.particlesOrigin =
-			x: canvas.width / 2
+			x: canvas.width  / 2
 			y: canvas.height / 2
 
 		this.setToInitialState()
@@ -29,7 +29,7 @@ class ParticleGenerator
 
 		for particleId in this.particlesToDelete
 			particleIndex = this.particlesArrayIds.indexOf(particleId)
-			particle = this.particlesArray[particleIndex]
+			particle      = this.particlesArray[particleIndex]
 
 			if particle?
 				if particle.isTarget
@@ -71,8 +71,7 @@ class ParticleGenerator
 
 	removeParticle: (particle) ->
 
-		id = particle.id
-
+		id    = particle.id
 		index = this.particlesArrayIds.indexOf(id)
 
 		this.particlesArray.splice(index, 1)
@@ -90,9 +89,9 @@ class ParticleGenerator
 
 	setToInitialState: ->
 
-		this.particlesArray = []
-		this.particlesArrayIds = []
-		this.particlesToDelete = []
+		this.particlesArray         = []
+		this.particlesArrayIds      = []
+		this.particlesToDelete      = []
 		this.particlesToTestForTaps = []
 
 		@
@@ -108,7 +107,7 @@ class ParticleGenerator
 
 		for particle in this.particlesArray
 			if particle?
-				context.fillStyle = particle.color
+				context.fillStyle   = particle.color
 				context.strokeStyle = particle.color
 
 				particle.updateValues()

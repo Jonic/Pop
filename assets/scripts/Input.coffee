@@ -45,12 +45,11 @@ class Input
 
 	particleWasTapped: (particle, touchData) ->
 
-		tapX = touchData.pageX * devicePixelRatio
-		tapY = touchData.pageY * devicePixelRatio
-
+		tapX      = touchData.pageX * devicePixelRatio
+		tapY      = touchData.pageY * devicePixelRatio
 		distanceX = tapX - particle.position.x
 		distanceY = tapY - particle.position.y
-		radius = particle.half
+		radius    = particle.half
 
 		return (distanceX * distanceX) + (distanceY * distanceY) < (particle.half * particle.half)
 
@@ -60,16 +59,15 @@ class Input
 
 		for particleId in particleGenerator.particlesToTestForTaps
 			particleIndex = particleGenerator.particlesArrayIds.indexOf(particleId)
-			particle = particleGenerator.particlesArray[particleIndex]
-
-			touchData = this.getTapCoordinates(event)
+			particle      = particleGenerator.particlesArray[particleIndex]
+			touchData     = this.getTapCoordinates(event)
 
 			if particle? and this.particleWasTapped(particle, touchData)
-				deletionIndex = particleGenerator.particlesToTestForTaps.indexOf(particleId)
-				particleGenerator.particlesToTestForTaps.splice(deletionIndex, 1)
-
+				deletionIndex       = particleGenerator.particlesToTestForTaps.indexOf(particleId)
 				particle.destroying = true
-				targetHit = true
+				targetHit           = true
+
+				particleGenerator.particlesToTestForTaps.splice(deletionIndex, 1)
 
 				break
 

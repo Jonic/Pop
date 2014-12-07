@@ -2,7 +2,7 @@ class Scenes
 
 	init: ->
 
-		this.summary = document.querySelector('.summary')
+		this.summary   = document.querySelector('.summary')
 		this.playAgain = document.querySelector('.play-again')
 
 		@

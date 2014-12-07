@@ -8,24 +8,21 @@ class Particle
 			b: utils.randomInteger(0, 200)
 			a: utils.random(0.75, 1)
 
-		this.color = 'rgba(' + colors.r + ', ' + colors.g + ', ' + colors.b + ', ' + colors.a + ')'
+		this.color      = 'rgba(' + colors.r + ', ' + colors.g + ', ' + colors.b + ', ' + colors.a + ')'
 		this.destroying = false
-		this.finalSize = utils.randomInteger(0, state.sizeMax)
-		this.id = Math.random().toString(36).substr(2, 5)
-		this.isTarget = this.determineTargetParticle()
-
-		this.position =
+		this.finalSize  = utils.randomInteger(0, state.sizeMax)
+		this.id         = Math.random().toString(36).substr(2, 5)
+		this.isTarget   = this.determineTargetParticle()
+		this.position   =
 			x: particleGenerator.particlesOrigin.x
 			y: particleGenerator.particlesOrigin.y
-
-		this.size = 1
-
-		this.velocity =
+		this.size       = 1
+		this.velocity   =
 			x: utils.random(state.velocityMin, state.velocityMax)
 			y: utils.random(state.velocityMin, state.velocityMax)
 
 		if this.isTarget
-			this.color = 'rgba(' + colors.r + ', ' + colors.g + ', ' + colors.b + ', 0.8)'
+			this.color     = 'rgba(' + colors.r + ', ' + colors.g + ', ' + colors.b + ', 0.8)'
 			this.finalSize = utils.randomInteger(state.minTargetSize, state.sizeMax)
 
 			this.velocity.x *= state.targetVelocityMultiplier

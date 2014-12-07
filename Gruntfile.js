@@ -51,7 +51,7 @@ module.exports = function (grunt) {
 
 		coffee: {
 			options: {
-				bare: true,
+				bare: false,
 				join: true
 			},
 			dev: {
