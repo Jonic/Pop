@@ -1,0 +1,71 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata>
+Created by FontPrep 20130207 at Wed Jan 15 19:14:30 2014
+ By Jonic Linley
+Copyright (c) 2009 by Marko Jovanovac. All rights reserved.
+</metadata>
+<defs>
+<font id="dfdf139dd153fdc8e8b575689391d462" horiz-adv-x='1024' >
+  <font-face 
+    font-family="Slukoni-Medium"
+    font-weight="500"
+    font-stretch="normal"
+    units-per-em="2048"
+    panose-1="2 0 6 3 0 0 0 0 0 0"
+    ascent="1536"
+    descent="-512"
+    bbox="0 0 1382.03 1436"
+    underline-thickness="102"
+    underline-position="-102"
+    unicode-range="U+0020-00AF"
+  />
+<missing-glyph 
+ />
+    <glyph glyph-name=".notdef" unicode="&#xaf;" 
+ />
+    <glyph glyph-name=".notdef" unicode="&#xfffd;" 
+ />
+    <glyph glyph-name=".notdef" unicode="&#x2044;" 
+ />
+    <glyph glyph-name=".notdef" unicode="&#x2030;" 
+ />
+    <glyph glyph-name=".notdef" unicode="&#x2026;" 
+ />
+    <glyph glyph-name=".notdef" unicode="&#x192;" 
+ />
+    <glyph glyph-name=".notdef" unicode="&#x131;" 
+ />
+    <glyph glyph-name=".notdef" unicode="&#xf8;" 
+ />
+    <glyph glyph-name=".notdef" unicode="&#xe6;" 
+ />
+    <glyph glyph-name=".notdef" unicode="&#xdf;" 
+ />
+    <glyph glyph-name=".notdef" unicode="&#xd8;" 
+ />
+    <glyph glyph-name=".notdef" unicode="&#xc6;" 
+ />
+    <glyph glyph-name=".notdef" unicode="&#xbf;" 
+ />
+    <glyph glyph-name=".notdef" unicode="&#xb4;" 
+ />
+    <glyph glyph-name=".null" horiz-adv-x="0" 
+ />
+    <glyph glyph-name="nonmarkingreturn" horiz-adv-x="681" 
+ />
+    <glyph glyph-name="space" unicode=" " horiz-adv-x="829" 
+ />
+    <glyph glyph-name="zero" unicode="0" horiz-adv-x="1216" 
+d="M0 401v631q0 164 174 287q152 115 378 115t378 -115q176 -123 176 -287v-631q0 -168 -176 -290q-156 -111 -377 -111t-387 117t-166 284z" />
+    <glyph glyph-name="one" unicode="1" horiz-adv-x="1003" 
+d="M897 98q0 -42 -29 -70t-69 -28h-504q-41 0 -70 29t-28 69v822h-99q-41 0 -69 38q-29 45 -29 93v252q0 51 28 91t70 40h701q41 0 69 -33q29 -39 29 -78v-1225z" />
+    <glyph glyph-name="E" unicode="E" horiz-adv-x="1234" 
+d="M750 1331v-164h94q41 0 74 -28q29 -33 28 -74v-215h70q43 0 74 -31q29 -33 28 -74v-643q0 -41 -28 -73q-33 -29 -74 -29h-914q-39 0 -71 29q-31 31 -31 73v1229q0 43 31 74q33 29 71 29h545q41 0 74 -29q29 -33 29 -74z" />
+    <glyph glyph-name="N" unicode="N" horiz-adv-x="1497" 
+d="M444 0h-342q-41 0 -73 29q-29 33 -29 73v1229q0 39 29 72q31 31 73 31h9q4 -2 46 -10t314 -77t363 -87v71q0 41 30 72q31 31 74 31h340q43 0 74 -31t30 -72v-1229q0 -43 -30 -73q-34 -29 -60 -29t-32 2l-713 172v-72q0 -42 -30 -72t-73 -30z" />
+    <glyph glyph-name="Y" unicode="Y" horiz-adv-x="1124" 
+d="M217 109v292q-47 170 -132 534q-85 365 -85 370v22q0 51 29 78q25 31 69 31h881q45 0 70 -31q29 -27 28 -78v-22q0 -9 -35 -153t-93 -392t-89 -359v-303q0 -42 -29 -70t-69 -28h-447q-41 0 -69 33q-29 39 -29 76z" />
+  </font>
+</defs></svg>

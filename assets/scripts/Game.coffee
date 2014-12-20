@@ -11,7 +11,7 @@ class Game
 
 		animationLoop.init()
 
-		scenes.splash()
+		scenes.ident()
 
 		@
 

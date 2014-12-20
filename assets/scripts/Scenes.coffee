@@ -25,11 +25,11 @@ class Scenes
 
 		@
 
-	splash: ->
+	ident: ->
 
 		self = this
 
-		ui.updateBodyClass('splash')
+		ui.updateBodyClass('ident')
 
 		window.setTimeout ->
 			self.title()
