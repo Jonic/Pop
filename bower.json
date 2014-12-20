@@ -8,7 +8,4 @@
   },
   "copyright": "Copyright 2014 100yen",
   "dependencies": {},
-  "devDependencies": {
-    "bourbon": "~4.0.2"
-  }
 }

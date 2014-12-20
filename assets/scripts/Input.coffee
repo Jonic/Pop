@@ -1,3 +1,4 @@
+
 class Input
 
 	init: ->
@@ -8,7 +9,7 @@ class Input
 
 	addGameStartTapEventHandler: () ->
 
-		document.body.addEventListener(inputVerb, this.gameStartTapEventHandler)
+		body.addEventListener(inputVerb, this.gameStartTapEventHandler)
 
 		@
 
@@ -25,8 +26,6 @@ class Input
 	gameStartTapEventHandler: (event) ->
 
 		event.preventDefault()
-
-		scenes.summary.classList.add('hidden')
 
 		game.start()
 
@@ -71,10 +70,10 @@ class Input
 
 				break
 
-		state.updateComboMultiplier(targetHit)
+		playState.updateComboMultiplier(targetHit)
 
 		if targetHit
-			state.updateScore(particle.size, particle.finalSize)
+			playState.updateScore(particle.size, particle.finalSize)
 
 		@
 

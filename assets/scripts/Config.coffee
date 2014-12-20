@@ -1,3 +1,4 @@
+
 class Config
 
 	init: ->
@@ -68,7 +69,7 @@ class Config
 		for property in this.propertiesToUpdateWithDifficulty
 			propertyConfig  = this[property]
 			valueDifference = propertyConfig.difficult - propertyConfig.easy
-			levelMulitplier = state.level / this.maxLevel
-			state[property] = (valueDifference * levelMulitplier) + propertyConfig.easy
+			levelMulitplier = playState.level / this.maxLevel
+			playState[property] = (valueDifference * levelMulitplier) + propertyConfig.easy
 
 		@

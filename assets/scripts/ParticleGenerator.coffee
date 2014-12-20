@@ -1,3 +1,4 @@
+
 class ParticleGenerator
 
 	init: ->
@@ -14,7 +15,7 @@ class ParticleGenerator
 
 	animationLoopActions: ->
 
-		if state.gameState == 'playing'
+		if playState.playing
 			this.generateParticle()
 
 		this.updateParticlesValues()
@@ -48,7 +49,7 @@ class ParticleGenerator
 		for particle in this.particlesArray
 			particle.destroying = true
 
-		state.particleSpawnChance = 0
+		playState.particleSpawnChance = 0
 
 		game.over()
 
@@ -56,7 +57,7 @@ class ParticleGenerator
 
 	generateParticle: ->
 
-		if utils.randomPercentage() < state.particleSpawnChance
+		if utils.randomPercentage() < playState.particleSpawnChance
 			newParticle = new Particle()
 
 			particle = newParticle.init()
@@ -98,8 +99,8 @@ class ParticleGenerator
 
 	stop: ->
 
-		state.updateGameState('stopped')
-		state.stopLevelUpIncrement()
+		playState.update(false)
+		playState.stopLevelUpIncrement()
 
 		@
 

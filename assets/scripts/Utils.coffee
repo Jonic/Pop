@@ -1,4 +1,16 @@
+
 class Utils
+
+	$: (selector) ->
+		if selector.substr(0, 1) == '#'
+			return document.getElementById(selector)
+
+		els = document.querySelectorAll(selector)
+
+		if els.length == 1
+			return els[0]
+
+		return els
 
 	correctValueForDPR: (value, integer = false) ->
 

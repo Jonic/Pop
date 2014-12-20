@@ -1,16 +1,16 @@
+
 debug = true
 
 android        = if navigator.userAgent.match(/android/i) then true else false
+body           = document.body
 canvas         = document.createElement('canvas')
 hasTouchEvents = window.hasOwnProperty('ontouchstart') || window.hasOwnProperty('onmsgesturechange')
-homeScreenApp  = iOS and navigator.standalone
 inputVerb      = if hasTouchEvents then 'touchstart' else 'click'
-iOS            = if navigator.userAgent.match(/(iPad|iPhone|iPod)/i) then true else false
 
-canvas.width  = document.body.clientWidth
-canvas.height = document.body.clientHeight
+canvas.width  = body.clientWidth
+canvas.height = body.clientHeight
 
-document.body.appendChild(canvas)
+body.appendChild(canvas)
 
 context = canvas.getContext('2d')
 
@@ -35,16 +35,11 @@ if devicePixelRatio != backingStoreRatio
 animationLoop     = new AnimationLoop()
 config            = new Config()
 game              = new Game()
-headsUp           = new HeadsUp()
 input             = new Input()
 particleGenerator = new ParticleGenerator()
 utils             = new Utils()
 scenes            = new Scenes()
-state             = new State()
+playState         = new PlayState()
+ui                = new UI()
 
-if android or homeScreenApp or debug
-	game.init()
-else if iOS
-	scenes.installationPrompt()
-else
-	scenes.mobilePrompt()
+game.init()

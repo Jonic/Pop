@@ -1,4 +1,5 @@
-class State
+
+class PlayState
 
 	init: ->
 
@@ -44,7 +45,7 @@ class State
 		this.velocityMin              = config.velocityMin.easy
 		this.velocityMax              = config.velocityMax.easy
 
-		this.updateGameState('playing')
+		this.update(true)
 
 		config.updateValuesForDifficulty()
 
@@ -56,13 +57,13 @@ class State
 
 		this.comboMultiplier = if targetHit then this.comboMultiplier + 1 else this.defaults.comboMultiplier
 
-		headsUp.updateComboMultiplierCounter()
+		ui.updateComboMultiplierCounter()
 
 		@
 
-	updateGameState: (newState) ->
+	update: (newState) ->
 
-		this.gameState = newState
+		this.playing = newState
 
 		@
 
@@ -73,7 +74,7 @@ class State
 		if this.level >= config.maxLevel
 			window.clearInterval(this.levelUpCounter)
 
-		headsUp.updateLevelCounter()
+		ui.updateLevelCounter()
 		config.updateValuesForDifficulty()
 
 		@
@@ -88,6 +89,6 @@ class State
 
 		this.score += (popPointValue * this.comboMultiplier) * (levelMultiplier)
 
-		headsUp.updateScoreCounter()
+		ui.updateScoreCounter()
 
 		@

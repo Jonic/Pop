@@ -1,3 +1,4 @@
+
 class Particle
 
 	init: ->
@@ -10,7 +11,7 @@ class Particle
 
 		this.color      = 'rgba(' + colors.r + ', ' + colors.g + ', ' + colors.b + ', ' + colors.a + ')'
 		this.destroying = false
-		this.finalSize  = utils.randomInteger(0, state.sizeMax)
+		this.finalSize  = utils.randomInteger(0, playState.sizeMax)
 		this.id         = Math.random().toString(36).substr(2, 5)
 		this.isTarget   = this.determineTargetParticle()
 		this.position   =
@@ -18,15 +19,15 @@ class Particle
 			y: particleGenerator.particlesOrigin.y
 		this.size       = 1
 		this.velocity   =
-			x: utils.random(state.velocityMin, state.velocityMax)
-			y: utils.random(state.velocityMin, state.velocityMax)
+			x: utils.random(playState.velocityMin, playState.velocityMax)
+			y: utils.random(playState.velocityMin, playState.velocityMax)
 
 		if this.isTarget
 			this.color     = 'rgba(' + colors.r + ', ' + colors.g + ', ' + colors.b + ', 0.8)'
-			this.finalSize = utils.randomInteger(state.minTargetSize, state.sizeMax)
+			this.finalSize = utils.randomInteger(playState.minTargetSize, playState.sizeMax)
 
-			this.velocity.x *= state.targetVelocityMultiplier
-			this.velocity.y *= state.targetVelocityMultiplier
+			this.velocity.x *= playState.targetVelocityMultiplier
+			this.velocity.y *= playState.targetVelocityMultiplier
 
 		@
 
@@ -34,8 +35,8 @@ class Particle
 
 		isTarget = false
 
-		if particleGenerator.particlesToTestForTaps.length < state.maxTargetsAtOnce
-			isTarget = utils.randomPercentage() < state.chanceParticleIsTarget
+		if particleGenerator.particlesToTestForTaps.length < playState.maxTargetsAtOnce
+			isTarget = utils.randomPercentage() < playState.chanceParticleIsTarget
 
 		return isTarget
 
@@ -73,12 +74,12 @@ class Particle
 	updateValues: ->
 
 		if this.destroying
-			shrinkMultiplier = if state.gameState == 'playing' then 0.7 else 0.9
+			shrinkMultiplier = if playState.playing then 0.7 else 0.9
 
 			this.size *= shrinkMultiplier
 		else
 			if this.size < this.finalSize
-				this.size *= state.particleGrowthMultiplier
+				this.size *= playState.particleGrowthMultiplier
 
 			if this.size > this.finalSize
 				this.size = this.finalSize

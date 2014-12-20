@@ -1,12 +1,12 @@
+
 class Game
 
 	init: ->
 
 		config.init()
 		particleGenerator.init()
-		scenes.init()
-		state.init()
-		headsUp.init()
+		playState.init()
+		ui.init()
 		input.init()
 
 		animationLoop.init()
@@ -18,15 +18,18 @@ class Game
 	over: ->
 
 		scenes.gameOver()
-		state.stopLevelUpIncrement()
+
+		playState.stopLevelUpIncrement()
 
 		@
 
 	start: ->
 
-		state.setToInitialState()
-		headsUp.setToInitialState()
+		playState.setToInitialState()
+		ui.setToInitialState()
 		input.removeGameStartTapEventHandler()
 		particleGenerator.setToInitialState()
+
+		scenes.playing()
 
 		@

@@ -1,47 +1,45 @@
+
 class Scenes
 
-	init: ->
-
-		this.summary   = document.querySelector('.summary')
-		this.playAgain = document.querySelector('.play-again')
-
-		@
-
 	credits: ->
+
+		ui.updateBodyClass('credits')
 
 		@
 
 	gameOver: ->
 
+		ui.updateBodyClass('game-over')
+
 		input.addGameStartTapEventHandler()
 
-		this.summary.classList.remove('hidden')
+		@
+
+	leaderboard: ->
 
 		@
 
-	howToPlay: ->
+	playing: ->
 
-		@
-
-	installationPrompt: ->
-
-		utils.updateUITextNode('body', 'ADD THIS TO YOUR HOME SCREEN TO PLAY')
-
-		@
-
-	mobilePrompt: ->
-
-		utils.updateUITextNode('body', 'YOU NEED TO RUN THIS ON A MOBILE DEVICE')
+		ui.updateBodyClass('playing')
 
 		@
 
 	splash: ->
 
-		this.title()
+		self = this
+
+		ui.updateBodyClass('splash')
+
+		window.setTimeout ->
+			self.title()
+		, 5000
 
 		@
 
 	title: ->
+
+		ui.updateBodyClass('title')
 
 		input.addGameStartTapEventHandler();
 
