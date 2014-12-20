@@ -2,5 +2,5 @@
 .sass-cache
 .sass_cache
 
-/node_modules
-/public/vendor
+node_modules
+public/vendor
