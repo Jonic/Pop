@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf-8" />
+		<meta charset="utf-8">
 
-		<meta name="viewport" content="user-scalable=no, initial-scale=1" />
+		<meta name="apple-mobile-web-app-capable"          content="yes">
+		<meta name="apple-mobile-web-app-title"            content="Pop Rush">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="viewport"                              content="user-scalable=no, initial-scale=1">
 
-		<link href="./public/styles/master.min.css" rel="stylesheet" />
+		<link href="./public/images/icon.png"       rel="apple-touch-icon">
+		<link href="./public/styles/master.min.css" rel="stylesheet">
 	</head>
 
 	<body>
@@ -14,7 +18,7 @@
 		</div>
 
 		<div class="ui-title">
-			<h1>Pop, y'all</h1>
+			<h1>Pop Rush</h1>
 		</div>
 
 		<div class="ui-credits">
@@ -36,7 +40,8 @@
 			<a class="play-again" href="#">Play Again</a>
 		</div>
 
-		<script src="./public/scripts/master.min.js"></script>
+		<script src="./node_modules/traceur/bin/traceur-runtime.js"></script>
+		<script src="./public/scripts/compiled.js"></script>
 
 		<script id="gauges-tracker" data-site-id="511e9c71f5a1f51c4c000020" src="//secure.gaug.es/track.js"></script>
 	</body>
