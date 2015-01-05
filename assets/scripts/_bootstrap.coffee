@@ -7,8 +7,9 @@ canvas         = document.createElement('canvas')
 hasTouchEvents = window.hasOwnProperty('ontouchstart') || window.hasOwnProperty('onmsgesturechange')
 inputVerb      = if hasTouchEvents then 'touchstart' else 'click'
 
-canvas.width  = body.clientWidth
-canvas.height = body.clientHeight
+canvas.className = 'canvas'
+canvas.width     = body.clientWidth
+canvas.height    = body.clientHeight
 
 body.appendChild(canvas)
 
