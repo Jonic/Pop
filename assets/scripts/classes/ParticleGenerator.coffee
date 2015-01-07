@@ -31,7 +31,7 @@ class ParticleGeneratorClass
 
   destroyParticlesOutsideCanvasBounds: ->
 
-    for particleId in @particlesToDelete
+    @particlesToDelete.map (particleId) =>
       particleIndex = @particlesArrayIds.indexOf(particleId)
       particle      = @particlesArray[particleIndex]
 
@@ -47,7 +47,7 @@ class ParticleGeneratorClass
 
     @stop()
 
-    for particle in @particlesArray
+    @particlesArray.map (particle) =>
       particle.destroying = true
 
     PlayState.particleSpawnChance = 0
@@ -72,8 +72,9 @@ class ParticleGeneratorClass
   particleTapDetectionHandler: () ->
 
     targetHit = false
+    particle  = false
 
-    for particleId in @particlesToTestForTaps
+    @particlesToTestForTaps.map (particleId) =>
       particleIndex = @particlesArrayIds.indexOf(particleId)
       particle      = @particlesArray[particleIndex]
       touchData     = Input.getTouchData(event)
@@ -85,12 +86,11 @@ class ParticleGeneratorClass
 
         @particlesToTestForTaps.splice(deletionIndex, 1)
 
-        break
+        return
 
     PlayState.updateComboMultiplier(targetHit)
 
-    if targetHit
-      PlayState.updateScore(particle.size, particle.finalSize)
+    PlayState.updateScore(particle.size, particle.finalSize) if targetHit
 
     return this
 
@@ -114,9 +114,10 @@ class ParticleGeneratorClass
 
   removeParticlesAfterTap: ->
 
-    for particle in @particlesArray
-      if particle? and particle.size < 1
-        @removeParticle(particle)
+    @particlesArray.map (particle) =>
+      @removeParticle(particle) if particle.size < 1
+
+      return
 
     return this
 
@@ -138,11 +139,12 @@ class ParticleGeneratorClass
 
   updateParticlesValues: ->
 
-    for particle in @particlesArray
-      if particle?
-        context.fillStyle   = particle.color
-        context.strokeStyle = particle.color
+    @particlesArray.map (particle) =>
+      context.fillStyle   = particle.color
+      context.strokeStyle = particle.color
 
-        particle.updateValues()
+      particle.updateValues()
+
+      return
 
     return this

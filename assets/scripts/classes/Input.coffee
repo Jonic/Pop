@@ -45,14 +45,15 @@ class InputClass
 
     return touchData
 
-  registerHandler: (selector, scene, callback) ->
+  registerHandler: (selector, scenes, callback) ->
+
+    if typeof(scenes) == 'string'
+      scene_string = scenes
+      scenes = [scene_string]
 
     document.querySelector(selector).addEventListener inputVerb, (event) =>
-
       event.preventDefault()
-
-      callback.apply() if Scenes.current == scene
-
+      callback.apply() if Scenes.current in scenes
       return
 
     return this
