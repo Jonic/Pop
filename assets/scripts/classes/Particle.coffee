@@ -1,6 +1,9 @@
 
 class ParticleClass
 
+  destroying: false
+  size:       1
+
   constructor: ->
 
     r = Utils.randomInteger(0, 200)
@@ -9,14 +12,12 @@ class ParticleClass
     a = Utils.random(0.75, 1)
 
     @color      = "rgba(#{r}, #{g}, #{b}, #{a})"
-    @destroying = false
     @finalSize  = Utils.randomInteger(0, PlayState.sizeMax)
     @id         = Math.random().toString(36).substr(2, 5)
     @isTarget   = @determineTargetParticle()
     @position   =
       x: ParticleGenerator.particlesOrigin.x
       y: ParticleGenerator.particlesOrigin.y
-    @size       = 1
     @velocity   =
       x: Utils.random(PlayState.velocityMin, PlayState.velocityMax)
       y: Utils.random(PlayState.velocityMin, PlayState.velocityMax)
