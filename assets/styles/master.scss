@@ -110,15 +110,13 @@ html {
 }
 
 .ui-playing {
-	@include hide();
-
 	height:    100%;
 	position:  absolute;
 	width:     100%;
-	z-index:   8000;
+	z-index:   100;
 
 	.scene-playing & {
-		@include show();
+
 	}
 }
 
