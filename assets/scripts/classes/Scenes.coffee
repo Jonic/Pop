@@ -41,7 +41,7 @@ class ScenesClass
 
     window.setTimeout =>
       @title()
-    , 5000
+    , 2500
 
     return this
 
