@@ -1,6 +1,12 @@
 
 class UIClass
 
+  constructor: ->
+
+    @setupBasicInterfaceEvents()
+
+    return this
+
   reset: ->
 
     @levelCounter           = Utils.$('.hud-value-level')
@@ -11,6 +17,18 @@ class UIClass
     @updateComboMultiplierCounter()
     @updateLevelCounter()
     @updateScoreCounter()
+
+    return this
+
+  setupBasicInterfaceEvents: ->
+
+    Input.registerHandler '.game-logo', inputVerb, ->
+      Input.gameStartTapEventHandler()
+    , ['title']
+
+    Input.registerHandler '.play-again', inputVerb, ->
+      Input.gameStartTapEventHandler()
+    , ['game-over']
 
     return this
 

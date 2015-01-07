@@ -96,9 +96,9 @@ class ParticleGeneratorClass
 
   registerParticleTapDetectionHandler: ->
 
-    Input.registerHandler '.ui-playing', 'playing', ->
+    Input.registerHandler '.ui-playing', inputVerb, ->
       ParticleGenerator.particleTapDetectionHandler()
-      return
+    , ['playing']
 
     return this
 

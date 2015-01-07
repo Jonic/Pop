@@ -17,8 +17,6 @@ class ScenesClass
 
     UI.updateBodyClass('game-over')
 
-    Input.addGameStartTapEventHandler()
-
     return this
 
   leaderboard: ->
@@ -52,7 +50,5 @@ class ScenesClass
     @current = 'title'
 
     UI.updateBodyClass('title')
-
-    Input.addGameStartTapEventHandler();
 
     return this

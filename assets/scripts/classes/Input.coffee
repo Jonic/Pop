@@ -6,14 +6,8 @@ class InputClass
     @cancelTouchMoveEvents()
 
     window.addEventListener inputVerb, (event) ->
-      #console.log event.target.nodeName.toLowerCase()
+      console.log event.target.nodeName.toLowerCase()
       return
-
-    return this
-
-  addGameStartTapEventHandler: () ->
-
-    body.addEventListener(inputVerb, @gameStartTapEventHandler)
 
     return this
 
@@ -26,7 +20,7 @@ class InputClass
 
     return this
 
-  gameStartTapEventHandler: (event) ->
+  gameStartTapEventHandler: () ->
 
     event.preventDefault()
 
@@ -45,15 +39,15 @@ class InputClass
 
     return touchData
 
-  registerHandler: (selector, scenes, callback) ->
+  registerHandler: (selector, action, callback, scenes) ->
 
-    if typeof(scenes) == 'string'
+    if typeof scenes == 'string'
       scene_string = scenes
       scenes = [scene_string]
 
     document.querySelector(selector).addEventListener inputVerb, (event) =>
       event.preventDefault()
-      callback.apply() if Scenes.current in scenes
+      callback.apply() if scenes.length == 0 || Scenes.current in scenes
       return
 
     return this
