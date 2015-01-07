@@ -59,11 +59,16 @@ html {
 }
 
 	.ident-logo {
-		left:      50%;
 		position:  absolute;
 		top:       50%;
-		transform: translate(-50%, -50%);
-		width:     50%;
+		transform: translateY(-50%);
+		width:     100%;
+
+		svg {
+			display: block;
+			margin:  0 auto;
+			width:   50%;
+		}
 	}
 
 .ui-title {
