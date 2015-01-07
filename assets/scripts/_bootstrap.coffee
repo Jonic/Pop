@@ -32,19 +32,19 @@ if devicePixelRatio != backingStoreRatio
   context.scale(ratio, ratio)
 
 # Set environment and base config etc
-Device            = new DeviceClass()
-Utils             = new UtilsClass()
-Config            = new ConfigClass()
-Input             = new InputClass()
+Device          = new DeviceClass()
+Utils           = new UtilsClass()
+Config          = new ConfigClass()
+Input           = new InputClass()
 
 # Load the game logic and all that
-ParticleGenerator = new ParticleGeneratorClass()
-PlayState         = new PlayStateClass()
-UI                = new UIClass()
-Scenes            = new ScenesClass()
+BubbleGenerator = new BubbleGeneratorClass()
+PlayState       = new PlayStateClass()
+UI              = new UIClass()
+Scenes          = new ScenesClass()
 
 # Set off the canvas animation loop
-AnimationLoop     = new AnimationLoopClass()
+AnimationLoop   = new AnimationLoopClass()
 
 # Start the actual game
-Game              = new GameClass()
+Game            = new GameClass()

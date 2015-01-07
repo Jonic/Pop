@@ -8,13 +8,13 @@ class PlayStateClass
 
   reset: ->
 
-    @chanceParticleIsTarget   = Config.chanceParticleIsTarget.easy
+    @chanceBubbleIsTarget     = Config.chanceBubbleIsTarget.easy
     @comboMultiplier          = @defaults.comboMultiplier
     @level                    = @defaults.level
     @maxTargetsAtOnce         = Config.maxTargetsAtOnce.easy
     @minTargetSize            = Config.minTargetSize.easy
-    @particleGrowthMultiplier = Config.particleGrowthMultiplier.easy
-    @particleSpawnChance      = Config.particleSpawnChance.easy
+    @bubbleGrowthMultiplier   = Config.bubbleGrowthMultiplier.easy
+    @bubbleSpawnChance        = Config.bubbleSpawnChance.easy
     @score                    = @defaults.score
     @sizeMax                  = Config.sizeMax.easy
     @targetVelocityMultiplier = Config.targetVelocityMultiplier.easy

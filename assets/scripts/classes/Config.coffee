@@ -1,7 +1,7 @@
 
 class ConfigClass
 
-  chanceParticleIsTarget:
+  chanceBubbleIsTarget:
     easy:      50
     difficult: 90
 
@@ -15,22 +15,22 @@ class ConfigClass
     easy:      3
     difficult: 6
 
-  particleGrowthMultiplier:
+  bubbleGrowthMultiplier:
     easy:      1.05
     difficult: 1.10
 
-  particleSpawnChance:
+  bubbleSpawnChance:
     easy:      60
     difficult: 100
 
-  particleDiameterAsPercentageOfScreen: 15
+  bubbleDiameterAsPercentageOfScreen: 15
 
   pointsPerPop: 10
 
   propertiesToUpdateWithDifficulty: [
-    'particleSpawnChance'
-    'chanceParticleIsTarget'
-    'particleGrowthMultiplier'
+    'bubbleSpawnChance'
+    'chanceBubbleIsTarget'
+    'bubbleGrowthMultiplier'
     'sizeMax'
     'maxTargetsAtOnce'
     'minTargetSize'
@@ -53,29 +53,29 @@ class ConfigClass
 
   constructor: ->
 
-    baseScreenWidth   = Math.min(body.clientWidth, body.clientHeight) / 100
-    baseParticleWidth = Math.round(baseScreenWidth * @particleDiameterAsPercentageOfScreen)
-
-    @baseParticleSize = baseParticleWidth * devicePixelRatio
+    baseScreenWidth = Math.min(body.clientWidth, body.clientHeight) / 100
+    baseBubbleWidth = Math.round(baseScreenWidth * @bubbleDiameterAsPercentageOfScreen)
+    @baseBubbleSize = baseBubbleWidth * devicePixelRatio
 
     @minTargetSize =
-      easy:      @baseParticleSize * 0.7
-      difficult: @baseParticleSize * 0.4
-
+      easy:      @baseBubbleSize * 0.7
+      difficult: @baseBubbleSize * 0.4
 
     @sizeMax =
-      easy:      @baseParticleSize
-      difficult: @baseParticleSize * 0.6
+      easy:      @baseBubbleSize
+      difficult: @baseBubbleSize * 0.6
 
     return this
 
   updateValuesForDifficulty: ->
 
-    for property in @propertiesToUpdateWithDifficulty
+    @propertiesToUpdateWithDifficulty.map (property) =>
       propertyConfig  = @[property]
       valueDifference = propertyConfig.difficult - propertyConfig.easy
       levelMulitplier = PlayState.level / @maxLevel
 
       PlayState[property] = (valueDifference * levelMulitplier) + propertyConfig.easy
+
+      return
 
     return this

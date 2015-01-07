@@ -1,5 +1,5 @@
 
-class ParticleClass
+class BubbleClass
 
   destroying: false
   size:       1
@@ -14,10 +14,10 @@ class ParticleClass
     @color      = "rgba(#{r}, #{g}, #{b}, #{a})"
     @finalSize  = Utils.randomInteger(0, PlayState.sizeMax)
     @id         = Math.random().toString(36).substr(2, 5)
-    @isTarget   = @determineTargetParticle()
+    @isTarget   = @determineTargetBubble()
     @position   =
-      x: ParticleGenerator.particlesOrigin.x
-      y: ParticleGenerator.particlesOrigin.y
+      x: BubbleGenerator.bubblesOrigin.x
+      y: BubbleGenerator.bubblesOrigin.y
     @velocity   =
       x: Utils.random(PlayState.velocityMin, PlayState.velocityMax)
       y: Utils.random(PlayState.velocityMin, PlayState.velocityMax)
@@ -31,19 +31,19 @@ class ParticleClass
 
     return this
 
-  determineTargetParticle: ->
+  determineTargetBubble: ->
 
     isTarget = false
 
-    if ParticleGenerator.particlesToTestForTaps.length < PlayState.maxTargetsAtOnce
-      isTarget = Utils.randomPercentage() < PlayState.chanceParticleIsTarget
+    if BubbleGenerator.bubblesToTestForTaps.length < PlayState.maxTargetsAtOnce
+      isTarget = Utils.randomPercentage() < PlayState.chanceBubbleIsTarget
 
     return isTarget
 
   draw: ->
 
     if @outsideCanvasBounds()
-      ParticleGenerator.particlesToDelete.push(@id)
+      BubbleGenerator.bubblesToDelete.push(@id)
 
       return
 
@@ -79,7 +79,7 @@ class ParticleClass
       @size *= shrinkMultiplier
     else
       if @size < @finalSize
-        @size *= PlayState.particleGrowthMultiplier
+        @size *= PlayState.bubbleGrowthMultiplier
 
       if @size > @finalSize
         @size = @finalSize

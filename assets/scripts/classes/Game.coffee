@@ -20,7 +20,7 @@ class GameClass
     PlayState.reset()
     UI.reset()
     Input.removeGameStartTapEventHandler()
-    ParticleGenerator.reset()
+    BubbleGenerator.reset()
 
     Scenes.playing()
 

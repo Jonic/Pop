@@ -23,6 +23,6 @@ class AnimationLoopClass
 
     canvas.width = canvas.width
 
-    ParticleGenerator.animationLoopActions()
+    BubbleGenerator.animationLoopActions()
 
     return this
