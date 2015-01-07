@@ -1,98 +1,64 @@
 
-class Input
+class InputClass
 
-	init: ->
+  constructor: ->
 
-		this.cancelTouchMoveEvents()
+    @cancelTouchMoveEvents()
 
-		@
+    window.addEventListener inputVerb, (event) ->
+      #console.log event.target.nodeName.toLowerCase()
+      return
 
-	addGameStartTapEventHandler: () ->
+    return this
 
-		body.addEventListener(inputVerb, this.gameStartTapEventHandler)
+  addGameStartTapEventHandler: () ->
 
-		@
+    body.addEventListener(inputVerb, @gameStartTapEventHandler)
 
-	cancelTouchMoveEvents: ->
+    return this
 
-		window.addEventListener 'touchmove', (event) ->
+  cancelTouchMoveEvents: ->
 
-			event.preventDefault()
+    window.addEventListener 'touchmove', (event) ->
+      event.preventDefault()
 
-			return
+      return
 
-		@
+    return this
 
-	gameStartTapEventHandler: (event) ->
+  gameStartTapEventHandler: (event) ->
 
-		event.preventDefault()
+    event.preventDefault()
 
-		game.start()
+    Game.start()
 
-		@
+    return this
 
-	getTapCoordinates: (event) ->
+  getTouchData: (event) ->
 
-		if hasTouchEvents
-			tapCoordinates = event.touches[0]
-		else
-			tapCoordinates =
-				pageX: event.clientX,
-				pageY: event.clientY
+    if touchData
+      tapCoordinates = event.touches[0]
+    else
+      touchData =
+        pageX: event.clientX,
+        pageY: event.clientY
 
-		return tapCoordinates
+    return touchData
 
-	particleWasTapped: (particle, touchData) ->
+  registerHandler: (selector, scene, callback) ->
 
-		tapX      = touchData.pageX * devicePixelRatio
-		tapY      = touchData.pageY * devicePixelRatio
-		distanceX = tapX - particle.position.x
-		distanceY = tapY - particle.position.y
-		radius    = particle.half
+    document.querySelector(selector).addEventListener inputVerb, (event) =>
 
-		return (distanceX * distanceX) + (distanceY * distanceY) < (particle.half * particle.half)
+      event.preventDefault()
 
-	particleTapDetectionHandler: (event) ->
+      callback.apply() if Scenes.current == scene
 
-		targetHit = false
+      return
 
-		for particleId in particleGenerator.particlesToTestForTaps
-			particleIndex = particleGenerator.particlesArrayIds.indexOf(particleId)
-			particle      = particleGenerator.particlesArray[particleIndex]
-			touchData     = this.getTapCoordinates(event)
+    return this
 
-			if particle? and this.particleWasTapped(particle, touchData)
-				deletionIndex       = particleGenerator.particlesToTestForTaps.indexOf(particleId)
-				particle.destroying = true
-				targetHit           = true
+  removeGameStartTapEventHandler: ->
 
-				particleGenerator.particlesToTestForTaps.splice(deletionIndex, 1)
+    document.body.removeEventListener(inputVerb, @gameStartTapEventHandler)
 
-				break
-
-		playState.updateComboMultiplier(targetHit)
-
-		if targetHit
-			playState.updateScore(particle.size, particle.finalSize)
-
-		@
-
-	removeGameStartTapEventHandler: ->
-
-		document.body.removeEventListener(inputVerb, this.gameStartTapEventHandler)
-
-		@
-
-	setupParticleTapDetection: ->
-
-		self = this
-
-		particleGenerator.particlesToTestForTaps = []
-
-		window.addEventListener inputVerb, (event) ->
-
-			self.particleTapDetectionHandler(event)
-
-			return
-
-		@
+    return this

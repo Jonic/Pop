@@ -1,47 +1,42 @@
 
-class UI
+class UIClass
 
-	init: ->
+  reset: ->
 
-		this.body                   = document.body
-		this.levelCounter           = utils.$('.hud-value-level')
-		this.scoreCounter           = utils.$('.hud-value-score')
-		this.comboMultiplierCounter = utils.$('.hud-value-combo')
-		this.playAgain              = utils.$('.play-again')
+    @levelCounter           = Utils.$('.hud-value-level')
+    @scoreCounter           = Utils.$('.hud-value-score')
+    @comboMultiplierCounter = Utils.$('.hud-value-combo')
+    @playAgain              = Utils.$('.play-again')
 
-		@
+    @updateComboMultiplierCounter()
+    @updateLevelCounter()
+    @updateScoreCounter()
 
-	updateBodyClass: (className) ->
+    return this
 
-		this.body.className = ''
-		this.body.classList.add('scene-' + className)
+  updateBodyClass: (className) ->
 
-		@
+    body.className = ''
+    body.classList.add('scene-' + className)
 
-	setToInitialState: ->
+    return this
 
-		this.updateComboMultiplierCounter()
-		this.updateLevelCounter()
-		this.updateScoreCounter()
+  updateComboMultiplierCounter: ->
 
-		@
+    Utils.updateUITextNode(@comboMultiplierCounter, PlayState.comboMultiplier)
 
-	updateComboMultiplierCounter: ->
+    return this
 
-		utils.updateUITextNode(this.comboMultiplierCounter, playState.comboMultiplier)
+  updateLevelCounter: ->
 
-		@
+    Utils.updateUITextNode(@levelCounter, PlayState.level)
 
-	updateLevelCounter: ->
+    return this
 
-		utils.updateUITextNode(this.levelCounter, playState.level)
+  updateScoreCounter: ->
 
-		@
+    scoreToFormat = Utils.formatWithComma(PlayState.score)
 
-	updateScoreCounter: ->
+    Utils.updateUITextNode(@scoreCounter, scoreToFormat)
 
-		scoreToFormat = utils.formatWithComma(playState.score)
-
-		utils.updateUITextNode(this.scoreCounter, scoreToFormat)
-
-		@
+    return this

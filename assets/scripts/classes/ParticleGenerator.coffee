@@ -1,116 +1,150 @@
 
-class ParticleGenerator
+class ParticleGeneratorClass
 
-	init: ->
+  constructor: ->
 
-		this.particlesOrigin =
-			x: canvas.width  / 2
-			y: canvas.height / 2
+    @particlesArray         = []
+    @particlesArrayIds      = []
+    @particlesToDelete      = []
+    @particlesToTestForTaps = []
 
-		this.setToInitialState()
+    @particlesOrigin =
+      x: canvas.width  / 2
+      y: canvas.height / 2
 
-		input.setupParticleTapDetection()
+    @registerParticleTapDetectionHandler()
 
-		@
+    return this
 
-	animationLoopActions: ->
+  animationLoopActions: ->
 
-		if playState.playing
-			this.generateParticle()
+    if PlayState.playing
+      @generateParticle()
 
-		this.updateParticlesValues()
-		this.removeParticlesAfterTap()
+    @updateParticlesValues()
+    @removeParticlesAfterTap()
 
-		if this.particlesToDelete.length > 0
-			this.destroyParticlesOutsideCanvasBounds()
+    if @particlesToDelete.length > 0
+      @destroyParticlesOutsideCanvasBounds()
 
-		@
+    return this
 
-	destroyParticlesOutsideCanvasBounds: ->
+  destroyParticlesOutsideCanvasBounds: ->
 
-		for particleId in this.particlesToDelete
-			particleIndex = this.particlesArrayIds.indexOf(particleId)
-			particle      = this.particlesArray[particleIndex]
+    for particleId in @particlesToDelete
+      particleIndex = @particlesArrayIds.indexOf(particleId)
+      particle      = @particlesArray[particleIndex]
 
-			if particle?
-				if particle.isTarget
-					this.gameOver()
+      if particle?
+        @gameOver() if particle.isTarget
+        @removeParticle(particle)
 
-				this.removeParticle(particle)
+    @particlesToDelete = []
 
-		this.particlesToDelete = []
+    return this
 
-		@
+  gameOver: ->
 
-	gameOver: ->
+    @stop()
 
-		this.stop()
+    for particle in @particlesArray
+      particle.destroying = true
 
-		for particle in this.particlesArray
-			particle.destroying = true
+    PlayState.particleSpawnChance = 0
 
-		playState.particleSpawnChance = 0
+    Game.over()
 
-		game.over()
+    return this
 
-		@
+  generateParticle: ->
 
-	generateParticle: ->
+    if Utils.randomPercentage() < PlayState.particleSpawnChance
+      particle = new ParticleClass()
 
-		if utils.randomPercentage() < playState.particleSpawnChance
-			newParticle = new Particle()
+      @particlesArray.push(particle)
+      @particlesArrayIds.push(particle.id)
 
-			particle = newParticle.init()
+      if particle.isTarget
+        @particlesToTestForTaps.unshift(particle.id)
 
-			this.particlesArray.push(particle)
-			this.particlesArrayIds.push(particle.id)
+    return this
 
-			if particle.isTarget
-				this.particlesToTestForTaps.unshift(particle.id)
+  particleTapDetectionHandler: () ->
 
-		@
+    console.log(event)
 
-	removeParticle: (particle) ->
+    targetHit = false
 
-		id    = particle.id
-		index = this.particlesArrayIds.indexOf(id)
+    for particleId in @particlesToTestForTaps
+      particleIndex = @particlesArrayIds.indexOf(particleId)
+      particle      = @particlesArray[particleIndex]
+      touchData     = Input.getTouchData(event)
 
-		this.particlesArray.splice(index, 1)
-		this.particlesArrayIds.splice(index, 1)
+      if particle? and particle.wasTapped(touchData)
+        deletionIndex       = @particlesToTestForTaps.indexOf(particleId)
+        particle.destroying = true
+        targetHit           = true
 
-		@
+        @particlesToTestForTaps.splice(deletionIndex, 1)
 
-	removeParticlesAfterTap: ->
+        break
 
-		for particle in this.particlesArray
-			if particle? and particle.size < 1
-				this.removeParticle(particle)
+    PlayState.updateComboMultiplier(targetHit)
 
-		@
+    if targetHit
+      PlayState.updateScore(particle.size, particle.finalSize)
 
-	setToInitialState: ->
+    return this
 
-		this.particlesArray         = []
-		this.particlesArrayIds      = []
-		this.particlesToDelete      = []
-		this.particlesToTestForTaps = []
+  registerParticleTapDetectionHandler: ->
 
-		@
+    Input.registerHandler '.canvas', 'playing', ->
+      ParticleGenerator.particleTapDetectionHandler()
+      return
 
-	stop: ->
+    return this
 
-		playState.update(false)
-		playState.stopLevelUpIncrement()
+  removeParticle: (particle) ->
 
-		@
+    id    = particle.id
+    index = @particlesArrayIds.indexOf(id)
 
-	updateParticlesValues: ->
+    @particlesArray.splice(index, 1)
+    @particlesArrayIds.splice(index, 1)
 
-		for particle in this.particlesArray
-			if particle?
-				context.fillStyle   = particle.color
-				context.strokeStyle = particle.color
+    return this
 
-				particle.updateValues()
+  removeParticlesAfterTap: ->
 
-		@
+    for particle in @particlesArray
+      if particle? and particle.size < 1
+        @removeParticle(particle)
+
+    return this
+
+  reset: ->
+
+    @particlesArray         = []
+    @particlesArrayIds      = []
+    @particlesToDelete      = []
+    @particlesToTestForTaps = []
+
+    return this
+
+  stop: ->
+
+    PlayState.update(false)
+    PlayState.stopLevelUpIncrement()
+
+    return this
+
+  updateParticlesValues: ->
+
+    for particle in @particlesArray
+      if particle?
+        context.fillStyle   = particle.color
+        context.strokeStyle = particle.color
+
+        particle.updateValues()
+
+    return this

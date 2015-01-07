@@ -1,35 +1,27 @@
 
-class Game
+class GameClass
 
-	init: ->
+  constructor: ->
 
-		config.init()
-		particleGenerator.init()
-		playState.init()
-		ui.init()
-		input.init()
+    Scenes.ident()
 
-		animationLoop.init()
+    return this
 
-		scenes.ident()
+  over: ->
 
-		@
+    Scenes.gameOver()
 
-	over: ->
+    PlayState.stopLevelUpIncrement()
 
-		scenes.gameOver()
+    return this
 
-		playState.stopLevelUpIncrement()
+  start: ->
 
-		@
+    PlayState.reset()
+    UI.reset()
+    Input.removeGameStartTapEventHandler()
+    ParticleGenerator.reset()
 
-	start: ->
+    Scenes.playing()
 
-		playState.setToInitialState()
-		ui.setToInitialState()
-		input.removeGameStartTapEventHandler()
-		particleGenerator.setToInitialState()
-
-		scenes.playing()
-
-		@
+    return this

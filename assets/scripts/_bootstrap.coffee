@@ -3,15 +3,13 @@ debug = true
 
 android        = if navigator.userAgent.match(/android/i) then true else false
 body           = document.body
-canvas         = document.createElement('canvas')
+canvas         = document.querySelector('.canvas')
 hasTouchEvents = window.hasOwnProperty('ontouchstart') || window.hasOwnProperty('onmsgesturechange')
 inputVerb      = if hasTouchEvents then 'touchstart' else 'click'
 
 canvas.className = 'canvas'
 canvas.width     = body.clientWidth
 canvas.height    = body.clientHeight
-
-body.appendChild(canvas)
 
 context = canvas.getContext('2d')
 
@@ -22,25 +20,31 @@ backingStoreRatio = context.webkitBackingStorePixelRatio || context.backingStore
 ratio             = devicePixelRatio / backingStoreRatio
 
 if devicePixelRatio != backingStoreRatio
-	oldWidth  = canvas.width
-	oldHeight = canvas.height
+  oldWidth  = canvas.width
+  oldHeight = canvas.height
 
-	canvas.width  = oldWidth  * ratio
-	canvas.height = oldHeight * ratio
+  canvas.width  = oldWidth  * ratio
+  canvas.height = oldHeight * ratio
 
-	canvas.style.width  = oldWidth  + 'px'
-	canvas.style.height = oldHeight + 'px'
+  canvas.style.width  = "#{oldWidth}px"
+  canvas.style.height = "#{oldHeight}px"
 
-	context.scale(ratio, ratio)
+  context.scale(ratio, ratio)
 
-animationLoop     = new AnimationLoop()
-config            = new Config()
-game              = new Game()
-input             = new Input()
-particleGenerator = new ParticleGenerator()
-utils             = new Utils()
-scenes            = new Scenes()
-playState         = new PlayState()
-ui                = new UI()
+# Set environment and base config etc
+Device            = new DeviceClass()
+Utils             = new UtilsClass()
+Config            = new ConfigClass()
+Input             = new InputClass()
 
-game.init()
+# Load the game logic and all that
+ParticleGenerator = new ParticleGeneratorClass()
+PlayState         = new PlayStateClass()
+UI                = new UIClass()
+Scenes            = new ScenesClass()
+
+# Set off the canvas animation loop
+AnimationLoop     = new AnimationLoopClass()
+
+# Start the actual game
+Game              = new GameClass()

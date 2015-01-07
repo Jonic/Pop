@@ -1,94 +1,103 @@
 
-class Particle
+class ParticleClass
 
-	init: ->
+  constructor: ->
 
-		colors =
-			r: utils.randomInteger(0, 200)
-			g: utils.randomInteger(0, 200)
-			b: utils.randomInteger(0, 200)
-			a: utils.random(0.75, 1)
+    r = Utils.randomInteger(0, 200)
+    g = Utils.randomInteger(0, 200)
+    b = Utils.randomInteger(0, 200)
+    a = Utils.random(0.75, 1)
 
-		this.color      = 'rgba(' + colors.r + ', ' + colors.g + ', ' + colors.b + ', ' + colors.a + ')'
-		this.destroying = false
-		this.finalSize  = utils.randomInteger(0, playState.sizeMax)
-		this.id         = Math.random().toString(36).substr(2, 5)
-		this.isTarget   = this.determineTargetParticle()
-		this.position   =
-			x: particleGenerator.particlesOrigin.x
-			y: particleGenerator.particlesOrigin.y
-		this.size       = 1
-		this.velocity   =
-			x: utils.random(playState.velocityMin, playState.velocityMax)
-			y: utils.random(playState.velocityMin, playState.velocityMax)
+    @color      = "rgba(#{r}, #{g}, #{b}, #{a})"
+    @destroying = false
+    @finalSize  = Utils.randomInteger(0, PlayState.sizeMax)
+    @id         = Math.random().toString(36).substr(2, 5)
+    @isTarget   = @determineTargetParticle()
+    @position   =
+      x: ParticleGenerator.particlesOrigin.x
+      y: ParticleGenerator.particlesOrigin.y
+    @size       = 1
+    @velocity   =
+      x: Utils.random(PlayState.velocityMin, PlayState.velocityMax)
+      y: Utils.random(PlayState.velocityMin, PlayState.velocityMax)
 
-		if this.isTarget
-			this.color     = 'rgba(' + colors.r + ', ' + colors.g + ', ' + colors.b + ', 0.8)'
-			this.finalSize = utils.randomInteger(playState.minTargetSize, playState.sizeMax)
+    if @isTarget
+      @color     = "rgba(#{r}, #{g}, #{b}, 0.8)"
+      @finalSize = Utils.randomInteger(PlayState.minTargetSize, PlayState.sizeMax)
 
-			this.velocity.x *= playState.targetVelocityMultiplier
-			this.velocity.y *= playState.targetVelocityMultiplier
+      @velocity.x *= PlayState.targetVelocityMultiplier
+      @velocity.y *= PlayState.targetVelocityMultiplier
 
-		@
+    return this
 
-	determineTargetParticle: ->
+  determineTargetParticle: ->
 
-		isTarget = false
+    isTarget = false
 
-		if particleGenerator.particlesToTestForTaps.length < playState.maxTargetsAtOnce
-			isTarget = utils.randomPercentage() < playState.chanceParticleIsTarget
+    if ParticleGenerator.particlesToTestForTaps.length < PlayState.maxTargetsAtOnce
+      isTarget = Utils.randomPercentage() < PlayState.chanceParticleIsTarget
 
-		return isTarget
+    return isTarget
 
-	draw: ->
+  draw: ->
 
-		if this.outsideCanvasBounds()
-			particleGenerator.particlesToDelete.push(this.id)
+    if @outsideCanvasBounds()
+      ParticleGenerator.particlesToDelete.push(@id)
 
-			return
+      return
 
-		if this.isTarget
-			this.lineWidth = this.size / 10
+    if @isTarget
+      @lineWidth = @size / 10
 
-			if this.lineWidth > config.maxLineWidth
-				this.lineWidth = config.maxLineWidth
+      if @lineWidth > Config.maxLineWidth
+        @lineWidth = Config.maxLineWidth
 
-			context.fillStyle = 'rgba(247, 247, 247, 0.9)'
-			context.lineWidth = this.lineWidth
+      context.fillStyle = 'rgba(247, 247, 247, 0.9)'
+      context.lineWidth = @lineWidth
 
-		context.beginPath()
-		context.arc(this.position.x, this.position.y, this.half, 0, Math.PI * 2, true)
-		context.fill()
-		context.stroke() if this.isTarget
-		context.closePath()
+    context.beginPath()
+    context.arc(@position.x, @position.y, @half, 0, Math.PI * 2, true)
+    context.fill()
+    context.stroke() if @isTarget
+    context.closePath()
 
-		@
+    return this
 
-	outsideCanvasBounds: ->
+  outsideCanvasBounds: ->
 
-		beyondBoundsX = this.position.x < -(this.finalSize) or this.position.x > canvas.width  + this.finalSize
-		beyondBoundsY = this.position.y < -(this.finalSize) or this.position.y > canvas.height + this.finalSize
+    beyondBoundsX = @position.x < -(@finalSize) or @position.x > canvas.width  + @finalSize
+    beyondBoundsY = @position.y < -(@finalSize) or @position.y > canvas.height + @finalSize
 
-		return beyondBoundsX or beyondBoundsY
+    return beyondBoundsX or beyondBoundsY
 
-	updateValues: ->
+  updateValues: ->
 
-		if this.destroying
-			shrinkMultiplier = if playState.playing then 0.7 else 0.9
+    if @destroying
+      shrinkMultiplier = if PlayState.playing then 0.7 else 0.9
 
-			this.size *= shrinkMultiplier
-		else
-			if this.size < this.finalSize
-				this.size *= playState.particleGrowthMultiplier
+      @size *= shrinkMultiplier
+    else
+      if @size < @finalSize
+        @size *= PlayState.particleGrowthMultiplier
 
-			if this.size > this.finalSize
-				this.size = this.finalSize
+      if @size > @finalSize
+        @size = @finalSize
 
-		this.half = this.size / 2
+    @half = @size / 2
 
-		this.position.x += this.velocity.x
-		this.position.y += this.velocity.y
+    @position.x += @velocity.x
+    @position.y += @velocity.y
 
-		this.draw()
+    @draw()
 
-		@
+    return this
+
+  wasTapped: (touchData) ->
+
+    tapX      = touchData.pageX * devicePixelRatio
+    tapY      = touchData.pageY * devicePixelRatio
+    distanceX = tapX - @position.x
+    distanceY = tapY - @position.y
+    radius    = @half
+
+    return (distanceX * distanceX) + (distanceY * distanceY) < (@half * @half)

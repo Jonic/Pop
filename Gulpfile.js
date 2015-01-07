@@ -24,17 +24,18 @@ var paths = {
 };
 
 gulp.task('scripts', function () {
- 	return gulp.src([
- 			paths.scripts.classes,
- 			paths.scripts.bootstrap
- 		])
-  		.pipe(sourcemaps.init())
-  		.pipe(coffee({
-    		bare: true
-  		}))
-  		.pipe(concat('application.js'))
-  		.pipe(sourcemaps.write())
-  		.pipe(gulp.dest(paths.scripts.dest));
+	return gulp.src([
+			paths.scripts.classes,
+			paths.scripts.bootstrap
+		])
+		.pipe(sourcemaps.init())
+		.pipe(coffee({
+			bare: true
+		}))
+		.pipe(concat('application.js'))
+		.pipe(sourcemaps.write())
+		.pipe(gulp.dest(paths.scripts.dest));
+		//.on('error', gutil.log());
 });
 
 gulp.task('styles', function () {
@@ -43,6 +44,7 @@ gulp.task('styles', function () {
 		.pipe(sass())
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest(paths.styles.dest));
+		//.on('error', gutil.log());
 });
 
 gulp.task('watch', function () {

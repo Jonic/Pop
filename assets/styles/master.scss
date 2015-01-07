@@ -7,9 +7,19 @@
 	padding:    0;
 }
 
+@mixin hide {
+	-webkit-transform: translateY(-100%);
+	transform: translateY(-100%);
+}
+
+@mixin show {
+	-webkit-transform: translateY(0);
+	transform: translateY(0);
+}
+
 // Fonts
 
-@import url(http://fonts.googleapis.com/css?family=Lato:400,700);
+//@import url(http://fonts.googleapis.com/css?family=Lato:400,700);
 
 // Basic stuff
 
@@ -37,6 +47,7 @@ html {
 // Ident
 
 .ui-ident {
+	@include hide();
 	-webkit-transition: opacity 1000ms ease-out;
 
 	height:     100%;
@@ -48,6 +59,8 @@ html {
 	z-index:    10000;
 
 	.scene-ident & {
+		@include show();
+
 		opacity:    1;
 		transition: none;
 	}
@@ -64,6 +77,8 @@ html {
 	}
 
 .ui-title {
+	@include hide();
+
 	height:     100%;
 	opacity:    0;
 	position:   absolute;
@@ -74,6 +89,7 @@ html {
 	z-index:    9000;
 
 	.scene-title & {
+		@include show();
 		opacity: 1;
 	}
 }
@@ -92,30 +108,28 @@ html {
 
 .ui-credits {
 	display: none;
+	@include hide();
 
 	.scene-credits & {
-		display: block;
+		@include show();
 	}
 }
 
 .ui-playing {
-	-webkit-transform: translateY(-100%);
+	@include hide();
 
 	height:    100%;
 	position:  absolute;
-	transform: translateY(-100%);
 	width:     100%;
 	z-index:   8000;
 
 	.scene-playing & {
-		-webkit-transform: translateY(0);
-
-		transform: translateY(0);
+		@include show();
 	}
 }
 
 	.hud {
-		-webkit-transform:  translateY(-100%);
+		@include hide();
 		-webkit-transition: all 250ms ease-out;
 
 		background: rgba(255, 255, 255, 0.25);
@@ -125,16 +139,15 @@ html {
 		list-style: none;
 		opacity:    0;
 		position:   absolute;
-		transform:  translateY(-100%);
+		top:        0;
 		transition: all 250ms ease-out;
 		width:      100%;
-		z-index:    0;
+		z-index:    10;
 
 		.scene-playing & {
-			-webkit-transform: translateY(0);
+			@include show();
 
-			opacity:   1;
-			transform: translateY(0);
+			opacity: 1;
 		}
 	}
 
@@ -181,6 +194,14 @@ html {
 			}
 		}
 
+		.canvas {
+			background: #ECF0F1;
+			left:       0;
+			position:   absolute;
+			top:        0;
+			z-index:    0;
+		}
+
 .ui-game-over {
 	-webkit-transition: all 250ms ease-out;
 
@@ -199,12 +220,4 @@ html {
 		opacity: 1;
 		top:     30%;
 	}
-}
-
-.canvas {
-	background: #ECF0F1;
-	left:       0;
-	position:   absolute;
-	top:        0;
-	z-index:    0;
 }

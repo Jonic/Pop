@@ -1,65 +1,65 @@
 
-class Utils
+class UtilsClass
 
-	$: (selector) ->
-		if selector.substr(0, 1) == '#'
-			return document.getElementById(selector)
+  $: (selector) ->
+    if selector.substr(0, 1) == '#'
+      return document.getElementById(selector)
 
-		els = document.querySelectorAll(selector)
+    els = document.querySelectorAll(selector)
 
-		if els.length == 1
-			return els[0]
+    if els.length == 1
+      return els[0]
 
-		return els
+    return els
 
-	correctValueForDPR: (value, integer = false) ->
+  correctValueForDPR: (value, integer = false) ->
 
-		value *= devicePixelRatio
+    value *= devicePixelRatio
 
-		if integer
-			value = Math.round(value)
+    if integer
+      value = Math.round(value)
 
-		return value
+    return value
 
-	formatWithComma: (num) ->
+  formatWithComma: (num) ->
 
-		num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 
-	random: (min, max) ->
+  random: (min, max) ->
 
-		if min == undefined
-			min = 0
-			max = 1
-		else if max == undefined
-			max = min
-			min = 0
+    if min == undefined
+      min = 0
+      max = 1
+    else if max == undefined
+      max = min
+      min = 0
 
-		return (Math.random() * (max - min)) + min;
+    return (Math.random() * (max - min)) + min;
 
-	randomColor: (alpha = false) ->
+  randomColor: (alpha = false) ->
 
-		colors =
-			r: this.randomInteger(0, 200)
-			g: this.randomInteger(0, 200)
-			b: this.randomInteger(0, 200)
-			a: if !alpha then this.random(0.75, 1) else alpha
+    colors =
+      r: this.randomInteger(0, 200)
+      g: this.randomInteger(0, 200)
+      b: this.randomInteger(0, 200)
+      a: if !alpha then this.random(0.75, 1) else alpha
 
-		return 'rgba(' + colors.r + ', ' + colors.g + ', ' + colors.b + ', ' + colors.a + ')'
+    return 'rgba(' + colors.r + ', ' + colors.g + ', ' + colors.b + ', ' + colors.a + ')'
 
-	randomInteger: (min, max) ->
+  randomInteger: (min, max) ->
 
-		if max == undefined
-			max = min
-			min = 0
+    if max == undefined
+      max = min
+      min = 0
 
-		return Math.floor(Math.random() * (max + 1 - min)) + min
+    return Math.floor(Math.random() * (max + 1 - min)) + min
 
-	randomPercentage: ->
+  randomPercentage: ->
 
-		return Math.floor(Math.random() * 100)
+    return Math.floor(Math.random() * 100)
 
-	updateUITextNode: (element, value) ->
+  updateUITextNode: (element, value) ->
 
-		element.innerHTML = value
+    element.innerHTML = value
 
-		@
+    return this

@@ -1,46 +1,58 @@
 
-class Scenes
+class ScenesClass
 
-	credits: ->
+  @current = null
 
-		ui.updateBodyClass('credits')
+  credits: ->
 
-		@
+    @current = 'credits'
 
-	gameOver: ->
+    UI.updateBodyClass('credits')
 
-		ui.updateBodyClass('game-over')
+    return this
 
-		input.addGameStartTapEventHandler()
+  gameOver: ->
 
-		@
+    @current = 'game-over'
 
-	leaderboard: ->
+    UI.updateBodyClass('game-over')
 
-		@
+    Input.addGameStartTapEventHandler()
 
-	playing: ->
+    return this
 
-		ui.updateBodyClass('playing')
+  leaderboard: ->
 
-		@
+    @current = 'leaderboard'
 
-	ident: ->
+    return this
 
-		self = this
+  playing: ->
 
-		ui.updateBodyClass('ident')
+    @current = 'playing'
 
-		window.setTimeout ->
-			self.title()
-		, 5000
+    UI.updateBodyClass('playing')
 
-		@
+    return this
 
-	title: ->
+  ident: ->
 
-		ui.updateBodyClass('title')
+    @current = 'ident'
 
-		input.addGameStartTapEventHandler();
+    UI.updateBodyClass('ident')
 
-		@
+    window.setTimeout =>
+      @title()
+    , 500
+
+    return this
+
+  title: ->
+
+    @current = 'title'
+
+    UI.updateBodyClass('title')
+
+    Input.addGameStartTapEventHandler();
+
+    return this

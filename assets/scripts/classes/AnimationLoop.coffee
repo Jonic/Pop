@@ -1,31 +1,28 @@
 
-class AnimationLoop
+class AnimationLoopClass
 
-	init: ->
+  constructor: ->
 
-		this.requestAnimationFrame()
-		this.animationLoopId
+    @requestAnimationFrame()
 
-		@
+    return this
 
-	cancelAnimationFrame: ->
+  cancelAnimationFrame: ->
 
-		window.cancelAnimationFrame(this.animationLoopId)
+    window.cancelAnimationFrame(@animationLoopId)
 
-		@
+    return this
 
-	requestAnimationFrame: ->
+  requestAnimationFrame: ->
 
-		self = this
+    @animationLoopId = window.requestAnimationFrame =>
 
-		this.animationLoopId = window.requestAnimationFrame ->
+      @requestAnimationFrame()
 
-			self.requestAnimationFrame()
+      return
 
-			return
+    canvas.width = canvas.width
 
-		canvas.width = canvas.width
+    ParticleGenerator.animationLoopActions()
 
-		particleGenerator.animationLoopActions()
-
-		@
+    return this

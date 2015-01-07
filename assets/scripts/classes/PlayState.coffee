@@ -1,94 +1,88 @@
 
-class PlayState
+class PlayStateClass
 
-	init: ->
+  defaults:
+    comboMultiplier: 0
+    level:           1
+    score:           0
 
-		this.defaults =
-			level:           1
-			score:           0
-			comboMultiplier: 0
+  reset: ->
 
-		@
+    @chanceParticleIsTarget   = Config.chanceParticleIsTarget.easy
+    @comboMultiplier          = @defaults.comboMultiplier
+    @level                    = @defaults.level
+    @maxTargetsAtOnce         = Config.maxTargetsAtOnce.easy
+    @minTargetSize            = Config.minTargetSize.easy
+    @particleGrowthMultiplier = Config.particleGrowthMultiplier.easy
+    @particleSpawnChance      = Config.particleSpawnChance.easy
+    @score                    = @defaults.score
+    @sizeMax                  = Config.sizeMax.easy
+    @targetVelocityMultiplier = Config.targetVelocityMultiplier.easy
+    @velocityMin              = Config.velocityMin.easy
+    @velocityMax              = Config.velocityMax.easy
 
-	stopLevelUpIncrement: ->
+    @update(true)
 
-		window.clearInterval(this.levelUpCounter)
+    Config.updateValuesForDifficulty()
 
-		@
+    @setupLevelUpIncrement()
 
-	setupLevelUpIncrement: ->
+    return this
 
-		self = this
+  stopLevelUpIncrement: ->
 
-		this.levelUpCounter = window.setInterval ->
+    window.clearInterval(@levelUpCounter)
 
-			self.updateLevel()
+    return this
 
-			return
+  setupLevelUpIncrement: ->
 
-		, config.levelUpInterval * 1000
+    @levelUpCounter = window.setInterval =>
 
-		@
+      @updateLevel()
 
-	setToInitialState: ->
+      return
 
-		this.level                    = this.defaults.level
-		this.chanceParticleIsTarget   = config.chanceParticleIsTarget.easy
-		this.comboMultiplier          = this.defaults.comboMultiplier
-		this.maxTargetsAtOnce         = config.maxTargetsAtOnce.easy
-		this.minTargetSize            = config.minTargetSize.easy
-		this.particleGrowthMultiplier = config.particleGrowthMultiplier.easy
-		this.particleSpawnChance      = config.particleSpawnChance.easy
-		this.score                    = this.defaults.score
-		this.sizeMax                  = config.sizeMax.easy
-		this.targetVelocityMultiplier = config.targetVelocityMultiplier.easy
-		this.velocityMin              = config.velocityMin.easy
-		this.velocityMax              = config.velocityMax.easy
+    , Config.levelUpInterval * 1000
 
-		this.update(true)
+    return this
 
-		config.updateValuesForDifficulty()
+  updateComboMultiplier: (targetHit) ->
 
-		this.setupLevelUpIncrement()
+    @comboMultiplier = if targetHit then @comboMultiplier + 1 else @defaults.comboMultiplier
 
-		@
+    UI.updateComboMultiplierCounter()
 
-	updateComboMultiplier: (targetHit) ->
+    return this
 
-		this.comboMultiplier = if targetHit then this.comboMultiplier + 1 else this.defaults.comboMultiplier
+  update: (newState) ->
 
-		ui.updateComboMultiplierCounter()
+    @playing = newState
 
-		@
+    return this
 
-	update: (newState) ->
+  updateLevel: ->
 
-		this.playing = newState
+    @level += 1
 
-		@
+    if @level >= Config.maxLevel
+      window.clearInterval(@levelUpCounter)
 
-	updateLevel: ->
+    UI.updateLevelCounter()
+    Config.updateValuesForDifficulty()
 
-		this.level += 1
+    return this
 
-		if this.level >= config.maxLevel
-			window.clearInterval(this.levelUpCounter)
+  updateScore: (sizeWhenTapped, sizeWhenFullyGrown) ->
 
-		ui.updateLevelCounter()
-		config.updateValuesForDifficulty()
+    #((defaultScorePerPop + (100 - ((sizeWhenTapped / sizeWhenFullyGrown) * 100))) * comboMultiplier) * (levelNumber + 1)
 
-		@
+    targetSizeBonus = Math.round(100 - ((sizeWhenTapped / sizeWhenFullyGrown) * 100))
+    popPointValue   = Config.pointsPerPop + targetSizeBonus
+    levelMultiplier = @level + 1
 
-	updateScore: (sizeWhenTapped, sizeWhenFullyGrown) ->
+    @score += (popPointValue * @comboMultiplier) * (levelMultiplier)
 
-		#((defaultScorePerPop + (100 - ((sizeWhenTapped / sizeWhenFullyGrown) * 100))) * comboMultiplier) * (levelNumber + 1)
+    UI.updateScoreCounter()
 
-		targetSizeBonus = Math.round(100 - ((sizeWhenTapped / sizeWhenFullyGrown) * 100))
-		popPointValue   = config.pointsPerPop + targetSizeBonus
-		levelMultiplier = this.level + 1
-
-		this.score += (popPointValue * this.comboMultiplier) * (levelMultiplier)
-
-		ui.updateScoreCounter()
-
-		@
+    return this

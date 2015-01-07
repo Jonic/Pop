@@ -1,75 +1,81 @@
 
-class Config
+class ConfigClass
 
-	init: ->
+  chanceParticleIsTarget:
+    easy:      50
+    difficult: 90
 
-		this.particleWidthAsPercentageOfScreen = 15
+  levelUpInterval: 5
 
-		baseScreenWidth   = Math.min(document.body.clientWidth, document.body.clientHeight)
-		baseParticleWidth = Math.round((baseScreenWidth / 100) * this.particleWidthAsPercentageOfScreen)
+  maxLevel: 50
 
-		this.baseParticleSize = baseParticleWidth * devicePixelRatio
-		this.maxLineWidth     = 5
-		this.levelUpInterval  = 5
-		this.maxLevel         = 50
-		this.pointsPerPop     = 10
+  maxLineWidth: 5
 
-		this.chanceParticleIsTarget =
-			easy:      50
-			difficult: 90
+  maxTargetsAtOnce:
+    easy:      3
+    difficult: 6
 
-		this.maxTargetsAtOnce =
-			easy:      3
-			difficult: 6
+  particleGrowthMultiplier:
+    easy:      1.05
+    difficult: 1.10
 
-		this.minTargetSize =
-			easy:      this.baseParticleSize * 0.7
-			difficult: this.baseParticleSize * 0.4
+  particleSpawnChance:
+    easy:      60
+    difficult: 100
 
-		this.particleGrowthMultiplier =
-			easy:      1.05
-			difficult: 1.10
+  particleDiameterAsPercentageOfScreen: 15
 
-		this.particleSpawnChance =
-			easy:      60
-			difficult: 100
+  pointsPerPop: 10
 
-		this.sizeMax =
-			easy:      this.baseParticleSize
-			difficult: this.baseParticleSize * 0.6
+  propertiesToUpdateWithDifficulty: [
+    'particleSpawnChance'
+    'chanceParticleIsTarget'
+    'particleGrowthMultiplier'
+    'sizeMax'
+    'maxTargetsAtOnce'
+    'minTargetSize'
+    'velocityMin'
+    'velocityMax'
+    'targetVelocityMultiplier'
+  ]
 
-		this.targetVelocityMultiplier =
-			easy:      0.3
-			difficult: 0.5
+  targetVelocityMultiplier:
+    easy:      0.3
+    difficult: 0.5
 
-		this.velocityMin =
-			easy:      -6
-			difficult: -10
+  velocityMin:
+    easy:      -6
+    difficult: -10
 
-		this.velocityMax =
-			easy:      6
-			difficult: 10
+  velocityMax:
+    easy:      6
+    difficult: 10
 
-		this.propertiesToUpdateWithDifficulty = [
-			'particleSpawnChance',
-			'chanceParticleIsTarget',
-			'particleGrowthMultiplier',
-			'sizeMax',
-			'maxTargetsAtOnce',
-			'minTargetSize',
-			'velocityMin',
-			'velocityMax'
-			'targetVelocityMultiplier'
-		]
+  constructor: ->
 
-		@
+    baseScreenWidth   = Math.min(body.clientWidth, body.clientHeight) / 100
+    baseParticleWidth = Math.round(baseScreenWidth * @particleDiameterAsPercentageOfScreen)
 
-	updateValuesForDifficulty: ->
+    @baseParticleSize = baseParticleWidth * devicePixelRatio
 
-		for property in this.propertiesToUpdateWithDifficulty
-			propertyConfig  = this[property]
-			valueDifference = propertyConfig.difficult - propertyConfig.easy
-			levelMulitplier = playState.level / this.maxLevel
-			playState[property] = (valueDifference * levelMulitplier) + propertyConfig.easy
+    @minTargetSize =
+      easy:      @baseParticleSize * 0.7
+      difficult: @baseParticleSize * 0.4
 
-		@
+
+    @sizeMax =
+      easy:      @baseParticleSize
+      difficult: @baseParticleSize * 0.6
+
+    return this
+
+  updateValuesForDifficulty: ->
+
+    for property in @propertiesToUpdateWithDifficulty
+      propertyConfig  = @[property]
+      valueDifference = propertyConfig.difficult - propertyConfig.easy
+      levelMulitplier = PlayState.level / @maxLevel
+
+      PlayState[property] = (valueDifference * levelMulitplier) + propertyConfig.easy
+
+    return this
