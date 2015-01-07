@@ -71,8 +71,6 @@ class ParticleGeneratorClass
 
   particleTapDetectionHandler: () ->
 
-    console.log(event)
-
     targetHit = false
 
     for particleId in @particlesToTestForTaps
