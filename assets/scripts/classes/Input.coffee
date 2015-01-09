@@ -5,8 +5,15 @@ class InputClass
 
     @cancelTouchMoveEvents()
 
+    event_details = {
+      element: Utils.$('.event_details .element')
+      action:  Utils.$('.event_details .action')
+    }
+
     window.addEventListener inputVerb, (event) ->
-      #console.log event.target.nodeName.toLowerCase()
+      console.log event
+      Utils.updateUITextNode(event_details.element, event.target.nodeName.toLowerCase())
+      Utils.updateUITextNode(event_details.action,  event.type)
       return
     , false
 
