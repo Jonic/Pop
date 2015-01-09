@@ -101,4 +101,13 @@ class BubbleClass
     distanceY = tapY - @position.y
     radius    = @half
 
-    return (distanceX * distanceX) + (distanceY * distanceY) < (@half * @half)
+
+
+    tapped = (distanceX * distanceX) + (distanceY * distanceY) < (@half * @half)
+
+    if tapped
+      Utils.console("Bubble##{@id} tapped at #{tapX}, #{tapY}")
+    else
+      Utils.console("Combo Broken!")
+
+    return tapped

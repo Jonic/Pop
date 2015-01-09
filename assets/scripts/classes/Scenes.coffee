@@ -7,6 +7,8 @@ class ScenesClass
 
     @current = 'credits'
 
+    Utils.console('Load Scene: Credits')
+
     UI.updateBodyClass('credits')
 
     return this
@@ -14,6 +16,8 @@ class ScenesClass
   gameOver: ->
 
     @current = 'game-over'
+
+    Utils.console('Load Scene: Game Over')
 
     UI.updateBodyClass('game-over')
 
@@ -23,11 +27,15 @@ class ScenesClass
 
     @current = 'leaderboard'
 
+    Utils.console('Load Scene: Leaderboard')
+
     return this
 
   playing: ->
 
     @current = 'playing'
+
+    Utils.console('Load Scene: Playing')
 
     UI.updateBodyClass('playing')
 
@@ -36,6 +44,8 @@ class ScenesClass
   ident: ->
 
     @current = 'ident'
+
+    Utils.console('Load Scene: Ident')
 
     UI.updateBodyClass('ident')
 
@@ -48,6 +58,8 @@ class ScenesClass
   title: ->
 
     @current = 'title'
+
+    Utils.console('Load Scene: Title Screen')
 
     UI.updateBodyClass('title')
 

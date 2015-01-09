@@ -79,8 +79,6 @@ class BubbleGeneratorClass
       bubble      = @bubblesArray[bubbleIndex]
       touchData   = Input.getTouchData(event)
 
-      Utils.console(touchData)
-
       if bubble? and bubble.wasTapped(touchData)
         deletionIndex       = @bubblesToTestForTaps.indexOf(bubbleId)
         bubble.destroying = true
