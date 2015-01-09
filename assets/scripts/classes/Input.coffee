@@ -6,8 +6,9 @@ class InputClass
     @cancelTouchMoveEvents()
 
     window.addEventListener inputVerb, (event) ->
-      alert event.target.nodeName.toLowerCase()
+      #console.log event.target.nodeName.toLowerCase()
       return
+    , false
 
     return this
 
@@ -41,12 +42,17 @@ class InputClass
 
   registerHandler: (selector, action, callback, scenes) ->
 
-    if typeof scenes == 'string'
-      scene_string = scenes
-      scenes = [scene_string]
+    console.log "Input.regsiterHandler(#{selector}, #{action}, #{callback}, #{scenes})"
 
-    document.querySelector(selector).addEventListener action, (event) =>
+    if typeof scenes == 'string'
+      scene  = scenes
+      scenes = [scene]
+
+    element = document.querySelector(selector)
+
+    element.addEventListener action, (event) =>
       event.preventDefault()
+      console.log "Calling #{action} input on #{element} in #{Scenes.current})"
       callback.apply() if scenes.length == 0 || Scenes.current in scenes
       return
 
