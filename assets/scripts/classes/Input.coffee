@@ -5,15 +5,8 @@ class InputClass
 
     @cancelTouchMoveEvents()
 
-    event_details = {
-      element: Utils.$('.event_details .element')
-      action:  Utils.$('.event_details .action')
-    }
-
     window.addEventListener inputVerb, (event) ->
-      console.log event
-      Utils.updateUITextNode(event_details.element, event.target.nodeName.toLowerCase())
-      Utils.updateUITextNode(event_details.action,  event.type)
+      #Utils.console(event.type + ' on ' + event.target.nodeName.toLowerCase())
       return
     , false
 
@@ -38,12 +31,11 @@ class InputClass
 
   getTouchData: (event) ->
 
-    if touchData
-      tapCoordinates = event.touches[0]
-    else
-      touchData =
-        pageX: event.clientX,
-        pageY: event.clientY
+    return event.touches[0] if hasTouchEvents
+
+    touchData =
+      pageX: event.clientX,
+      pageY: event.clientY
 
     return touchData
 

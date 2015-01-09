@@ -11,6 +11,8 @@ class GameClass
 
     Scenes.gameOver()
 
+    Utils.console('Game Over')
+
     PlayState.stopLevelUpIncrement()
 
     return this
@@ -23,5 +25,7 @@ class GameClass
     BubbleGenerator.reset()
 
     Scenes.playing()
+
+    Utils.console('Playing')
 
     return this

@@ -12,6 +12,11 @@ class UtilsClass
 
     return els
 
+  console: (content) ->
+    console = @$('.console')
+    @updateUITextNode(console, content)
+    return
+
   correctValueForDPR: (value, integer = false) ->
 
     value *= devicePixelRatio

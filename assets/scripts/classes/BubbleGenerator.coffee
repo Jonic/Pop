@@ -77,7 +77,9 @@ class BubbleGeneratorClass
     @bubblesToTestForTaps.map (bubbleId) =>
       bubbleIndex = @bubblesArrayIds.indexOf(bubbleId)
       bubble      = @bubblesArray[bubbleIndex]
-      touchData     = Input.getTouchData(event)
+      touchData   = Input.getTouchData(event)
+
+      Utils.console(touchData)
 
       if bubble? and bubble.wasTapped(touchData)
         deletionIndex       = @bubblesToTestForTaps.indexOf(bubbleId)
