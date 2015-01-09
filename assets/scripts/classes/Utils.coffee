@@ -2,13 +2,13 @@
 class UtilsClass
 
   $: (selector) ->
-    if selector.substr(0, 1) == '#'
-      return document.getElementById(selector)
+
+    return document.body if selector == body
+    return document.getElementById(selector) if selector.substr(0, 1) == '#'
 
     els = document.querySelectorAll(selector)
 
-    if els.length == 1
-      return els[0]
+    return els[0] if els.length == 1
 
     return els
 
@@ -16,8 +16,7 @@ class UtilsClass
 
     value *= devicePixelRatio
 
-    if integer
-      value = Math.round(value)
+    value = Math.round(value) if integer
 
     return value
 

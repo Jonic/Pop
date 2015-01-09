@@ -6,7 +6,7 @@ class InputClass
     @cancelTouchMoveEvents()
 
     window.addEventListener inputVerb, (event) ->
-      console.log event.target.nodeName.toLowerCase()
+      alert event.target.nodeName.toLowerCase()
       return
 
     return this
@@ -45,7 +45,7 @@ class InputClass
       scene_string = scenes
       scenes = [scene_string]
 
-    document.querySelector(selector).addEventListener inputVerb, (event) =>
+    document.querySelector(selector).addEventListener action, (event) =>
       event.preventDefault()
       callback.apply() if scenes.length == 0 || Scenes.current in scenes
       return

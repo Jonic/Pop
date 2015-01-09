@@ -1,13 +1,14 @@
 
 'use strict';
 
-var gulp       = require('gulp');
-var coffee     = require('gulp-coffee');
-var concat     = require('gulp-concat');
-var gutil      = require('gulp-util');
-var rename     = require('gulp-rename');
-var sass       = require('gulp-sass');
-var sourcemaps = require('gulp-sourcemaps');
+var autoprefixer = require('gulp-autoprefixer');
+var gulp         = require('gulp');
+var coffee       = require('gulp-coffee');
+var concat       = require('gulp-concat');
+var gutil        = require('gulp-util');
+var rename       = require('gulp-rename');
+var sass         = require('gulp-sass');
+var sourcemaps   = require('gulp-sourcemaps');
 
 var paths = {
 	scripts: {
@@ -42,6 +43,7 @@ gulp.task('styles', function () {
 	return gulp.src(paths.styles.input)
 		.pipe(sourcemaps.init())
 		.pipe(sass())
+		.pipe(autoprefixer())
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest(paths.styles.dest));
 		//.on('error', gutil.log());
