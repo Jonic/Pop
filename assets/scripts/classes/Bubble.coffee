@@ -1,17 +1,13 @@
 
 class BubbleClass
 
+  alpha:      0.75
   destroying: false
   size:       1
 
   constructor: ->
 
-    r = Utils.randomInteger(0, 200)
-    g = Utils.randomInteger(0, 200)
-    b = Utils.randomInteger(0, 200)
-    a = Utils.random(0.75, 1)
-
-    @color      = "rgba(#{r}, #{g}, #{b}, #{a})"
+    @color      = Utils.randomColor()
     @finalSize  = Utils.randomInteger(0, PlayState.sizeMax)
     @id         = Math.random().toString(36).substr(2, 5)
     @isTarget   = @determineTargetBubble()
@@ -23,7 +19,7 @@ class BubbleClass
       y: Utils.random(PlayState.velocityMin, PlayState.velocityMax)
 
     if @isTarget
-      @color     = "rgba(#{r}, #{g}, #{b}, 0.8)"
+      @alpha     = 0.8
       @finalSize = Utils.randomInteger(PlayState.minTargetSize, PlayState.sizeMax)
 
       @velocity.x *= PlayState.targetVelocityMultiplier

@@ -13,8 +13,11 @@ class UtilsClass
     return els
 
   console: (content) ->
+
     console = @$('.console')
+
     @updateUITextNode(console, content)
+
     return
 
   correctValueForDPR: (value, integer = false) ->
@@ -40,15 +43,13 @@ class UtilsClass
 
     return (Math.random() * (max - min)) + min;
 
-  randomColor: (alpha = false) ->
+  randomColor: () ->
 
-    colors =
-      r: this.randomInteger(0, 200)
-      g: this.randomInteger(0, 200)
-      b: this.randomInteger(0, 200)
-      a: if !alpha then this.random(0.75, 1) else alpha
+    r = this.randomInteger(0, 200)
+    g = this.randomInteger(0, 200)
+    b = this.randomInteger(0, 200)
 
-    return 'rgba(' + colors.r + ', ' + colors.g + ', ' + colors.b + ', ' + colors.a + ')'
+    return "#{r}, #{g}, #{b}"
 
   randomInteger: (min, max) ->
 
@@ -61,6 +62,12 @@ class UtilsClass
   randomPercentage: ->
 
     return Math.floor(Math.random() * 100)
+
+  rgba: (color, alpha) ->
+
+    alpha = 1 if !alpha
+
+    return "rgba(#{color}, #{alpha})"
 
   updateUITextNode: (element, value) ->
 

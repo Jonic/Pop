@@ -139,9 +139,9 @@ class BubbleGeneratorClass
 
   updateBubblesValues: ->
 
-    @bubblesArray.map (bubble) =>
-      context.fillStyle   = bubble.color
-      context.strokeStyle = bubble.color
+    @bubblesArray.map (bubble) ->
+      context.fillStyle   = Utils.rgba(bubble.color, bubble.alpha)
+      context.strokeStyle = Utils.rgba(bubble.color, bubble.alpha)
 
       bubble.updateValues()
 
