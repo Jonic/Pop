@@ -55,7 +55,10 @@ html {
 		height:      100%;
 		overflow:    hidden;
 		position:    relative;
+		transition:  background-color 100ms ease-out;
 		width:       100%;
+
+		&.scene-title { background: #171727; color: #f7f7f7; }
 	}
 
 // Ident
