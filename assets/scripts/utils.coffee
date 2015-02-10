@@ -11,10 +11,6 @@ $ = (selector) ->
 
   return els
 
-calcSpeed = (speed, delta) ->
-
-  return (speed * delta) * (60 / 1000)
-
 clamp = (value, min, max) ->
 
   if value < min

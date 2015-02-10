@@ -3,11 +3,12 @@ class Entity
 
   constructor: ->
 
-    @canvas   = App.getHelper('canvas')
-    @config   = App.getHelper('config')
-    @input    = App.getHelper('input')
-    @device   = App.getHelper('device')
-    @renderer = App.getHelper('renderer')
+    @animationLoop = App.getHelper('animationLoop')
+    @canvas        = App.getHelper('canvas')
+    @config        = App.getHelper('config')
+    @input         = App.getHelper('input')
+    @device        = App.getHelper('device')
+    @renderer      = App.getHelper('renderer')
 
     @context = @canvas.context
 
