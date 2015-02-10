@@ -99,8 +99,8 @@ class PlayingScene extends Scene
       maxTargetsAtOnce:         { current: 0, easy: 3,                 difficult: 6                 }
       minTargetDiameter:        { current: 0, easy: maxDiameter * 0.7, difficult: maxDiameter * 0.4 }
       targetVelocityMultiplier: { current: 0, easy: 0.3,               difficult: 0.5               }
-      velocityMax:              { current: 0, easy: 6,                 difficult: 10                }
-      velocityMin:              { current: 0, easy: -6,                difficult: -10               }
+      velocityMax:              { current: 0, easy: 4,                 difficult: 7                 }
+      velocityMin:              { current: 0, easy: -4,                difficult: -7                }
 
     @updateValuesForDifficulty()
 

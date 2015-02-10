@@ -15,6 +15,6 @@ class IdentScene extends Scene
 
     window.setTimeout =>
       @ui.transitionTo('title')
-    , 25
+    , 2500
 
     return this
