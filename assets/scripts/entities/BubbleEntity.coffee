@@ -87,8 +87,8 @@ class BubbleEntity extends Entity
     @width  = @diameter
     @radius = @diameter / 2
 
-    @position.x += @velocity.x
-    @position.y += @velocity.y
+    @position.x += @animationLoop.correctValue(@velocity.x)
+    @position.y += @animationLoop.correctValue(@velocity.y)
 
     @addSelfToRenderQueue()
 

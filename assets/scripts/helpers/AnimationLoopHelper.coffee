@@ -10,6 +10,10 @@ class AnimationLoopHelper
 
     return this
 
+  correctValue: (value) ->
+
+    return (value * @delta) * (60 / 1000)
+
   start: ->
 
     @frame()
