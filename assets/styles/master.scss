@@ -265,3 +265,17 @@ html {
 	width:       100%;
 	z-index:     20000;
 }
+
+// FPS Counter
+
+.fps-counter {
+	bottom:      1em;
+	font-family: monospace;
+	font-size:   14px;
+	left:        0;
+	line-height: 1.5;
+	padding:     0 5px;
+	position:    absolute;
+	width:       100%;
+	z-index:     20000;
+}
