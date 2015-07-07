@@ -1,13 +1,11 @@
 
 deploy:
-	make clear
-
+	rm -rf ./build
 	mkdir ./build
+
 	cp -r ./public ./build/public
 	cp ./index.html ./build
 
-	cp -r ./build ./_targets/ios/Pop\ Rush/WebApp
+	rm -rf ./_targets/iOS/PopRush/WebApp
 
-clear:
-	rm -rf ./build
-	rm -rf ./_targets/ios/Pop\ Rush/WebApp
+	mv ./build ./_targets/iOS/PopRush/WebApp

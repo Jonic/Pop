@@ -11,6 +11,12 @@ $ = (selector) ->
 
   return els
 
+callNativeApp = (message) ->
+  try
+    webkit.messageHandlers.callbackHandler.postMessage(message)
+  catch err
+    console.log('The native context does not exist yet')
+
 clamp = (value, min, max) ->
 
   if value < min
@@ -28,12 +34,13 @@ correctValueForDPR = (value, integer = false) ->
 
   return value
 
-debugConsole = (content) ->
+debugConsole = (message) ->
 
   element = $('.debugConsole')
 
-  updateUITextNode(element, content)
-  console.log(content)
+  updateUITextNode(element, message)
+  console.log(message)
+  callNativeApp(message)
 
   return
 

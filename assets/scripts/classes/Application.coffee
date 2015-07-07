@@ -9,12 +9,14 @@ class Application
     @scenes           = {}
     @backgroundScenes = []
 
+    @initHelpers()
+    @initScenes()
+
     return this
 
   load: ->
 
-    @initHelpers()
-    @initScenes()
+    callNativeApp("PopRush Loaded! Aww Yeah!")
 
     @getHelper('animationLoop').start()
     @getHelper('ui').transitionTo('ident')

@@ -104,12 +104,12 @@ class BubbleEntity extends Entity
     distanceY = tapY - @position.y
     tapped    = (distanceX * distanceX) + (distanceY * distanceY) < (@radius * @radius)
 
-    ###
     if tapped
-      debugConsole("Bubble##{@id} tapped at #{tapX}, #{tapY}")
+      message = "Bubble##{@id} tapped at #{tapX}, #{tapY}"
     else
-      debugConsole("Combo Broken!")
-    ###
+      message = "Combo Broken!"
+
+    debugConsole(message)
 
     return tapped
 

@@ -23,13 +23,13 @@ var config = {
 	paths: {
 		scripts: {
 			files: {
-				any:         'assets/scripts/**/*.coffee',
-				utils:       'assets/scripts/utils.coffee',
-				helpers:     'assets/scripts/helpers/**/*.coffee',
-				classes:     'assets/scripts/classes/**/*.coffee',
-				scenes:      'assets/scripts/scenes/**/*.coffee',
-				entities:    'assets/scripts/entities/**/*.coffee',
-				bootstrap:   'assets/scripts/bootstrap.coffee'
+				any:       'assets/scripts/**/*.coffee',
+				utils:     'assets/scripts/utils.coffee',
+				helpers:   'assets/scripts/helpers/**/*.coffee',
+				classes:   'assets/scripts/classes/**/*.coffee',
+				scenes:    'assets/scripts/scenes/**/*.coffee',
+				entities:  'assets/scripts/entities/**/*.coffee',
+				bootstrap: 'assets/scripts/bootstrap.coffee'
 			},
 			dest: 'public/scripts'
 		},
@@ -91,8 +91,8 @@ gulp.task('styles', function () {
 });
 
 gulp.task('watch', function () {
-	gulp.watch(config.paths.scripts.files.any, ['scripts']);
-	gulp.watch(config.paths.styles.files.any,  ['styles']);
+	gulp.watch(config.paths.scripts.files.any, ['scripts', 'deploy']);
+	gulp.watch(config.paths.styles.files.any,  ['styles',  'deploy']);
 });
 
 gulp.task('deploy', shell.task('make deploy'));

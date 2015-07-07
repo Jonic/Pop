@@ -29,18 +29,19 @@ class UserInterfaceHelper
 
     return this
 
-  transitionTo: (targetScene, instant = false) ->
+  transitionTo: (targetSceneID, instant = false) ->
 
-    if App.currentScene? && typeof App.currentScene.unload == 'function'
+    targetScene = App.scenes[targetSceneID]
+
+    if App.currentScene?
       App.currentScene.unload()
+      #@updateBodyClass("scene-#{targetSceneID}-out")
 
-      #@updateBodyClass("scene-#{targetScene}-out")
+    targetScene.load()
 
-    App.currentScene = App.scenes[targetScene]
+    @updateBodyClass("scene-#{targetSceneID}")
 
-    App.currentScene.load()
-
-    @updateBodyClass("scene-#{App.currentScene.id}")
+    App.currentScene = targetScene
 
     return this
 
