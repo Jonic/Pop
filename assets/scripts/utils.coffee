@@ -1,16 +1,11 @@
 $ = (selector) ->
 
-  return document.body if selector == 'body'
+  elements = document.querySelectorAll(selector)
 
-  return document.getElementById(selector) if selector.substr(0, 1) == '#'
-
-  els = document.querySelectorAll(selector)
-
-  return els[0] if els.length == 1
-
-  return els
+  return if elements.length == 1 then elements[0] else elements
 
 callNativeApp = (message) ->
+
   try
     webkit.messageHandlers.callbackHandler.postMessage(message)
   catch err
