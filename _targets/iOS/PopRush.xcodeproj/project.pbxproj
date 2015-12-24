@@ -15,6 +15,7 @@
 		D813DAA71A8D49BB008FF2B4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D813DAA51A8D49BB008FF2B4 /* LaunchScreen.xib */; };
 		D813DAB31A8D49BB008FF2B4 /* PopRushTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D813DAB21A8D49BB008FF2B4 /* PopRushTests.swift */; };
 		D813DABD1A8D516A008FF2B4 /* WebApp in Resources */ = {isa = PBXBuildFile; fileRef = D813DABC1A8D516A008FF2B4 /* WebApp */; };
+		D8C2CC551BD2A53C00706B1B /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8C2CC541BD2A53C00706B1B /* GameKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		D813DAB11A8D49BB008FF2B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D813DAB21A8D49BB008FF2B4 /* PopRushTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopRushTests.swift; sourceTree = "<group>"; };
 		D813DABC1A8D516A008FF2B4 /* WebApp */ = {isa = PBXFileReference; lastKnownFileType = folder; path = WebApp; sourceTree = "<group>"; };
+		D8C2CC541BD2A53C00706B1B /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8C2CC551BD2A53C00706B1B /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +66,7 @@
 		D813DA8B1A8D49BB008FF2B4 = {
 			isa = PBXGroup;
 			children = (
+				D8C2CC541BD2A53C00706B1B /* GameKit.framework */,
 				D813DA961A8D49BB008FF2B4 /* PopRush */,
 				D813DAAF1A8D49BB008FF2B4 /* PopRushTests */,
 				D813DA951A8D49BB008FF2B4 /* Products */,
@@ -168,6 +172,12 @@
 				TargetAttributes = {
 					D813DA931A8D49BB008FF2B4 = {
 						CreatedOnToolsVersion = 6.3;
+						DevelopmentTeam = 6T2W7226TK;
+						SystemCapabilities = {
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
+						};
 					};
 					D813DAAB1A8D49BB008FF2B4 = {
 						CreatedOnToolsVersion = 6.3;
@@ -350,11 +360,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = PopRush/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "co.uk.100yen.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -362,11 +375,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = PopRush/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "co.uk.100yen.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
