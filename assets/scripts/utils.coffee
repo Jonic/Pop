@@ -49,11 +49,7 @@ formatWithComma = (num) ->
 
 fps = (value) ->
 
-  element = $('.fps')
-
-  updateUITextNode(element, value)
-
-  return
+  return updateUITextNode($('.fps'), value)
 
 random = (min, max) ->
 
