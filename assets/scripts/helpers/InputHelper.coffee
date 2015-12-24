@@ -1,4 +1,3 @@
-
 class InputHelper
 
   constructor: ->
@@ -24,6 +23,13 @@ class InputHelper
     @addEventListener canvasSelector, 'click', =>
       @testEntitiesForEvents()
       return
+
+    return this
+
+  addEntity: (entity) ->
+
+    @entityIds.push(entity.id)
+    @entitiesToTest.push(entity)
 
     return this
 
@@ -88,13 +94,6 @@ class InputHelper
 
     return this
 
-  addEntity: (entity) ->
-
-    @entityIds.push(entity.id)
-    @entitiesToTest.push(entity)
-
-    return this
-
   queueEntityForRemoval: (id) ->
 
     @entitiesPendingRemoval.push(id)
@@ -110,6 +109,7 @@ class InputHelper
   removeQueuedEntities: ->
 
     @removeEntity(id) for id in @entitiesPendingRemoval
+
     @entitiesPendingRemoval = []
 
     return this
@@ -133,7 +133,7 @@ class InputHelper
 
       entity.tapHandler(tapped)
 
-      break if tapped
+      #break if tapped
 
     @removeQueuedEntities()
 

@@ -1,4 +1,3 @@
-
 class GameOverScene extends Scene
 
   constructor: ->

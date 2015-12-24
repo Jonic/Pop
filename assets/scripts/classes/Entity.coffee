@@ -1,4 +1,3 @@
-
 class Entity
 
   constructor: ->
@@ -47,10 +46,9 @@ class Entity
 
   isOutsideCanvasBounds: ->
 
-    outsideLeft  = @position.x < -@width
-    outsideRight = @position.x - @width > @canvas.element.realWidth
-    outsideX     = outsideLeft || outsideRight
-
+    outsideLeft   = @position.x < -@width
+    outsideRight  = @position.x - @width > @canvas.element.realWidth
+    outsideX      = outsideLeft || outsideRight
     outsideTop    = @position.y < -@height
     outsideBottom = @position.y - @height > @canvas.element.realWheight
     outsideY      = outsideTop || outsideBottom

@@ -1,4 +1,3 @@
-
 class AnimationLoopHelper
 
   constructor: ->
@@ -14,6 +13,22 @@ class AnimationLoopHelper
 
     return (value * @delta) * (60 / 1000)
 
+  frame: (now) ->
+
+    @delta    = now - @lastTime
+    @fps      = Math.round(1000 / @delta)
+    @lastTime = now
+
+    fps(@fps)
+
+    App.update(@delta)
+
+    @animationLoopId = window.requestAnimationFrame (now) =>
+      @frame(now)
+      return
+
+      return this
+
   start: ->
 
     @frame()
@@ -23,21 +38,5 @@ class AnimationLoopHelper
   stop: ->
 
     window.cancelAnimationFrame(@animationLoopId)
-
-    return this
-
-  frame: (now) ->
-
-    @delta    = now - @lastTime
-    @fps      = Math.round(1000 / @delta)
-    @lastTime = now
-
-    #fps(@fps)
-
-    App.update(@delta)
-
-    @animationLoopId = window.requestAnimationFrame (now) =>
-      @frame(now)
-      return
 
     return this

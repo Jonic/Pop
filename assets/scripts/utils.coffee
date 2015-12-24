@@ -1,4 +1,3 @@
-
 $ = (selector) ->
 
   return document.body if selector == 'body'

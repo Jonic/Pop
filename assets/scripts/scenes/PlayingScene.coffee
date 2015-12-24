@@ -1,4 +1,3 @@
-
 class PlayingScene extends Scene
 
   constructor: ->

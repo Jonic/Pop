@@ -1,4 +1,3 @@
-
 class BubbleEntity extends Entity
 
   constructor: (parent, configValues) ->
@@ -69,6 +68,18 @@ class BubbleEntity extends Entity
 
     return this
 
+  tapHandler: (targetHit) ->
+
+    @parent.updateComboMultiplier(targetHit)
+
+    if targetHit
+      @parent.updateScore(@diameter, @finalDiameter)
+      @destroying = true
+      @parent.decrementTargetBubblesCount()
+      @input.queueEntityForRemoval(@id)
+
+    return this
+
   update: ->
 
     super
@@ -112,15 +123,3 @@ class BubbleEntity extends Entity
     debugConsole(message)
 
     return tapped
-
-  tapHandler: (targetHit) ->
-
-    @parent.updateComboMultiplier(targetHit)
-
-    if targetHit
-      @parent.updateScore(@diameter, @finalDiameter)
-      @destroying = true
-      @parent.decrementTargetBubblesCount()
-      @input.queueEntityForRemoval(@id)
-
-    return this

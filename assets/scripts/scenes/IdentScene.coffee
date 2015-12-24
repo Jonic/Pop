@@ -1,4 +1,3 @@
-
 class IdentScene extends Scene
 
   constructor: ->

@@ -1,4 +1,3 @@
-
 # Load the main app wrapper
 App = new Application()
 
