@@ -1,5 +1,5 @@
 class DeviceHelper {
-  constructor() {
+  load() {
     this.screen = {
       height: document.body.clientHeight,
       width: document.body.clientWidth,

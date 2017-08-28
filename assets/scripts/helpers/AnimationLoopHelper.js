@@ -4,7 +4,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 class AnimationLoopHelper {
-  constructor() {
+  load() {
     this.animationLoopId = null
     this.delta = 0
     this.fps = 0

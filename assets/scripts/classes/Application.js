@@ -49,6 +49,7 @@ class Application {
 
   loadHelper(helper) {
     if (helper.object.load !== null) {
+      console.log(helper.object)
       helper.object.load()
     }
     helper.loaded = true
