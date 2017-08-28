@@ -6,24 +6,26 @@
     "name": "Jonic Linley",
     "url": "http://100yen.co.uk/"
   },
-  "copyright": "Copyright 2015 100yen",
+  "copyright": "Copyright 2017 100yen",
   "dependencies": {
-    "babel-preset-env": "^1.1.8",
-    "eslint": "^3.14.1",
-    "eslint-config-airbnb-base": "^11.0.1",
-    "eslint-plugin-import": "^2.2.0",
+    "babel-eslint": "^7.2.3",
+    "babel-preset-env": "^1.6.0",
+    "babel-register": "^6.26.0",
+    "eslint": "^4.5.0",
+    "eslint-config-prettier": "^2.3.0",
+    "eslint-plugin-prettier": "^2.2.0",
     "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^3.1.1",
-    "gulp-babel": "^6.1.2",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-babel": "^7.0.0",
+    "gulp-coffee": "^2.3.4",
     "gulp-concat": "^2.6.1",
+    "gulp-cssnano": "^2.1.2",
     "gulp-notify": "^3.0.0",
     "gulp-sass": "^3.1.0",
-    "gulp-shell": "^0.5.2",
-    "gulp-sourcemaps": "^2.4.0",
-    "gulp-util": "^3.0.8"
-  },
-  "devDependencies": {
-    "gulp-cssnano": "^2.1.2",
-    "gulp-uglify": "^3.0.0"
+    "gulp-shell": "^0.6.3",
+    "gulp-sourcemaps": "^2.6.1",
+    "gulp-uglify": "^3.0.0",
+    "gulp-util": "^3.0.8",
+    "prettier": "^1.6.0"
   }
 }
