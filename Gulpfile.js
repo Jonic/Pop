@@ -1,5 +1,5 @@
 const autoprefixer = require('gulp-autoprefixer')
-const coffee = require('gulp-coffee')
+const babel = require('gulp-babel')
 const concat = require('gulp-concat')
 const cssnano = require('gulp-cssnano')
 const gulp = require('gulp')
@@ -21,13 +21,13 @@ const config = {
   paths: {
     scripts: {
       files: {
-        any: 'assets/scripts/**/*.coffee',
-        utils: 'assets/scripts/utils.coffee',
-        helpers: 'assets/scripts/helpers/**/*.coffee',
-        classes: 'assets/scripts/classes/**/*.coffee',
-        scenes: 'assets/scripts/scenes/**/*.coffee',
-        entities: 'assets/scripts/entities/**/*.coffee',
-        bootstrap: 'assets/scripts/bootstrap.coffee',
+        any: 'assets/scripts/**/*.js',
+        utils: 'assets/scripts/utils.js',
+        helpers: 'assets/scripts/helpers/**/*.js',
+        classes: 'assets/scripts/classes/**/*.js',
+        scenes: 'assets/scripts/scenes/**/*.js',
+        entities: 'assets/scripts/entities/**/*.js',
+        bootstrap: 'assets/scripts/bootstrap.js',
       },
       dest: 'public/scripts',
     },
@@ -56,7 +56,7 @@ gulp.task('scripts', () => {
     .on('error', handleError)
     .pipe(sourcemaps.init())
     .on('error', handleError)
-    .pipe(coffee({ bare: true }))
+    .pipe(babel())
     .on('error', handleError)
     .pipe(concat('application.js'))
     .on('error', handleError)
